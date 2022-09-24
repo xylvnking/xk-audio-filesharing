@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import ArtistLayout from '../../components/Artist/ArtistLayout/ArtistLayout'
 
-export default function Grindset() {
+export default function Work() {
     return (
         <ArtistLayout>
             <div>
