@@ -23,31 +23,7 @@ export const signInWithGoogle = async () => {
     })
 }
 
-// const []
 
-// export const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
-// fetch('/api/test')
-//   .then((res) => res.json())
-//   .then((x) => {
-//     console.log(x)
-//   })
-// fetch('/api/hello')
-//   .then((res) => res.json())
-//   .then((x) => {
-//     console.log(x)
-//   })
-
-// fetch('/api/test', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     // body: JSON.stringify({someField: 'someValue'})
-//     body: JSON.stringify(auth)
-// }).then((res) => res.json())
-//   .then((x) => {
-//     console.log(x)
-//   })
 // export default function Auth() {
 //     // const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
 

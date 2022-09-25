@@ -4,7 +4,6 @@ import audioNavStyles from './AudioNav.module.scss'
 // import Auth from '../../AuthFolder/Auth'
 
 export default function AudioNav(props) {
-    console.log('audio nav loaded')
   return (
     <div className={audioNavStyles.container}>
         <nav>

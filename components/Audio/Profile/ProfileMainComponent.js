@@ -4,7 +4,7 @@ import { auth, provider } from '../../../firebase/firebase-config'
 import {signInWithGoogle, signUserOut} from '../../Audio/AuthFolder/Auth'
 import ProfileUserInfo from './ProfileUserInfo'
 
-export const UserContext = React.createContext()
+export const UserContext = React.createContext() // this could have been a prop but I wanted to try it out
 
 export default function ProfileMainComponent(props) {
     const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
