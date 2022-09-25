@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import audioNavStyles from './AudioNav.module.scss'
-import Auth from '../../AuthFolder/Auth'
+// import Auth from '../../AuthFolder/Auth'
 
 export default function AudioNav(props) {
     console.log('audio nav loaded')
@@ -20,7 +20,7 @@ export default function AudioNav(props) {
             <Link href='/audio/profile'>
                 Profile
             </Link>
-            <Auth />
+            {/* <Auth /> */}
         </nav>
     </div>
   )

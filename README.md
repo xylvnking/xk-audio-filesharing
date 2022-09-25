@@ -104,3 +104,16 @@ Rethinking this the next day
 - since this will end up being the site which holds a lot of what I do, a dedicated audio folder is necessary even just for dx.
 - dedicated song and project sub folders with dynamic catch alls are required because otherwise entering the wrong name would default you to the optional dynamic catch all portfolio which is weird. If no song is found I want to be able to still load the song/project page and say hey there were no songs by that name
 - yeah just implemented it and it makes a lot of sense. using a layout for the nav also makes a lot of sense. going to skim the docs and make sure i'm not missing any other major feature
+
+# learned
+
+## react-firebase-hooks
+
+useAuthState requires the provider to be imported from the firebase config.
+
+```js
+// this is needed
+import {auth, provider} from '../../firebase/firebase-config' 
+// or else this returns an error about finding the current user
+const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
+```

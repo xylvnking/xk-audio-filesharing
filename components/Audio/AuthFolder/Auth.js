@@ -3,8 +3,16 @@ import { signInWithPopup, signOut } from 'firebase/auth'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { db, auth, provider } from '../../../firebase/firebase-config';
 
+const signUserOut = async () => {
+    await signOut(auth, provider).then(() => {
+    })
+    .catch(function (error) {
+        console.error("there was an error signing out", error);
+    })
+}
+
 export default function Auth() {
-    // const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
+    const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
 
 
     // fetch('/api/test')
@@ -30,19 +38,19 @@ export default function Auth() {
     //     console.log(x)
     //   })
     
-console.log('poop')
+    console.log(userAuth)
     //   console.log(userAuth)
 
 
-    // const signInWithGoogle = async () => {
-    //     await signInWithPopup(auth, provider).then((result) => {
-    //         console.log(result.user)
-    //         console.log(result.user.uid)
-    //     })
-    //     .catch(function (error) {
-    //         console.error("there was an error signing in", error);
-    //     })
-    // }
+    const signInWithGoogle = async () => {
+        await signInWithPopup(auth, provider).then((result) => {
+            console.log(result.user)
+            console.log(result.user.uid)
+        })
+        .catch(function (error) {
+            console.error("there was an error signing in", error);
+        })
+    }
     // const signUserOut = async () => {
     //     await signOut(auth, provider).then(() => {
     //     })
@@ -52,15 +60,15 @@ console.log('poop')
     // }
     return (
         <>
-            {/* {
+            {
             userAuth 
             ?
-            // <button onClick={signUserOut}> Sign Out</button>
-            <button> Sign Out</button>
+            <button onClick={signUserOut}> Sign Out</button>
+            // <button> Sign Out</button>
             :
-            // <button onClick={signInWithGoogle}> Sign In</button>
-            <button> Sign In</button>
-            } */}
+            <button onClick={signInWithGoogle}> Sign In</button>
+            // <button> Sign In</button>
+            }
         </>
 
     )
