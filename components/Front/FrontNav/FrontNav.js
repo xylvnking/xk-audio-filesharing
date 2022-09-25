@@ -6,8 +6,8 @@ export default function FrontNav() {
   return (
     <div className={frontNavStyles.container}>
         <nav>
-            <Link href='/work'>
-              WORK
+            <Link href='/audio'>
+              audio
             </Link>
         </nav>
     </div >

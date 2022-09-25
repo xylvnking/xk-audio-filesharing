@@ -32,15 +32,15 @@
 
 ### good
 
-/                                       : main portfolio page with blog/socials etc
+/audio                                        : main portfolio page with blog/socials etc
 
-/work                                   : 'artist zone' with more work/technical related stuff
+/audio/[[...work]].js                                   : 'artist zone' with more work/technical related stuff - dynamic catch all
 
-/work/[profile].js                      : user's profile page listing relevant info + all their songs -- non-shareable
+/audio/work/profile.js                      : user's profile page listing relevant info + all their songs -- non-shareable
 
-/work/[projectName].js                  : project overview linking to each song
+/audio/work/project/[...projectName].js                  : project overview linking to each song
 
-/work/[...songName].js                  : song page (but using a catch-all route can also catch file versions specified? maybe not needed.
+/audio/work/[...songName].js                  : song page (but using a catch-all route can also catch file versions specified? maybe not needed.
 
 <hr>
 
@@ -89,3 +89,18 @@ Looking through the V2 code and pretty much anything which isn't jsx could have 
 Overall I'm just putting a lot of forethought into the architecture because the past 2 times I just rushed forwards and ended up here, redoing it a 3rd time. I learned a lot from the v1 and v2 but obviously it would have been nice to have it done already haha. It is what it is.
 
 Yup we're good to go. Create!
+
+<hr />
+
+Rethinking this the next day
+
+/           : main home page for everything
+/audio/[[...portfolio]].js          : audio sales/portfolio - optional dynamic catch all so it's default for the 'audio' folder
+/audio/work.js         : client homepage work announcements etc
+/audio/profile.js           : profile page displaying client info and previews of/links to songs the user is authorized one 
+/audio/song/[...songName].js            : page displaying song info to authorized users
+/audio/project/[...projectName]         : page displaying previews of/links to songs
+
+- since this will end up being the site which holds a lot of what I do, a dedicated audio folder is necessary even just for dx.
+- dedicated song and project sub folders with dynamic catch alls are required because otherwise entering the wrong name would default you to the optional dynamic catch all portfolio which is weird. If no song is found I want to be able to still load the song/project page and say hey there were no songs by that name
+- yeah just implemented it and it makes a lot of sense. using a layout for the nav also makes a lot of sense. going to skim the docs and make sure i'm not missing any other major feature

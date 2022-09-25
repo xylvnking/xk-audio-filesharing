@@ -1,7 +1,7 @@
 import React from 'react'
-import ArtistNav from './ArtistNav/ArtistNav'
+import ArtistNav from './AudioNav/AudioNav'
 
-export default function ArtistLayout({ children }) {
+export default function AudioLayout({ children }) {
   return (
     <>
         <ArtistNav />
