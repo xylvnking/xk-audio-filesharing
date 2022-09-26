@@ -2,7 +2,9 @@ import React, { useContext } from 'react'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, provider } from '../../../firebase/firebase-config'
 import {signInWithGoogle, signUserOut} from '../../Audio/AuthFolder/Auth'
+
 import ProfileUserInfo from './ProfileUserInfo'
+import ProfileSongs from './ProfileSongs'
 
 export const UserContext = React.createContext() // this could have been a prop but I wanted to try it out
 
@@ -22,6 +24,7 @@ export default function ProfileMainComponent(props) {
                 !userAuthIsLoading && userAuth && 
                 <UserContext.Provider value={userAuth}>
                     <ProfileUserInfo />
+                    <ProfileSongs />
                 </UserContext.Provider>
             }
         </div>

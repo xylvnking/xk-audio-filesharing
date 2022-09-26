@@ -8,7 +8,7 @@ import { fakeData } from "../../fakeData";
 export default async function handler(req, res) {
 
 
-
+    // creating PROJECTS
 
     await deleteDoc(doc(db, 'projects', 'projectName1'))
     await setDoc(doc(db, 'projects', 'projectName1'), { // create projects collection
@@ -25,6 +25,9 @@ export default async function handler(req, res) {
 
 
 
+    
+
+    // creating SONGS
 
     await deleteDoc(doc(db, 'songs', 'songName1'))
     await setDoc(doc(db, 'songs', 'songName1'), { // create songs collection
@@ -49,6 +52,13 @@ export default async function handler(req, res) {
 
 
 
+
+
+
+
+
+    // creating ARTISTS
+
     await deleteDoc(doc(db, 'users', 'artistName1'))
     await setDoc(doc(db, 'users', 'artistName1'), { // create users collection
         metadata: {
@@ -67,8 +77,8 @@ export default async function handler(req, res) {
     
     
     
-    await deleteDoc(doc(db, 'users', 'xylvnKing'))
-    await setDoc(doc(db, 'users', 'xylvnKing'), { // create users collection
+    await deleteDoc(doc(db, 'users', 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'))
+    await setDoc(doc(db, 'users', 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'), { // create users collection
         metadata: {
             uid: 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             artistName: 'xylvnKing',

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import Image from 'next/image'
 import { UserContext } from './ProfileMainComponent'
+import Image from 'next/image'
 
 export default function ProfileUserInfo() {
     const userAuth = useContext(UserContext)

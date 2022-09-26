@@ -117,3 +117,11 @@ import {auth, provider} from '../../firebase/firebase-config'
 // or else this returns an error about finding the current user
 const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
 ```
+
+# firebase security rules / next api
+
+I don't think this works. At least not in any ways which keeps it simpler than the default way of doing things. My intention with doing things this way was to keep the firebase calls off the client side, but that already didn't happen because of the authorization requirements and it not being worth it, so the firebase config was exposed there, which means it's as good as public. Which is fine, but I'm realizing that also for just making regular calls setting up security rules would be needlessly complex, and serve no purpose since the config is already public and I'm maintaining separation with a utilities script.
+
+So we won't be going with serverside rendering here. It was never needed but I wanted to try it, but since there's no point now I'd rather just focus on making the app great. I don't want to go too crazy on firebase since I will probably use something else at work and then just adopt that as my personal stack anyways.
+
+Ok cool.
