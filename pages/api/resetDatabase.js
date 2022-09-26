@@ -32,8 +32,60 @@ export default async function handler(req, res) {
     await deleteDoc(doc(db, 'songs', 'songName1'))
     await setDoc(doc(db, 'songs', 'songName1'), { // create songs collection
         metadata: {
+            songName: 'songName1',
             songField1: 'someValue1',
             songField2: 'someValue2',
+            dateOfMostRecentEdit: '5'
+        },
+        usersWithAccess: [ // array seems like the right choice
+            'someUID1',
+            'someUID2',
+            'someUID3',
+            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+            'xylvnKing'
+        ]
+    }).catch((error) => { console.log(error) })
+    .then(
+        setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
+            someFieldCreatedX: 'someValueCreatedX',
+            someFieldCreatedX2: 'someValueCreatedX2',
+        })
+    ).catch((error) => { console.log(error) })
+
+        // song 2
+
+    await deleteDoc(doc(db, 'songs', 'songName2'))
+    await setDoc(doc(db, 'songs', 'songName2'), { // create songs collection
+        metadata: {
+            songName: 'songName2',
+            songField1: 'someValue1',
+            songField2: 'someValue2',
+            dateOfMostRecentEdit: '3'
+        },
+        usersWithAccess: [ // array seems like the right choice
+            'someUID1',
+            'someUID2',
+            'someUID3',
+            // 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+            'xylvnKing'
+        ]
+    }).catch((error) => { console.log(error) })
+    .then(
+        setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
+            someFieldCreatedX: 'someValueCreatedX',
+            someFieldCreatedX2: 'someValueCreatedX2',
+        })
+    ).catch((error) => { console.log(error) })
+
+        // song 3
+
+    await deleteDoc(doc(db, 'songs', 'songName3'))
+    await setDoc(doc(db, 'songs', 'songName3'), { // create songs collection
+        metadata: {
+            songName: 'songName3',
+            songField1: 'someValue1',
+            songField2: 'someValue2',
+            dateOfMostRecentEdit: '1'
         },
         usersWithAccess: [ // array seems like the right choice
             'someUID1',

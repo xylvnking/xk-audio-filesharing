@@ -1,6 +1,13 @@
 # Relevant links
 [favicon.io](https://favicon.io/)
+
 [I'm heading out right now and can't check but this might allow me to pull all the songs an artist is a part of onto their profile easily](https://firebase.blog/posts/2019/06/understanding-collection-group-queries)
+
+# so ref
+
+[how-to-query-within-an-array-of-object-in-firestore](https://stackoverflow.com/a/70812323/19101255)
+
+[why-does-this-firestore-query-require-an-index](https://stackoverflow.com/a/53790652/19101255)
 
 # personal notes for reference
 
@@ -125,3 +132,6 @@ I don't think this works. At least not in any ways which keeps it simpler than t
 So we won't be going with serverside rendering here. It was never needed but I wanted to try it, but since there's no point now I'd rather just focus on making the app great. I don't want to go too crazy on firebase since I will probably use something else at work and then just adopt that as my personal stack anyways.
 
 Ok cool.
+
+# ordering/sorting by date
+
