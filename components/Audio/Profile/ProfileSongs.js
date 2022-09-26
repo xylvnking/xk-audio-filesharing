@@ -1,9 +1,11 @@
-import Link from 'next/link'
-import React, { useState, useContext, useEffect } from 'react'
+
+import React, { useState, useContext, useEffect, useMemo } from 'react'
 import { UserContext } from './ProfileMainComponent'
+
 import ProfileSongPreview from './ProfileSongPreview'
+import ProfileProjectPreview from './ProfileProjectPreview'
+
 import {
-    getSongsFromFirebaseForProfileSongs,
     getListOfSongsUserIsAuthorizedOn,
     getListOfProjectsUserIsAuthorizedOn,
 
@@ -15,12 +17,17 @@ export default function ProfileSongs() {
     const [listOfProjectsUserIsAuthorizedOn, setListOfProjectsUserIsAuthorizedOn] = useState([])
 
     useEffect(() => {
+        
         const getSongsAndProjectsAuthorizedOn = async () => {
-            const songList = await getListOfSongsUserIsAuthorizedOn(userAuth.uid)
-            setListOfSongsUserIsAuthorizedOn(songList)
 
-            const projectList = await getListOfProjectsUserIsAuthorizedOn(userAuth.uid)
-            setListOfProjectsUserIsAuthorizedOn(projectList)
+            // const songList = await getListOfSongsUserIsAuthorizedOn(userAuth.uid)
+            // setListOfSongsUserIsAuthorizedOn(songList)
+            setListOfSongsUserIsAuthorizedOn(await getListOfSongsUserIsAuthorizedOn(userAuth.uid))
+
+            // const projectList = await getListOfProjectsUserIsAuthorizedOn(userAuth.uid)
+            // setListOfProjectsUserIsAuthorizedOn(projectList)
+            setListOfProjectsUserIsAuthorizedOn(await getListOfProjectsUserIsAuthorizedOn(userAuth.uid))
+
         }
         getSongsAndProjectsAuthorizedOn()
 
@@ -31,7 +38,7 @@ export default function ProfileSongs() {
             {
                 listOfProjectsUserIsAuthorizedOn &&
                 listOfProjectsUserIsAuthorizedOn.map((projectName, index) => {
-                    return <li key={index}>{projectName}</li>
+                    return <ProfileProjectPreview key={index} projectName={projectName} />
                 })
             }
             {

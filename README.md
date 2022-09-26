@@ -9,6 +9,8 @@
 
 [why-does-this-firestore-query-require-an-index](https://stackoverflow.com/a/53790652/19101255)
 
+https://stackoverflow.com/questions/51412901/javascript-sort-an-array-of-objects-based-on-numeric-key
+
 # personal notes for reference
 
 ## structure

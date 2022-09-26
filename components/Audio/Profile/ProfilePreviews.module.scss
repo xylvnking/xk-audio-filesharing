@@ -1,7 +1,7 @@
 .container {
     margin: 10px;
     padding: 10px;
-    background-color: rgb(233, 233, 233);
+    // background-color: rgb(233, 233, 233);
 
     cursor: pointer;
 
@@ -14,4 +14,13 @@
         background-color: rgb(9, 9, 9);
         color: rgb(235, 235, 235);
     }
+
+}
+
+.song {
+    background-color: rgb(206, 211, 225);
+}
+
+.project {
+    background-color: rgb(213, 197, 191);
 }

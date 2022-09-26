@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import styles from './ProfileSongPreview.module.scss'
+import styles from './ProfilePreviews.module.scss'
 
 export default function ProfileSongPreview(props) {
     const handleClick = () => {
@@ -10,9 +10,9 @@ export default function ProfileSongPreview(props) {
   return (
     <section 
         onClick={() => handleClick()} 
-        className={styles.container}
+        className={`${styles.container} ${styles.song}`}
     >
-        {props.songName}
+        SONG: {props.songName}
     </section>
   )
 }
