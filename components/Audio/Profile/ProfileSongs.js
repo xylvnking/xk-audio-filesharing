@@ -1,33 +1,40 @@
 
-import React, { useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { UserContext } from './ProfileMainComponent'
-import {getSongsFromFirebaseForProfileSongs} from './ProfileSongsUtilities'
+import ProfileSongPreview from './ProfileSongPreview'
+import { 
+    getSongsFromFirebaseForProfileSongs,
+    getListOfSongsTheUserIsAuthorizedOn,
+
+    } from './ProfileSongsUtilities'
 
 export default function ProfileSongs() {
     const userAuth = useContext(UserContext)
-    // console.log(userAuth)
+    const [listOfSongsTheUserIsAuthorizedOn, setListOfSongsTheUserIsAuthorizedOn] = useState([])
 
     useEffect(() => {
-        // const getSongsFromFirebaseForProfileSongs = () => {
-        //     // console.log('getting songs...')
-        //     fetch('/api/audio/getSongsFromFirebaseForProfileSongs')
-        //     .then((res) => res.json())
-        //     .then((x) => {
-        //     console.log(x)
-        //   })
-        // }
-        // getSongsFromFirebaseForProfileSongs()
-
-        // console.log(thing)
         const asyncThing = async () => {
-            const thing = await getSongsFromFirebaseForProfileSongs({uid: userAuth.uid})
-            // console.log(thing)
-
+            const list = await getListOfSongsTheUserIsAuthorizedOn(userAuth.uid)
+            setListOfSongsTheUserIsAuthorizedOn(list)
         }
         asyncThing()
-    },[])
+
+    },[userAuth.uid])
 
     return (
-        <div>ProfileSongs</div>
+        <>
+            {
+            listOfSongsTheUserIsAuthorizedOn.map((songName, index) => {
+                return (
+                    // <p key={index}>{song}</p>
+                    <ProfileSongPreview 
+                        key={index}
+                        songName={songName}
+                    />
+                )
+            })
+            }
+
+        </>
     )
 }
