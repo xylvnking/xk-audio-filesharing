@@ -62,7 +62,8 @@ export default async function handler(req, res) {
             songName: 'songName1',
             songField1: 'someValue1',
             songField2: 'someValue2',
-            dateOfMostRecentEdit: 5
+            dateOfMostRecentEdit: 5,
+            projectName: 'projectName1',
         },
         usersWithAccess: [ // array seems like the right choice
             'someUID1',
@@ -87,7 +88,8 @@ export default async function handler(req, res) {
             songName: 'songName2',
             songField1: 'someValue1',
             songField2: 'someValue2',
-            dateOfMostRecentEdit: 3
+            dateOfMostRecentEdit: 3,
+            projectName: 'projectName2'
         },
         usersWithAccess: [ // array seems like the right choice
             'someUID1',
@@ -112,7 +114,8 @@ export default async function handler(req, res) {
             songName: 'songName3',
             songField1: 'someValue1',
             songField2: 'someValue2',
-            dateOfMostRecentEdit: 1
+            dateOfMostRecentEdit: 1,
+            projectName: 'projectName1',
         },
         usersWithAccess: [ // array seems like the right choice
             'someUID1',
@@ -137,7 +140,7 @@ export default async function handler(req, res) {
             songName: 'songName4',
             songField1: 'someValue1',
             songField2: 'someValue2',
-            dateOfMostRecentEdit: 90
+            dateOfMostRecentEdit: 90,
         },
         usersWithAccess: [ // array seems like the right choice
             'someUID1',
@@ -185,6 +188,7 @@ export default async function handler(req, res) {
     
     await deleteDoc(doc(db, 'users', 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'))
     await setDoc(doc(db, 'users', 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'), { // create users collection
+
         metadata: {
             uid: 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             artistName: 'xylvnKing',

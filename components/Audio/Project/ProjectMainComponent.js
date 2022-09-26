@@ -2,21 +2,22 @@ import React, { useState, useEffect } from 'react'
 
 import { auth, provider } from '../../../firebase/firebase-config'
 import { useAuthState } from "react-firebase-hooks/auth"
-import {signInWithGoogle, signUserOut} from '../../Audio/AuthFolder/Auth'
+import { signInWithGoogle, signUserOut } from '../../Audio/AuthFolder/Auth'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Song from './Song'
+import Project from './Project'
 
-export default function SongMainComponent() {
+export default function ProjectMainComponent() {
     const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
     const router = useRouter()
 
-    const [songName, setSongName] = useState('')
+    const [projectName, setProjectName] = useState('')
     useEffect(() => { // get song from router.query
 
-        if (router.query.songName) {
-            setSongName(router.query.songName[0])
+        if (router.query.projectName) {
+            // console.log(router.query.projectName)
+            setProjectName(router.query.projectName[0])
         }
 
     }, [router.query])
@@ -35,15 +36,14 @@ export default function SongMainComponent() {
             {
                 !userAuthIsLoading && userAuth &&
                 
-                <Song 
-                    songName={songName}
+                <Project 
+                    projectName={projectName}
                     userAuth={userAuth}
                 />
                 // :
                 // <h1>Sorry, the song you're looking for ({songName}) either doesnt exist or you dont have permission to view it. Make sure you got the title right, and/or that it shows up on your profile as a song you're authorized to view.</h1>
             }
-            
-
         </>
+
     )
 }

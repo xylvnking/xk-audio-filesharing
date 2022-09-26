@@ -3,11 +3,14 @@ import {
     getSongDataIfAuthorizedUser
 } from './SongUtilities'
 
+import Link from 'next/link'
+
 
 export default function Song(props) {
     const [songData, setSongData] = useState(null)
     // const [userData, setUserData] = useState(null)
     const [emailsOfUsersWithAccess, setEmailsOfUsersWithAccess] = useState(null)
+    const [isPartOfProject, setIsPartOfProject] = useState(null)
 
 
     useEffect(() => {
@@ -16,18 +19,32 @@ export default function Song(props) {
         const getSongData = async () => {
 
             const result = await getSongDataIfAuthorizedUser(props.userAuth.uid, props.songName)
+            // console.log(result)
             
+            // if (result.songData.metadata.projectName) { // checks if the song is a single or not and renders a back to project button if it isn't
+            //     setIsPartOfProject(true)
+            // }
+            setIsPartOfProject(result.isPartOfproject)
+
             setSongData(result.songData)
+
             // setUserData(result.userData)
             setEmailsOfUsersWithAccess(result.emailsOfUsersWithAccess)
 
         }
         getSongData()
 
-    },[props.userAuth.uid, props.songName])
+    },[props.userAuth, props.songName])
+    // },[props.userAuth.uid, props.songName])
 
     return (
         <>
+        {
+            isPartOfProject &&
+            <Link href='/'>
+                {'< ' + songData.metadata.projectName}
+            </Link>
+        }
             <h1>Song name: <em>{props.songName}</em></h1>
             <h2>Current user: {props.userAuth.uid}</h2>
             {
@@ -46,10 +63,10 @@ export default function Song(props) {
                         <p>more stuff</p>
                         <p>more stuff</p>
                         <p>more stuff</p>
+                        <audio controls></audio>
                     </>
                 </>
             }
-            <audio controls></audio>
         </>
     )
 }
