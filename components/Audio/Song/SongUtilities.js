@@ -2,6 +2,7 @@ import { query, where, collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 
 export const getSongDataIfAuthorizedUser = async (userUID, songName) => {
+    
     const songsRef = collection(db, 'songs');
 
     const songQuery = query(songsRef, where('usersWithAccess', 'array-contains', userUID), where('metadata.songName', '==', songName))
@@ -45,6 +46,7 @@ export const getSongDataIfAuthorizedUser = async (userUID, songName) => {
     // if (data.songData) {
     //     console.log(data.songData)
     // } 
+    console.log(data)
     return data
 
 }

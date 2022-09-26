@@ -8,10 +8,17 @@ export const getListOfSongsInProject = async (userUID, projectName) => {
 
     const projectQuerySnapshot = await getDocs(projectQuery)
 
-    let data
+    let data = {
+        projectData: null,
+        songList: null
+    }
 
     projectQuerySnapshot.forEach((project) => {
-        data = project.data()
+        data.projectData = project.data()
+        data.songList = project.data().songs
+        // if (project.data()) {
+
+        // }
         // console.log(project.id, " => ", project.data() )
     })
 

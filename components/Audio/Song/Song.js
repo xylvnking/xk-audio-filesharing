@@ -41,7 +41,9 @@ export default function Song(props) {
         <>
         {
             isPartOfProject &&
-            <Link href='/'>
+            // window.location.href=`/audio/song/${props.songName}`;
+            // <Link href='/audio/project/${}'>
+            <Link href={`/audio/project/` + songData.metadata.projectName} >
                 {'< ' + songData.metadata.projectName}
             </Link>
         }
