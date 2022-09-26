@@ -2,32 +2,43 @@ import Link from 'next/link'
 import React, { useState, useContext, useEffect } from 'react'
 import { UserContext } from './ProfileMainComponent'
 import ProfileSongPreview from './ProfileSongPreview'
-import { 
+import {
     getSongsFromFirebaseForProfileSongs,
-    getListOfSongsTheUserIsAuthorizedOn,
+    getListOfSongsUserIsAuthorizedOn,
+    getListOfProjectsUserIsAuthorizedOn,
 
-    } from './ProfileSongsUtilities'
+} from './ProfileSongsUtilities'
 
 export default function ProfileSongs() {
     const userAuth = useContext(UserContext)
-    const [listOfSongsTheUserIsAuthorizedOn, setListOfSongsTheUserIsAuthorizedOn] = useState([])
+    const [listOfSongsUserIsAuthorizedOn, setListOfSongsUserIsAuthorizedOn] = useState([])
+    const [listOfProjectsUserIsAuthorizedOn, setListOfProjectsUserIsAuthorizedOn] = useState([])
 
     useEffect(() => {
-        const asyncThing = async () => {
-            const list = await getListOfSongsTheUserIsAuthorizedOn(userAuth.uid)
-            setListOfSongsTheUserIsAuthorizedOn(list)
-        }
-        asyncThing()
+        const getSongsAndProjectsAuthorizedOn = async () => {
+            const songList = await getListOfSongsUserIsAuthorizedOn(userAuth.uid)
+            setListOfSongsUserIsAuthorizedOn(songList)
 
-    },[userAuth.uid])
+            const projectList = await getListOfProjectsUserIsAuthorizedOn(userAuth.uid)
+            setListOfProjectsUserIsAuthorizedOn(projectList)
+        }
+        getSongsAndProjectsAuthorizedOn()
+
+    }, [userAuth.uid])
 
     return (
         <>
             {
-                listOfSongsTheUserIsAuthorizedOn &&
-            listOfSongsTheUserIsAuthorizedOn.map((songName, index) => {
-                return <ProfileSongPreview key={index} songName={songName} />
-            })
+                listOfProjectsUserIsAuthorizedOn &&
+                listOfProjectsUserIsAuthorizedOn.map((projectName, index) => {
+                    return <li key={index}>{projectName}</li>
+                })
+            }
+            {
+                listOfSongsUserIsAuthorizedOn &&
+                listOfSongsUserIsAuthorizedOn.map((songName, index) => {
+                    return <ProfileSongPreview key={index} songName={songName} />
+                })
             }
         </>
     )

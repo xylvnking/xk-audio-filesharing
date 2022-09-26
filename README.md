@@ -135,3 +135,4 @@ Ok cool.
 
 # ordering/sorting by date
 
+I got it to work but I had to do it client side. I feel like I had it right but when I made my query with 'orderby' I just got nothing back with no error message so I didn't really know where to go from there. It's just a simple sort so I did it myself. I'd like to know how in the future but for this project this works well and is easier since I don't have to build the query within firestore.

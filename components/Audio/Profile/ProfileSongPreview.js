@@ -13,11 +13,6 @@ export default function ProfileSongPreview(props) {
         className={styles.container}
     >
         {props.songName}
-        {/* <ul>
-            <li>yeah</li>
-            <li>no</li>
-            <li>idk</li>
-        </ul> */}
     </section>
   )
 }
