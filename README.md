@@ -3,6 +3,8 @@
 
 [I'm heading out right now and can't check but this might allow me to pull all the songs an artist is a part of onto their profile easily](https://firebase.blog/posts/2019/06/understanding-collection-group-queries)
 
+[how-to-get-the-email-of-any-user-in-firebase-based-on-user-id](https://stackoverflow.com/a/66544110/19101255)
+
 # so ref
 
 [how-to-query-within-an-array-of-object-in-firestore](https://stackoverflow.com/a/70812323/19101255)
@@ -138,3 +140,7 @@ Ok cool.
 # ordering/sorting by date
 
 I got it to work but I had to do it client side. I feel like I had it right but when I made my query with 'orderby' I just got nothing back with no error message so I didn't really know where to go from there. It's just a simple sort so I did it myself. I'd like to know how in the future but for this project this works well and is easier since I don't have to build the query within firestore.
+
+# getting list of users with access
+
+At first I thought maybe I should store more human readable data in the songs and projects, such as email and display name and whatnot but I think what's smarter is just storing the UID, which is also a reference to the document which already exists for them, and then query the data within that document when I need more info. This also allows me to change the data within the users doc and not have to update the doc of every single song/project they are listed on.

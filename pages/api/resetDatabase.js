@@ -70,7 +70,7 @@ export default async function handler(req, res) {
             'someUID3',
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             'xylvnKing'
-        ]
+        ],
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
@@ -192,6 +192,9 @@ export default async function handler(req, res) {
             realName: 'Dylan King',
         },
         songsAuthorizedOn: [
+            'songName1',
+            'songName2',
+            'songName4',
             'projectName1',
             // 'projectName2',
         ]
