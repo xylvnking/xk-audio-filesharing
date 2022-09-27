@@ -15,6 +15,14 @@ export const getListOfSongsUserIsAuthorizedOn = async (userUID) => {
 
     const querySnapshot = await getDocs(songDocsAuthorizedOn);
 
+    // this gets ALL the data for EVERY song the user is authorized on, 
+    // but we only return a list of the names becauses thats all that was needed for the previews
+    // i think calling this data within each song might be best, 
+        // because the component which renders the previews doesn't care about the data within them
+        // it just needs to know enough to know how many to render and to pass in the songName/projectName as a prop,
+        // which then allows the preview itself to determine whether it needs to be more detailed or not.
+
+
     querySnapshot.forEach((doc) => {
         allSongData.push(doc.data())
     })
@@ -27,7 +35,10 @@ export const getListOfSongsUserIsAuthorizedOn = async (userUID) => {
         songNamesList.push(song.metadata.songName)
     })
 
+    console.log(allSongData)
+
     return songNamesList
+    
 
     // beta method
     // const docRef = doc(db, 'users', userUID)

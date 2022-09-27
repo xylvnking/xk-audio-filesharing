@@ -1,9 +1,27 @@
 .container {
+    // padding: 10px;
+    background-color: grey;
+    // font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Roboto Mono', monospace;
+
     nav {
-        background-color: grey;
-        padding: 10px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: space-evenly;
+        p {
+            margin: 0px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+                background-color: white;
+                color: black;
+            }
+        }
     }
 }
