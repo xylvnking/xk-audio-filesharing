@@ -32,15 +32,21 @@ export default function SongMainComponent() {
             {
                 !userAuthIsLoading && !userAuth && <button onClick={signInWithGoogle}> Sign In</button>
             }
-            {
+            {/* {
                 !userAuthIsLoading && userAuth &&
                 
                 <Song 
                     songName={songName}
                     userAuth={userAuth}
                 />
-                // :
-                // <h1>Sorry, the song you're looking for ({songName}) either doesnt exist or you dont have permission to view it. Make sure you got the title right, and/or that it shows up on your profile as a song you're authorized to view.</h1>
+            } */}
+            {
+                !userAuthIsLoading &&
+                <Song 
+                    songName={songName}
+                    userAuth={userAuth}
+                />
+
             }
             
 

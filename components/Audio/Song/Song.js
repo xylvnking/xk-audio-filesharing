@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {
-    getSongDataIfAuthorizedUser
+    getSongDataIfAuthorizedUser,
+    getSongDataForPublicUser
 } from './SongUtilities'
 
 import Link from 'next/link'
+
+import SongMetadata from './SongSubcomponents/SongMetadata'
+import SongAudioPlayer from './SongSubcomponents/SongAudioPlayer'
+import SongUsersWithAccess from './SongSubcomponents/SongUsersWithAccess'
 
 
 export default function Song(props) {
@@ -15,58 +20,49 @@ export default function Song(props) {
 
     useEffect(() => {
 
-        
         const getSongData = async () => {
 
-            const result = await getSongDataIfAuthorizedUser(props.userAuth.uid, props.songName)
-            // console.log(result)
-            
-            // if (result.songData.metadata.projectName) { // checks if the song is a single or not and renders a back to project button if it isn't
-            //     setIsPartOfProject(true)
-            // }
-            setIsPartOfProject(result.isPartOfproject)
+            if (props.userAuth) {
 
-            setSongData(result.songData)
+                const result = await getSongDataIfAuthorizedUser(props.userAuth.uid, props.songName)
+                // console.log(result)
+    
+                setIsPartOfProject(result.isPartOfproject)
+    
+                setSongData(result.songData)
+    
+                setEmailsOfUsersWithAccess(result.emailsOfUsersWithAccess)
+            } else {
+                const publicResult = await getSongDataForPublicUser(props.songName)
+                console.log('song public result called')
+                // console.log(publicResult)
+            }
 
-            // setUserData(result.userData)
-            setEmailsOfUsersWithAccess(result.emailsOfUsersWithAccess)
+
 
         }
         getSongData()
 
-    },[props.userAuth, props.songName])
-    // },[props.userAuth.uid, props.songName])
+    }, [props.userAuth, props.songName])
 
     return (
         <>
-        {
-            isPartOfProject &&
-            // window.location.href=`/audio/song/${props.songName}`;
-            // <Link href='/audio/project/${}'>
-            <Link href={`/audio/project/` + songData.metadata.projectName} >
-                {'< ' + songData.metadata.projectName}
-            </Link>
-        }
-            <h1>Song name: <em>{props.songName}</em></h1>
-            <h2>Current user: {props.userAuth.uid}</h2>
+            {
+                isPartOfProject &&
+                <Link href={`/audio/project/` + songData.metadata.projectName} >
+                    {'< ' + songData.metadata.projectName}
+                </Link>
+            }
             {
                 songData &&
                 <>
-                    <>
-                        <h3>users with access:</h3> 
-                        {/* this data should be fetched as described in readme (use the uids in the array to query more human legible info from their user doc) */}
-                        {/* {songData.usersWithAccess.map((user, index) => <p key={index}>{user}</p>)} */}
-                        {emailsOfUsersWithAccess.map((user, index) => <p key={index}>{user}</p>)}
-                    </>
-                    <>
-                        <h3>metadata:</h3>
-                        <p>dateOfMostRecentEdit: {songData.metadata.dateOfMostRecentEdit}</p>
-                        <p>more stuff</p>
-                        <p>more stuff</p>
-                        <p>more stuff</p>
-                        <p>more stuff</p>
-                        <audio controls></audio>
-                    </>
+                    <h1>Song name: <em>{songData.metadata.songName}</em></h1>
+                    {/* <h2>Current user: {props.userAuth.uid}</h2> */}
+                    <SongUsersWithAccess usersList={emailsOfUsersWithAccess} />
+                    <SongMetadata metadata={songData.metadata} />
+                    <SongAudioPlayer />
+                    <h1>live chat</h1>
+                    <h1>comment section</h1>
                 </>
             }
         </>

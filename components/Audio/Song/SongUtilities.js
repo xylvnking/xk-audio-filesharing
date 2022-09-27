@@ -46,7 +46,11 @@ export const getSongDataIfAuthorizedUser = async (userUID, songName) => {
     // if (data.songData) {
     //     console.log(data.songData)
     // } 
-    console.log(data)
+    // console.log(data)
     return data
 
+}
+
+export const getSongDataForPublicUser = async (songName) => {
+    return 'this is public data for ' + songName
 }
