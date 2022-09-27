@@ -19,23 +19,24 @@ export default function Song(props) {
 
 
     useEffect(() => {
+        // console.log('called')
 
         const getSongData = async () => {
 
-            if (props.userAuth) {
+            if (props.userAuth) { // this should be whether the visitor is authorized on the song, NOT whether they are authorized at all.
 
                 const result = await getSongDataIfAuthorizedUser(props.userAuth.uid, props.songName)
-                // console.log(result)
+                
     
                 setIsPartOfProject(result.isPartOfproject)
     
                 setSongData(result.songData)
     
                 setEmailsOfUsersWithAccess(result.emailsOfUsersWithAccess)
+
             } else {
+                // console.log('song public result called')
                 const publicResult = await getSongDataForPublicUser(props.songName)
-                console.log('song public result called')
-                // console.log(publicResult)
             }
 
 
@@ -53,6 +54,7 @@ export default function Song(props) {
                     {'< ' + songData.metadata.projectName}
                 </Link>
             }
+            <h3><em>song component, viewable if settings permit</em></h3>
             {
                 songData &&
                 <>
