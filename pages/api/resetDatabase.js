@@ -24,9 +24,12 @@ export default async function handler(req, res) {
         usersWithAccess: [ // array seems like the right choice
             'someUID1',
             'someUID2',
-            'someUID3',
+            'UIDfakefakefake',
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             'xylvnKing'
+        ],
+        usersWithAdminRole: [
+            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
         ]
         
     }).catch((error) => { console.log(error) })
@@ -68,7 +71,7 @@ export default async function handler(req, res) {
         usersWithAccess: [ // array seems like the right choice
             'someUID1',
             'someUID2',
-            'someUID3',
+            'UIDfakefakefake',
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             'xylvnKing'
         ],
@@ -76,7 +79,10 @@ export default async function handler(req, res) {
             usersWith: true,
             metadata: true,
             audioPlayer: true,
-        }
+        },
+        usersWithAdmin: [
+            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
+        ]
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
@@ -102,6 +108,8 @@ export default async function handler(req, res) {
             'someUID3',
             // 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             'xylvnKing'
+        ],
+        usersWithAdmin: [
         ]
     }).catch((error) => { console.log(error) })
     .then(
@@ -125,9 +133,12 @@ export default async function handler(req, res) {
         usersWithAccess: [ // array seems like the right choice
             'someUID1',
             'someUID2',
-            'someUID3',
+            'UIDfakefakefake',
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             'xylvnKing'
+        ],
+        usersWithAdmin: [
+            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
         ]
     }).catch((error) => { console.log(error) })
     .then(
@@ -152,7 +163,11 @@ export default async function handler(req, res) {
             'someUID2',
             'someUID3',
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+            'UIDfakefakefake',
             'xylvnKing'
+        ],
+        usersWithAdmin: [
+            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
         ]
     }).catch((error) => { console.log(error) })
     .then(
@@ -173,8 +188,8 @@ export default async function handler(req, res) {
     await deleteDoc(doc(db, 'users', 'artistName1'))
     await setDoc(doc(db, 'users', 'artistName1'), { // create users collection
         metadata: {
+            uid:'UIDfakefakefake',
             artistName: 'artistName1',
-            someField: 'someValue',
             email: 'fakeEmail@fakeEmail.com',
             realName: 'someName',
         },
@@ -185,6 +200,15 @@ export default async function handler(req, res) {
         ],
         projectsAuthorizedOn: [
             'projectName1',
+        ],
+        songsWithAdmin: [
+            'songName1',
+            'songName3',
+            'songName4',
+        ],
+        projectsWithAdmin: [
+            'projectName1',
+            
         ]
 
     }).catch((error) => { console.log(error) })
@@ -206,6 +230,15 @@ export default async function handler(req, res) {
             'songName4',
             'projectName1',
             // 'projectName2',
+        ],
+        songsWithAdmin: [
+            'songName1',
+            'songName3',
+            // 'songName4',
+        ],
+        projectsWithAdmin: [
+            'projectName1',
+            
         ]
 
     }).catch((error) => { console.log(error) })

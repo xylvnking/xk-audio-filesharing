@@ -15,18 +15,14 @@ export const UserContext = React.createContext() // this could have been a prop 
 export default function StudioHomeComponent() {
 
     const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
-    const [allSongData, setAllSongData] = useState(null)
+    const [allSongData, setAllSongData] = useState(null) // array
 
     useEffect(() => {
         
         if (userAuth) {
             const getAllSongData = async () => {
                 
-                setAllSongData(await getAllSongDataFromFirebase(userAuth.uid))
-                // const response = await getAllSongDataFromFirebase(userAuth.uid)
-                // setAllSongData(response.allSongData)
-                // const arrayWithSongObjects = await getAllSongDataFromFirebase(userAuth.uid)
-                // console.log(`result is : ${arrayWithSongObjects}`)
+                setAllSongData(await getAllSongDataFromFirebase(userAuth.uid)) // array
 
             }
             getAllSongData()
@@ -34,16 +30,17 @@ export default function StudioHomeComponent() {
     }, [userAuth])
 
 
+
+
     return (
         <>
-            <button onClick={() => console.log(allSongData)}>check</button>
-            <h1>StudioHomeComponent</h1>
             {
                 !userAuthIsLoading && userAuth && <button onClick={signUserOut}> Sign Out</button>
             }
             {
                 !userAuthIsLoading && !userAuth && <button onClick={signInWithGoogle}> Sign In</button>
             }
+            <h1>StudioHomeComponent</h1>
             {
                 !userAuthIsLoading && userAuth &&
                 <UserContext.Provider value={userAuth}>

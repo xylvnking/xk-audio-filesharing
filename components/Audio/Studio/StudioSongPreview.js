@@ -7,39 +7,63 @@ import {
 
 export default function StudioSongPreview(props) {
     const [usersWithAccess, setUsersWithAcces] = useState([])
+    const [emailsOfUsersWithAccess, setEmailsOfUsersWithAccess] = useState(null)
+    const [emailsOfUsersWithAdmin, setEmailsOfUsersWithAdmin] = useState(null)
+    
 
     useEffect(() => {
-        console.log('fetching users...')
 
         const getUserData = async () => {
-            const result = await getUsersWithAccessFromSpecificSong(props.songData.metadata.songName, props.userAuth.uid)
+            const result = await getUsersWithAccessFromSpecificSong(props.userAuth.uid, props.songData.metadata.songName)
+            setEmailsOfUsersWithAccess(result.emailsOfUsersWithAccess)
+            setEmailsOfUsersWithAdmin(result.emailsOfUsersWithAdmin)
 
         }
         getUserData()
 
+        const checkRole = async () => {
+
+        }
+        checkRole()
 
     }, [props.songData])
+
+    const handleClick = () => {
+        // console.log('ye')
+        window.location.href=`/audio/studio/session/song/${props.songData.metadata.songName}`;
+        
+    }
     
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={() => handleClick()}>
             <h2>{props.songData.metadata.songName}</h2>
+
             {
-                // props.songData.metadata.projectName &&
                 <h4>{props.songData.metadata.projectName}</h4>
             }
 
-            <h5>most recent edit: {props.songData.metadata.dateOfMostRecentEdit}</h5>
-
             {
                 <ul>
+                    <h3>team members:</h3>
                     {
-                        props.songData.usersWithAccess.map((user, index) => {
-                            return <li key={index}>{user}</li>
+                        emailsOfUsersWithAccess &&
+                        emailsOfUsersWithAccess.map((email, index) => {
+                            return <li key={index}>{email}</li>
+                        })
+                    }
+                </ul>
+            }
+            {
+                <ul>
+                    <h3>admins:</h3>
+                    {
+                        emailsOfUsersWithAdmin &&
+                        emailsOfUsersWithAdmin.map((email, index) => {
+                            return <li key={index}>{email}</li>
                         })
                     }
                 </ul>
             }
         </div>
-
     )
 }
