@@ -20,7 +20,7 @@ import { db, auth } from '../../../../firebase/firebase-config';
 
 export const useSongData = (songName) => {
 
-    const [songData, setSongData] = useState(null)
+    const [songData, setSongData] = useState(null) // could this be a ref? yes right? it doesn't need to rerender anything, there's no ui here
 
     useEffect(() => {
         if (auth, songName) { // require official auth here makes it so that they can only access songs they're authorized on anyways according to security rules
@@ -33,6 +33,7 @@ export const useSongData = (songName) => {
                 let usersWithAdmin = []
                 
                 if (songDocumentSnapshot.exists()) {
+                    // console.log('ye')
 
                     const usersRef = collection(db, 'users');
                     
@@ -54,14 +55,11 @@ export const useSongData = (songName) => {
                     documentData.push(usersWithAccess)
                     documentData.push(usersWithAdmin)
 
-                    // console.log(songDocumentSnapshot.data().usersWithAdmin)
-                    // console.log(usersWithAccess)
-                    if (songDocumentSnapshot.data().usersWithAdmin) {
+                    if (songDocumentSnapshot.data().usersWithAdmin.includes(auth.currentUser.uid)) {
                         documentData.push('admin')
-                        // console.log('admin')
-                    } else if (songDocumentSnapshot.data().usersWithAccess) {
+                    } else if (songDocumentSnapshot.data().usersWithAccess.includes(auth.currentUser.uid)) {
                         documentData.push('access')
-                        // console.log('access')
+                        console.log('access only')
                     } 
                     
                     // documentData.push

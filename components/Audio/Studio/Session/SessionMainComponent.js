@@ -47,8 +47,10 @@ export default function SessionMainComponent(props) {
                     {'< studio'}
                 </Link>
             }
-            <h1>WELCOME TO THE SESH!!!</h1>
+            <h1>Session</h1>
             <h2>{props.songName}</h2>
+            <h2>{userRole}</h2>
+
             <details style={{cursor: 'pointer'}}>
                 <summary>info</summary>
                 <ul>

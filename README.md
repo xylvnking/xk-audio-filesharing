@@ -1,9 +1,19 @@
+# why?
+
+There's a ton of apps for making music together online, but not really any geared towards professionals working in studios, where the work is usually done asynchronously without the client and engineer/producer/whoever scheduling a time and meeting for a call or whatever. I don't offer 1 on 1 sessions with my clients because 99% of the time I can get the work done far before the time we schedule, or I've been so busy that I actually have zero time to schedule, and have to plan on short notice (for example if something takes less time than expected, I can do some work from my backlog, but if i have to wait until a scheduled time to do the work, it has to wait. *most* professionals I know in the music industry work this way)
+
+This app is to provide a hub for asynchronous music industry pipelines. It has support for real-time events, and is something I'd like to make sure *is* there, even if it's not the focus, because in the odd time it is needed I don't need to have users having to all use another program when stuff like video conferencing and live chat and whatnot are all within my ability to include natively here.
+
+This is my passion project, because I'm going to be the most active user.
+
 # Relevant links
 [favicon.io](https://favicon.io/)
 
 [I'm heading out right now and can't check but this might allow me to pull all the songs an artist is a part of onto their profile easily](https://firebase.blog/posts/2019/06/understanding-collection-group-queries)
 
 [how-to-get-the-email-of-any-user-in-firebase-based-on-user-id](https://stackoverflow.com/a/66544110/19101255)
+
+[might not need for a while, but an npm package promising video conferencing](https://www.npmjs.com/package/@videosdk.live/react-sdk)
 
 # so ref
 
@@ -13,9 +23,17 @@
 
 https://stackoverflow.com/questions/51412901/javascript-sort-an-array-of-objects-based-on-numeric-key
 
-# quick learned
+# learned
 
-Pages with dynamic routes always render twice in Next. 
+Pages with dynamic routes always render twice in Next.
+
+## custom hooks
+
+Custom hooks are amazing. I had already written reusable functions I was importing with modules, but I was still using native hooks within the components. Switching over to custom hooks allowed me to also put all of the necessary native hook logic outside of the component as well, making it reusable and the component cleaner, which was just a win win win.
+
+So far I have two, one for getting song data, then one for getting file version data, since the two aren't always used together. I'm destructuring a lot from them, and using the uid directly from the firebase session token or whatever to make sure that the uid being passed around the hook is not just the correct one, but also the one of the signed in user. 
+
+I really thought it would be tougher to create custom hooks, and every time something like this happens I always feel goofy that I never took the time to learn about the topic sooner.
 
 ## next
 

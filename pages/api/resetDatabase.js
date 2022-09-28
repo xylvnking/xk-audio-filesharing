@@ -207,6 +207,42 @@ export default async function handler(req, res) {
             downloadUrl: 'pathToStorageBucket'
         })
     ).catch((error) => { console.log(error) })
+
+
+        // song 5
+
+    await deleteDoc(doc(db, 'songs', 'songName5'))
+    await setDoc(doc(db, 'songs', 'songName5'), { // create songs collection
+        metadata: {
+            songName: 'songName5',
+            songField1: 'someValue1',
+            songField2: 'someValue2',
+            dateOfMostRecentEdit: 90,
+        },
+        usersWithAccess: [ // array seems like the right choice
+            'someUID1',
+            'someUID2',
+            'someUID3',
+            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+            'UIDfakefakefake',
+            'xylvnKing'
+        ],
+        usersWithAdmin: [
+        ],
+        subcomponentsPublic: {
+            usersWith: true,
+            metadata: true,
+            audioPlayer: true,
+        },
+    }).catch((error) => { console.log(error) })
+    .then(
+        setDoc(doc(db, 'songs', 'songName5', 'fileVersions', 'fileVersionName1'), {
+            fileVersionName: 'fileVersionName1',
+            dateOfMostRecentEdit: '777',
+            revisionNote: 'this is a revision note for fileVersionName1',
+            downloadUrl: 'pathToStorageBucket'
+        })
+    ).catch((error) => { console.log(error) })
     
 
 
@@ -260,6 +296,7 @@ export default async function handler(req, res) {
             'songName3',
             'songName4',
             'projectName1',
+            'songName5'
             // 'projectName2',
         ],
         songsWithAdmin: [
