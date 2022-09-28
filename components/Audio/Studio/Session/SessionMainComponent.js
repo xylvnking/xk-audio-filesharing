@@ -28,28 +28,14 @@ import { auth, provider } from '../../../../firebase/firebase-config'
 
 // main component rendered from /audio/studio/session/song/[...songSession].js
 export default function SessionMainComponent(props) {
-    // const router = useRouter()
-    // const [songName, setSongName] = useState(null) // if you change [..songSession] page name you'll need to change this
-    // const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
-    // const songData = useSongData(songName, ?userUID?)
-    
-    // setting songName state from router query
-    // useEffect(() => {
-    //     if (router.query.songSession) {
-    //         setSongName(router.query.songSession[0])
-    //     }
-    // }, [router.query])
-    const [number, setNumber] = useState(0)
 
-    const thing = useSongData(props.songName, number)
-    // const [songDataNew, setSongDataNew] = useState(useSongData(props.songName, number))
-    // const memoizedSongData = useMemo(() => useSongData(props.songName, number), [props.songName, number])
-    // console.log(`thing is: ${thing}`)
+    const [allSongData, metadata, usersWithAccess, usersWithAdmin, subcomponents] = useSongData(props.songName)
+    // const songData = useSongData(props.songName)
+    // console.log(songData)
     
     return (
-        props.songName && // this stops the entire component from rendering unless the router.query has been put into state
+        props.songName && allSongData ? // this stops the entire component from rendering unless the router.query has been put into state
         <div>
-            <button onClick={() => setNumber(number + 1)}> plus number </button>
             {
                 <Link href='/audio/studio'>
                     {'< studio'}
@@ -57,7 +43,17 @@ export default function SessionMainComponent(props) {
             }
             <h1>WELCOME TO THE SESH!!!</h1>
             <h2>{props.songName}</h2>
+            <ul>
+                <li><strong>users with access</strong></li>
+                {
+                    usersWithAccess.map((user, index) => {
+                        return <li key={index}>{user}</li>
+                    })
+                }
+            </ul>
 
         </div>
+        :
+        <h1>LOADING</h1>
     )
 }

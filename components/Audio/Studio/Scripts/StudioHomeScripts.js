@@ -2,7 +2,7 @@ import { doc, getDoc, query, where, orderBy, limit, collection, getDocs  } from 
 // import { collection, doc, setDoc } from "firebase/firestore"; 
 
 
-import { db } from "../../../../firebase/firebase-config"
+import { db, auth } from "../../../../firebase/firebase-config"
 
 // called from StudioHomeComponent
 export const getAllSongDataFromFirebase = async (userUID) => {
@@ -29,7 +29,7 @@ export const getAllSongDataFromFirebase = async (userUID) => {
 
 
 // called from each StudioSongPreview component
-export const getUsersWithAccessFromSpecificSong = async (userUID, songName) => {
+export const getUsersWithAccessFromSpecificSong = async (songName) => {
 
     // because how is the client request going to be able to access the user documents which aren't for itself?
     // for the song documents it's easy because you can only see the documents which your uid is listed as

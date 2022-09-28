@@ -14,17 +14,17 @@ export default function StudioSongPreview(props) {
     useEffect(() => {
 
         const getUserData = async () => {
-            const result = await getUsersWithAccessFromSpecificSong(props.userAuth.uid, props.songData.metadata.songName)
+            const result = await getUsersWithAccessFromSpecificSong(props.songData.metadata.songName)
             setEmailsOfUsersWithAccess(result.emailsOfUsersWithAccess)
             setEmailsOfUsersWithAdmin(result.emailsOfUsersWithAdmin)
 
         }
         getUserData()
 
-        const checkRole = async () => {
+        // const checkRole = async () => {
 
-        }
-        checkRole()
+        // }
+        // checkRole()
 
     }, [props.songData])
 
