@@ -75,14 +75,14 @@ export default async function handler(req, res) {
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
             'xylvnKing'
         ],
+        usersWithAdmin: [
+            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
+        ],
         subcomponentsPublic: {
             usersWith: true,
             metadata: true,
             audioPlayer: true,
         },
-        usersWithAdmin: [
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
-        ]
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
@@ -110,7 +110,12 @@ export default async function handler(req, res) {
             'xylvnKing'
         ],
         usersWithAdmin: [
-        ]
+        ],
+        subcomponentsPublic: {
+            usersWith: true,
+            metadata: true,
+            audioPlayer: true,
+        },
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName2', 'fileVersions', 'fileVersionName1'), {
@@ -139,7 +144,12 @@ export default async function handler(req, res) {
         ],
         usersWithAdmin: [
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
-        ]
+        ],
+        subcomponentsPublic: {
+            usersWith: true,
+            metadata: true,
+            audioPlayer: true,
+        },
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName3', 'fileVersions', 'fileVersionName1'), {
@@ -168,7 +178,12 @@ export default async function handler(req, res) {
         ],
         usersWithAdmin: [
             'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
-        ]
+        ],
+        subcomponentsPublic: {
+            usersWith: true,
+            metadata: true,
+            audioPlayer: true,
+        },
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName4', 'fileVersions', 'fileVersionName1'), {
