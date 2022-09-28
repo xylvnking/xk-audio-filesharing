@@ -25,16 +25,25 @@ export const getSongDataIfAuthorizedUser = async (userUID, songName) => {
         }
     })
 
+
+
+
+    ////////
+    // SEE StudioHomeScript.js  - - - - RE: security rules + client requests
+    // this works, because team members/network/colleagues whatever have access to eachothers documents
+
+
+
     const usersRef = collection(db, 'users');
 
     const userQuery = query(usersRef, where('songsAuthorizedOn', 'array-contains', songName))
 
     const userQuerySnapshot = await getDocs(userQuery)
 
-    userQuerySnapshot.forEach((user) => {
+    userQuerySnapshot.forEach((user) => { 
         // console.log(user)
         data.userData.push(user.data()) // probably redundant
-        data.emailsOfUsersWithAccess.push(user.data().metadata.email)
+        data.emailsOfUsersWithAccess.push(user.data().metadata.email) 
         // if (user.data)
     })
 
