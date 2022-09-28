@@ -86,8 +86,18 @@ export default async function handler(req, res) {
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
-            someFieldCreatedX: 'someValueCreatedX',
-            someFieldCreatedX2: 'someValueCreatedX2',
+            fileVersionName: 'fileVersionName1',
+            dateOfMostRecentEdit: '666',
+            revisionNote: 'this is a revision note for fileVersionName1',
+            downloadUrl: 'pathToStorageBucket'
+        })
+    ).catch((error) => { console.log(error) })
+    .then(
+        setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName2'), {
+            fileVersionName: 'fileVersionName2',
+            dateOfMostRecentEdit: '777',
+            revisionNote: 'this is a revision note for fileVersionName2',
+            downloadUrl: 'pathToStorageBucket'
         })
     ).catch((error) => { console.log(error) })
 
@@ -119,8 +129,10 @@ export default async function handler(req, res) {
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName2', 'fileVersions', 'fileVersionName1'), {
-            someFieldCreatedX: 'someValueCreatedX',
-            someFieldCreatedX2: 'someValueCreatedX2',
+            fileVersionName: 'fileVersionName1',
+            dateOfMostRecentEdit: '777',
+            revisionNote: 'this is a revision note for fileVersionName1',
+            downloadUrl: 'pathToStorageBucket'
         })
     ).catch((error) => { console.log(error) })
 
@@ -153,8 +165,10 @@ export default async function handler(req, res) {
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName3', 'fileVersions', 'fileVersionName1'), {
-            someFieldCreatedX: 'someValueCreatedX',
-            someFieldCreatedX2: 'someValueCreatedX2',
+            fileVersionName: 'fileVersionName1',
+            dateOfMostRecentEdit: '777',
+            revisionNote: 'this is a revision note for fileVersionName1',
+            downloadUrl: 'pathToStorageBucket'
         })
     ).catch((error) => { console.log(error) })
     
@@ -187,8 +201,10 @@ export default async function handler(req, res) {
     }).catch((error) => { console.log(error) })
     .then(
         setDoc(doc(db, 'songs', 'songName4', 'fileVersions', 'fileVersionName1'), {
-            someFieldCreatedX: 'someValueCreatedX',
-            someFieldCreatedX2: 'someValueCreatedX2',
+            fileVersionName: 'fileVersionName1',
+            dateOfMostRecentEdit: '777',
+            revisionNote: 'this is a revision note for fileVersionName1',
+            downloadUrl: 'pathToStorageBucket'
         })
     ).catch((error) => { console.log(error) })
     
@@ -249,7 +265,7 @@ export default async function handler(req, res) {
         songsWithAdmin: [
             'songName1',
             'songName3',
-            // 'songName4',
+            'songName4',
         ],
         projectsWithAdmin: [
             'projectName1',
