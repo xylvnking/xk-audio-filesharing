@@ -6,6 +6,7 @@ import AudioLayout from '../components/Audio/AudioLayout/AudioLayout'
 
 
 export default function Home() {
+    // console.log('yeah')
     return (
         // <FrontLayout>
         <AudioLayout>

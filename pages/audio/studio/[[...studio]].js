@@ -3,6 +3,7 @@ import StudioHomeComponent from '../../../components/Audio/Studio/StudioHomeComp
 import AudioLayout from '../../../components/Audio/AudioLayout/AudioLayout'
 
 export default function studio() {
+  // console.log('studio called')
   return (
       <AudioLayout>
           <StudioHomeComponent />
