@@ -4,7 +4,8 @@
     margin: 10px;
     padding: 10px;
     list-style: none;
-    &:hover {
-        background-color: rgb(233, 233, 233);
-    }
+    cursor: default;
+    // &:hover {
+    //     background-color: rgb(233, 233, 233);
+    // }
 }

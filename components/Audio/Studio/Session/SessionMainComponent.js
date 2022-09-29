@@ -42,11 +42,13 @@ export default function SessionMainComponent(props) {
     return (
         props.songName && allSongData ? // this stops the entire component from rendering unless the router.query has been put into state
         <div>
+            
             {
                 <Link href='/audio/studio'>
                     {'< studio'}
                 </Link>
             }
+
             <h1>Session</h1>
             <h2>{props.songName}</h2>
             <h2>{userRole}</h2>

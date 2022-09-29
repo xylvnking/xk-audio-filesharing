@@ -10,6 +10,8 @@ import {
 
 import StudioSongPreview from './StudioSongPreview'
 
+
+
 export const UserContext = React.createContext() // this could have been a prop but I wanted to try it out
 
 export default function StudioHomeComponent() {
@@ -40,10 +42,11 @@ export default function StudioHomeComponent() {
             {
                 !userAuthIsLoading && !userAuth && <button onClick={signInWithGoogle}> Sign In</button>
             }
+
             <h1>StudioHomeComponent</h1>
             {
-                !userAuthIsLoading && userAuth &&
-                <UserContext.Provider value={userAuth}>
+                !userAuthIsLoading && userAuth && // should be auth?
+                <UserContext.Provider value={userAuth}> // should be auth?
                     <p>user info</p>
                     <p>projects member on</p>
                     <p>projects admin on</p>
@@ -54,7 +57,7 @@ export default function StudioHomeComponent() {
                         allSongData &&
                         allSongData.map((songData, index) => {
                             // return <h1>{songData.metadata.songName}</h1>
-                            return <StudioSongPreview key={index} songData={songData} userAuth={userAuth}/>
+                            return <StudioSongPreview key={index} songData={songData} userAuth={userAuth}/> // should be auth?
                             // return <StudioSongPreview key={index} songData={songData}/>
                             // cause then within each one, you could access what you needed with
                             // props.songData.metadata  or  props.songData.usersWithAccess   etc
