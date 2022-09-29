@@ -59,187 +59,194 @@ export default async function handler(req, res) {
 
     // creating SONGS
 
-    await deleteDoc(doc(db, 'songs', 'songName1'))
-    await setDoc(doc(db, 'songs', 'songName1'), { // create songs collection
-        metadata: {
-            songName: 'songName1',
-            songField1: 'someValue1',
-            documentId: 'songName1',
-            dateOfMostRecentEdit: 5,
-            projectName: 'projectName1',
-        },
-        usersWithAccess: [ // array seems like the right choice
-            'someUID1',
-            'someUID2',
-            'UIDfakefakefake',
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
-            'xylvnKing'
-        ],
-        usersWithAdmin: [
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
-        ],
-        subcomponentsPublic: {
-            usersWith: true,
-            metadata: true,
-            audioPlayer: true,
-        },
-    }).catch((error) => { console.log(error) })
-    .then(
-        setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
-            fileVersionName: 'fileVersionName1',
-            dateOfMostRecentEdit: '666',
-            revisionNote: 'this is a revision note for fileVersionName1',
-            downloadUrl: 'pathToStorageBucket'
-        })
-    ).catch((error) => { console.log(error) })
-    .then(
-        setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName2'), {
-            fileVersionName: 'fileVersionName2',
-            dateOfMostRecentEdit: '777',
-            revisionNote: 'this is a revision note for fileVersionName2',
-            downloadUrl: 'pathToStorageBucket'
-        })
-    ).catch((error) => { console.log(error) })
+    // await deleteDoc(doc(db, 'songs', 'songName1'))
+    // await setDoc(doc(db, 'songs', 'songName1'), { // create songs collection
+    //     metadata: {
+    //         songName: 'songName1',
+    //         songField1: 'someValue1',
+    //         documentId: 'songName1',
+    //         dateOfMostRecentEdit: 5,
+    //         projectName: 'projectName1',
+    //     },
+    //     usersWithAccess: [ // array seems like the right choice
+    //         'someUID1',
+    //         'someUID2',
+    //         'UIDfakefakefake',
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+    //         'xylvnKing'
+    //     ],
+    //     usersWithAdmin: [
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
+    //     ],
+    //     subcomponentsPublic: {
+    //         usersWith: true,
+    //         metadata: true,
+    //         audioPlayer: true,
+    //     },
+    // }).catch((error) => { console.log(error) })
+    // .then(
+    //     setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName1'), {
+    //         fileVersionName: 'fileVersionName1',
+    //         dateOfMostRecentEdit: '666',
+    //         revisionNote: 'this is a revision note for fileVersionName1',
+    //         downloadUrl: 'pathToStorageBucket'
+    //     })
+    // ).catch((error) => { console.log(error) })
+    // .then(
+    //     setDoc(doc(db, 'songs', 'songName1', 'fileVersions', 'fileVersionName2'), {
+    //         fileVersionName: 'fileVersionName2',
+    //         dateOfMostRecentEdit: '777',
+    //         revisionNote: 'this is a revision note for fileVersionName2',
+    //         downloadUrl: 'pathToStorageBucket'
+    //     })
+    // ).catch((error) => { console.log(error) })
 
-        // song 2
+    //     // song 2
 
-    await deleteDoc(doc(db, 'songs', 'songName2'))
-    await setDoc(doc(db, 'songs', 'songName2'), { // create songs collection
-        metadata: {
-            songName: 'songName2',
-            documentId: 'songName2',
-            dateOfMostRecentEdit: 3,
-            projectName: 'projectName2'
-        },
-        usersWithAccess: [ // array seems like the right choice
-            'someUID1',
-            'someUID2',
-            'someUID3',
-            // 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
-            'xylvnKing'
-        ],
-        usersWithAdmin: [
-        ],
-        subcomponentsPublic: {
-            usersWith: true,
-            metadata: true,
-            audioPlayer: true,
-        },
-    }).catch((error) => { console.log(error) })
-    .then(
-        setDoc(doc(db, 'songs', 'songName2', 'fileVersions', 'fileVersionName1'), {
-            fileVersionName: 'fileVersionName1',
-            dateOfMostRecentEdit: '777',
-            revisionNote: 'this is a revision note for fileVersionName1',
-            downloadUrl: 'pathToStorageBucket'
-        })
-    ).catch((error) => { console.log(error) })
+    // await deleteDoc(doc(db, 'songs', 'songName2'))
+    // await setDoc(doc(db, 'songs', 'songName2'), { // create songs collection
+    //     metadata: {
+    //         songName: 'songName2',
+    //         documentId: 'songName2',
+    //         dateOfMostRecentEdit: 3,
+    //         projectName: 'projectName2'
+    //     },
+    //     usersWithAccess: [ // array seems like the right choice
+    //         'someUID1',
+    //         'someUID2',
+    //         'someUID3',
+    //         // 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+    //         'xylvnKing'
+    //     ],
+    //     usersWithAdmin: [
+    //     ],
+    //     subcomponentsPublic: {
+    //         usersWith: true,
+    //         metadata: true,
+    //         audioPlayer: true,
+    //     },
+    // }).catch((error) => { console.log(error) })
+    // .then(
+    //     setDoc(doc(db, 'songs', 'songName2', 'fileVersions', 'fileVersionName1'), {
+    //         fileVersionName: 'fileVersionName1',
+    //         dateOfMostRecentEdit: '777',
+    //         revisionNote: 'this is a revision note for fileVersionName1',
+    //         downloadUrl: 'pathToStorageBucket'
+    //     })
+    // ).catch((error) => { console.log(error) })
 
-        // song 3
+    //     // song 3
 
-    await deleteDoc(doc(db, 'songs', 'songName3'))
-    await setDoc(doc(db, 'songs', 'songName3'), { // create songs collection
-        metadata: {
-            songName: 'songName3',
-            songField1: 'someValue1',
-            documentId: 'songName3',
-            dateOfMostRecentEdit: 1,
-            projectName: 'projectName1',
-        },
-        usersWithAccess: [ // array seems like the right choice
-            'someUID1',
-            'someUID2',
-            'UIDfakefakefake',
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
-            'xylvnKing'
-        ],
-        usersWithAdmin: [
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
-        ],
-        subcomponentsPublic: {
-            usersWith: true,
-            metadata: true,
-            audioPlayer: true,
-        },
-    }).catch((error) => { console.log(error) })
-    .then(
-        setDoc(doc(db, 'songs', 'songName3', 'fileVersions', 'fileVersionName1'), {
-            fileVersionName: 'fileVersionName1',
-            dateOfMostRecentEdit: '777',
-            revisionNote: 'this is a revision note for fileVersionName1',
-            downloadUrl: 'pathToStorageBucket'
-        })
-    ).catch((error) => { console.log(error) })
+    // await deleteDoc(doc(db, 'songs', 'songName3'))
+    // await setDoc(doc(db, 'songs', 'songName3'), { // create songs collection
+    //     metadata: {
+    //         songName: 'songName3',
+    //         songField1: 'someValue1',
+    //         documentId: 'songName3',
+    //         dateOfMostRecentEdit: 1,
+    //         projectName: 'projectName1',
+    //     },
+    //     usersWithAccess: [ // array seems like the right choice
+    //         'someUID1',
+    //         'someUID2',
+    //         'UIDfakefakefake',
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+    //         'xylvnKing'
+    //     ],
+    //     usersWithAdmin: [
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
+    //     ],
+    //     subcomponentsPublic: {
+    //         usersWith: true,
+    //         metadata: true,
+    //         audioPlayer: true,
+    //     },
+    // }).catch((error) => { console.log(error) })
+    // .then(
+    //     setDoc(doc(db, 'songs', 'songName3', 'fileVersions', 'fileVersionName1'), {
+    //         fileVersionName: 'fileVersionName1',
+    //         dateOfMostRecentEdit: '777',
+    //         revisionNote: 'this is a revision note for fileVersionName1',
+    //         downloadUrl: 'pathToStorageBucket'
+    //     })
+    // ).catch((error) => { console.log(error) })
     
-        // song 4
+    //     // song 4
 
-    await deleteDoc(doc(db, 'songs', 'songName4'))
-    await setDoc(doc(db, 'songs', 'songName4'), { // create songs collection
-        metadata: {
-            songName: 'songName4',
-            documentId: 'songName4',
-            dateOfMostRecentEdit: 90,
-        },
-        usersWithAccess: [ // array seems like the right choice
-            'someUID1',
-            'someUID2',
-            'someUID3',
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
-            'UIDfakefakefake',
-            'xylvnKing'
-        ],
-        usersWithAdmin: [
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
-        ],
-        subcomponentsPublic: {
-            usersWith: true,
-            metadata: true,
-            audioPlayer: true,
-        },
-    }).catch((error) => { console.log(error) })
-    .then(
-        setDoc(doc(db, 'songs', 'songName4', 'fileVersions', 'fileVersionName1'), {
-            fileVersionName: 'fileVersionName1',
-            dateOfMostRecentEdit: '777',
-            revisionNote: 'this is a revision note for fileVersionName1',
-            downloadUrl: 'pathToStorageBucket'
-        })
-    ).catch((error) => { console.log(error) })
+    // await deleteDoc(doc(db, 'songs', 'songName4'))
+    // await setDoc(doc(db, 'songs', 'songName4'), { // create songs collection
+    //     metadata: {
+    //         songName: 'songName4',
+    //         documentId: 'songName4',
+    //         dateOfMostRecentEdit: 90,
+    //     },
+    //     usersWithAccess: [ // array seems like the right choice
+    //         'someUID1',
+    //         'someUID2',
+    //         'someUID3',
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+    //         'UIDfakefakefake',
+    //         'xylvnKing'
+    //     ],
+    //     usersWithAdmin: [
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1'
+    //     ],
+    //     subcomponentsPublic: {
+    //         usersWith: true,
+    //         metadata: true,
+    //         audioPlayer: true,
+    //     },
+    // }).catch((error) => { console.log(error) })
+    // .then(
+    //     setDoc(doc(db, 'songs', 'songName4', 'fileVersions', 'fileVersionName1'), {
+    //         fileVersionName: 'fileVersionName1',
+    //         dateOfMostRecentEdit: '777',
+    //         revisionNote: 'this is a revision note for fileVersionName1',
+    //         downloadUrl: 'pathToStorageBucket'
+    //     })
+    // ).catch((error) => { console.log(error) })
 
 
-        // song 5
+    //     // song 5
 
-    await deleteDoc(doc(db, 'songs', 'songName5'))
-    await setDoc(doc(db, 'songs', 'songName5'), { // create songs collection
-        metadata: {
-            songName: 'songName5',
-            documentId: 'songName5',
-            dateOfMostRecentEdit: 90,
-        },
-        usersWithAccess: [ // array seems like the right choice
-            'someUID1',
-            'someUID2',
-            'someUID3',
-            'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
-            'UIDfakefakefake',
-            'xylvnKing'
-        ],
-        usersWithAdmin: [
-        ],
-        subcomponentsPublic: {
-            usersWith: true,
-            metadata: true,
-            audioPlayer: true,
-        },
-    }).catch((error) => { console.log(error) })
-    .then(
-        setDoc(doc(db, 'songs', 'songName5', 'fileVersions', 'fileVersionName1'), {
-            fileVersionName: 'fileVersionName1',
-            dateOfMostRecentEdit: '777',
-            revisionNote: 'this is a revision note for fileVersionName1',
-            downloadUrl: 'pathToStorageBucket'
-        })
-    ).catch((error) => { console.log(error) })
+    // await deleteDoc(doc(db, 'songs', 'songName5'))
+    // await setDoc(doc(db, 'songs', 'songName5'), { // create songs collection
+    //     metadata: {
+    //         songName: 'songName5',
+    //         documentId: 'songName5',
+    //         dateOfMostRecentEdit: 90,
+    //     },
+    //     usersWithAccess: [ // array seems like the right choice
+    //         'someUID1',
+    //         'someUID2',
+    //         'someUID3',
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+    //         'UIDfakefakefake',
+    //         'xylvnKing'
+    //     ],
+    //     usersWithAdmin: [
+    //     ],
+    //     subcomponentsPublic: {
+    //         usersWith: true,
+    //         metadata: true,
+    //         audioPlayer: true,
+    //     },
+    // }).catch((error) => { console.log(error) })
+    // .then(
+    //     setDoc(doc(db, 'songs', 'songName5', 'fileVersions', 'fileVersionName1'), {
+    //         fileVersionName: 'fileVersionName1',
+    //         dateOfMostRecentEdit: '777',
+    //         revisionNote: 'this is a revision note for fileVersionName1',
+    //         downloadUrl: 'pathToStorageBucket'
+    //     })
+    // ).catch((error) => { console.log(error) })
+
+
+
+
+
+
+
     
     //     // song 6
 
@@ -289,10 +296,10 @@ export default async function handler(req, res) {
 
     // creating ARTISTS
 
-    await deleteDoc(doc(db, 'users', 'artistName1'))
-    await setDoc(doc(db, 'users', 'artistName1'), { // create users collection
+    await deleteDoc(doc(db, 'users', 'dsdxGrUhqVcdhLpEP3kSeSW6Axi2'))
+    await setDoc(doc(db, 'users', 'dsdxGrUhqVcdhLpEP3kSeSW6Axi2'), { // create users collection
         metadata: {
-            uid:'UIDfakefakefake',
+            uid:'dsdxGrUhqVcdhLpEP3kSeSW6Axi2',
             artistName: 'artistName1',
             email: 'fakeEmail@fakeEmail.com',
             realName: 'someName',
@@ -363,15 +370,14 @@ export default async function handler(req, res) {
                     dateOfMostRecentEdit: 90,
                 },
                 usersWithAccess: [ // array seems like the right choice
-                    'someUID1',
-                    'someUID2',
-                    'someUID3',
                     'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+                    'dsdxGrUhqVcdhLpEP3kSeSW6Axi2',
                     'UIDfakefakefake',
                     'xylvnKing'
                 ],
                 usersWithAdmin: [
                     'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+                    'dsdxGrUhqVcdhLpEP3kSeSW6Axi2',
                 ],
                 subcomponentsPublic: {
                     usersWith: true,
@@ -407,6 +413,63 @@ export default async function handler(req, res) {
     await updateDoc(fileVersionDocumentToUpdate2, {
         'metadata.fileVersionDocumentId': fileVersionDocumentRef2.id
     })
+
+
+
+    // song 7
+
+    const docRef7 = await addDoc(collection(db, 'songs'), {
+                metadata: {
+                    songName: 'songName7',
+                    dateOfMostRecentEdit: 92,
+                },
+                usersWithAccess: [ // array seems like the right choice
+                    'someUID1',
+                    'someUID2',
+                    'someUID3',
+                    'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+                    'dsdxGrUhqVcdhLpEP3kSeSW6Axi2',
+                    'UIDfakefakefake',
+                    'xylvnKing'
+                ],
+                usersWithAdmin: [
+                    'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+                    'somefakeuid'
+                ],
+                subcomponentsPublic: {
+                    usersWith: true,
+                    metadata: true,
+                    audioPlayer: true,
+                },
+    })
+
+    // then the document id has to be put into the metadata
+    const songDocToUpdate7 = doc(db, 'songs', docRef7.id)
+    await updateDoc(songDocToUpdate7, {
+        'metadata.documentId': docRef7.id
+    })
+    
+    const fileVersionDocumentRef71 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
+        fileVersionName: 'fileVersionName1',
+        dateOfMostRecentEdit: '666',
+        revisionNote: 'this is a revision note for fileVersionName1',
+        downloadUrl: 'pathToStorageBucket'
+    })
+    const fileVersionDocumentToUpdate71 = doc(db, 'songs', docRef7.id, 'fileVersions', fileVersionDocumentRef71.id)
+    await updateDoc(fileVersionDocumentToUpdate71, {
+        'metadata.fileVersionDocumentId': fileVersionDocumentRef71.id
+    })
+
+    const fileVersionDocumentRef72 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
+        fileVersionName: 'fileVersionName2',
+        dateOfMostRecentEdit: '777',
+        revisionNote: 'this is a revision note for fileVersionName2',
+        downloadUrl: 'pathToStorageBucket'
+    })
+    const fileVersionDocumentToUpdate72 = doc(db, 'songs', docRef7.id, 'fileVersions', fileVersionDocumentRef72.id)
+    await updateDoc(fileVersionDocumentToUpdate72, {
+        'metadata.fileVersionDocumentId': fileVersionDocumentRef72.id
+    })
     
     // setDoc(doc(db, 'songs', docRef.id, 'fileVersions', 'fileVersionName1'), {
     //     fileVersionName: 'fileVersionName1',
@@ -427,13 +490,34 @@ export default async function handler(req, res) {
             'songName4',
             'projectName1',
             'songName5',
-            docRef.id
+            docRef.id,
+            docRef7.id,
         ],
         songsWithAdmin: [
             'songName1',
             'songName3',
             'songName4',
-            docRef.id
+            docRef.id,
+            docRef7.id
+        ],
+    })
+    // console.log(docRef7.id)
+    const userDocToUpdate2 = doc(db, 'users', 'dsdxGrUhqVcdhLpEP3kSeSW6Axi2')
+    await updateDoc(userDocToUpdate2, {
+        songsAuthorizedOn: [
+            'songName1',
+            'songName3',
+            'songName4',
+            'projectName1',
+            'songName5',
+            docRef.id,
+            docRef7.id,
+        ],
+        songsWithAdmin: [
+            'songName1',
+            'songName3',
+            'songName4',
+            docRef.id,
         ],
     })
     // console.log('yeah')

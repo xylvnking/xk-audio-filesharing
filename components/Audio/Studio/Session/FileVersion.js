@@ -7,7 +7,6 @@ export default function FileVersion(props) {
     // if this logic won't be reused anywhere, do i bother making it into a hook?
     // console.log(props.songDocumentId)
     const [mostRecentFileVersion, allFileVersions, updateRevisionNote] = useFileVersions(props.songDocumentId)
-    console.log(mostRecentFileVersion)
 
     const handleTyping = (text) => {
         updateRevisionNote(text)
@@ -18,6 +17,7 @@ export default function FileVersion(props) {
         mostRecentFileVersion &&
         <div className='simpleBorder'>
             {/* <h4>{props.songName}</h4> */}
+            <p><em>FileVersion.js</em></p>
             <h5>{mostRecentFileVersion.metadata.fileVersionName}</h5>
             <audio controls></audio>
             <br />

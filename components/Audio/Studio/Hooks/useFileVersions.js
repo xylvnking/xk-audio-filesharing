@@ -53,12 +53,13 @@ export const useFileVersions = (songDocumentId) => {
 
                     const fileVersionDocumentReference = doc(db, 'songs', songDocumentId, 'fileVersions', currentFileVersion.metadata.fileVersionDocumentId)
                     
-                    const functionTest = (textToUpdateRevisionNoteWith) => {
+                    const updateRevisionNote = (textToUpdateRevisionNoteWith) => {
+                        
                         clearTimeout(revisionTypingTimer)
                         
                         revisionTypingTimer = setTimeout(() => {
                             updateDoc(fileVersionDocumentReference, {
-                                revisionNote: textToUpdateRevisionNoteWith,
+                                'metadata.revisionNote': textToUpdateRevisionNoteWith,
                             }).catch((error) => {
                                 alert(`the document you're trying to edit has been deleted since you loaded the page`)
                             })
@@ -66,7 +67,7 @@ export const useFileVersions = (songDocumentId) => {
                        
                     }
                     
-                    temporaryFileVersionArrayToSetToState.push(functionTest)
+                    temporaryFileVersionArrayToSetToState.push(updateRevisionNote)
                 } else {
                     // temporaryFileVersionArrayToSetToState.push()
                 }

@@ -24,7 +24,7 @@ export default function AddFileVersion(props) {
             metadata: {
                 fileVersionName: fileVersionName,
                 // dateOfMostRecentEdit: '666',
-                revisionNote: `this is a revision note for ${fileVersionName}`,
+                revisionNote: `this is a revision note for: ${fileVersionName}`,
                 downloadUrl: 'pathToStorageBucket'
             }
         })
@@ -45,7 +45,8 @@ export default function AddFileVersion(props) {
 
     return (
         <div>
-            <form onSubmit={addFileVersion}>
+            <form onSubmit={addFileVersion} className='simpleBorder'>
+                <p><em>addFileVersion.js</em></p>
 
                 <label htmlFor='fileSelectionButton'>fileSelectionButton</label>
                 <input id='fileSelectionButton' type='file'></input>

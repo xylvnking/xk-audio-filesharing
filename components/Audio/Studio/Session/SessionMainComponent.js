@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, provider } from '../../../../firebase/firebase-config'
 import FileVersion from './FileVersion'
 import AddFileVersion from './AddFileVersion'
+import AdminEditUsers from './AdminEditUsers'
 
 /*
 
@@ -82,8 +83,15 @@ export default function SessionMainComponent(props) {
                 </ul>
             </details>
 
+            {
+                userRole == 'admin' &&
+                <AdminEditUsers allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/>
+            }
+
             <AddFileVersion allSongData={allSongData} />
             <FileVersion songName={props.songName} userRole={userRole} songDocumentId={metadata.documentId}/>
+
+            
             {/* <FileVersion songName={metadata.songName} userRole={userRole}/> */}
             {/* <h1>ye</h1> */}
 
