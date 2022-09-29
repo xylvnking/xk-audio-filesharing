@@ -32,7 +32,7 @@ export default function StudioHomeComponent() {
         }
     }, [userAuth])
 
-    console.log(allSongData)
+    
 
 
     return (

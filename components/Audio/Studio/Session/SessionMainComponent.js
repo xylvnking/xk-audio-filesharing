@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 
 import { auth, provider } from '../../../../firebase/firebase-config'
 import FileVersion from './FileVersion'
+import AddFileVersion from './AddFileVersion'
 
 /*
 
@@ -30,11 +31,11 @@ import FileVersion from './FileVersion'
 // main component rendered from /audio/studio/session/song/[...songSession].js
 export default function SessionMainComponent(props) {
 
-    console.log(props.songName)
+    // console.log(props.songName)
 
     const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
+    // console.log(usersWithAccess)
 
-    
     
 
     // I need to hold in state whether it's an admin or just somebody with access logged in - 
@@ -76,11 +77,13 @@ export default function SessionMainComponent(props) {
                     <li><strong>metadata</strong></li>
                     {/* <li>{metadata.projectName}</li> */}
                     <li>{metadata.songName}</li>
-                    <li>{metadata.dateOfMostRecentEdit}</li>
+                    {/* <li>{metadata.dateOfMostRecentEdit.toLocaleString()}</li> */}
+                    <li>{Date(metadata.dateOfMostRecentEdit.seconds)}</li>
                 </ul>
             </details>
 
-            <FileVersion songName={props.songName} userRole={userRole}/>
+            <AddFileVersion allSongData={allSongData} />
+            <FileVersion songName={props.songName} userRole={userRole} songDocumentId={metadata.documentId}/>
             {/* <FileVersion songName={metadata.songName} userRole={userRole}/> */}
             {/* <h1>ye</h1> */}
 

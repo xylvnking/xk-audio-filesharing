@@ -15,6 +15,8 @@ This is my passion project, because I'm going to be the most active user.
 
 [might not need for a while, but an npm package promising video conferencing](https://www.npmjs.com/package/@videosdk.live/react-sdk)
 
+[might use this for dates later because I find them annoying to deal with](https://www.npmjs.com/package/date-fns)
+
 # so ref
 
 [how-to-query-within-an-array-of-object-in-firestore](https://stackoverflow.com/a/70812323/19101255)

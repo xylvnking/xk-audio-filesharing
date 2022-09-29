@@ -9,22 +9,25 @@ import { db, auth } from '../../../../firebase/firebase-config';
 
 let revisionTypingTimer
 
-export const useFileVersions = (songName) => {
+export const useFileVersions = (songDocumentId) => {
 
     const [fileVersionData, setFileVersionData] = useState(null) // could this be a ref? yes right? it doesn't need to rerender anything, there's no ui here
 
     useEffect(() => {
-        if (auth, songName) { // require official auth here makes it so that they can only access songs they're authorized on anyways according to security rules
+        if (auth, songDocumentId) { // require official auth here makes it so that they can only access songs they're authorized on anyways according to security rules
+            
             const getFileVersionDataFromFirebase = async () => {
 
                 let fileVersionsExist = false
 
                 let temporaryFileVersionsArray = []
-                const fileVersionsSnapshot = await getDocs(collection(db, 'songs', songName, 'fileVersions'))
+                const fileVersionsSnapshot = await getDocs(collection(db, 'songs', songDocumentId, 'fileVersions'))
                 fileVersionsSnapshot.forEach((fileVersion) => {
                     // console.log('file versions exist')
                     fileVersionsExist = true
                     temporaryFileVersionsArray.push(fileVersion.data())
+
+                    // console.log(fileVersion.id)
                 })
                 
                 // this is to return an array containing the most current file version 
@@ -47,12 +50,8 @@ export const useFileVersions = (songName) => {
                 // this hook also returns this function, which updates the revision not for the most recent file version
                 
                 if (fileVersionsExist) {
-                    
-                    
-                    
-                    // console.log(temp)
-                    const fileVersionDocumentReference = doc(db, 'songs', songName, 'fileVersions', currentFileVersion.fileVersionName)
-                    
+
+                    const fileVersionDocumentReference = doc(db, 'songs', songDocumentId, 'fileVersions', currentFileVersion.metadata.fileVersionDocumentId)
                     
                     const functionTest = (textToUpdateRevisionNoteWith) => {
                         clearTimeout(revisionTypingTimer)
@@ -78,7 +77,7 @@ export const useFileVersions = (songName) => {
             }
             getFileVersionDataFromFirebase()
         }
-    }, [auth, songName])
+    }, [auth, songDocumentId])
 
     if (fileVersionData) {
         return fileVersionData

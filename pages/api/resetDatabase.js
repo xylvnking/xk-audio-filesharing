@@ -355,7 +355,7 @@ export default async function handler(req, res) {
 
 
 
-
+    // song 6
 
     const docRef = await addDoc(collection(db, 'songs'), {
                 metadata: {
@@ -392,11 +392,20 @@ export default async function handler(req, res) {
         revisionNote: 'this is a revision note for fileVersionName1',
         downloadUrl: 'pathToStorageBucket'
     })
+    const fileVersionDocumentToUpdate1 = doc(db, 'songs', docRef.id, 'fileVersions', fileVersionDocumentRef.id)
+    await updateDoc(fileVersionDocumentToUpdate1, {
+        'metadata.fileVersionDocumentId': fileVersionDocumentRef.id
+    })
+
     const fileVersionDocumentRef2 = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
         fileVersionName: 'fileVersionName2',
         dateOfMostRecentEdit: '777',
         revisionNote: 'this is a revision note for fileVersionName2',
         downloadUrl: 'pathToStorageBucket'
+    })
+    const fileVersionDocumentToUpdate2 = doc(db, 'songs', docRef.id, 'fileVersions', fileVersionDocumentRef2.id)
+    await updateDoc(fileVersionDocumentToUpdate2, {
+        'metadata.fileVersionDocumentId': fileVersionDocumentRef2.id
     })
     
     // setDoc(doc(db, 'songs', docRef.id, 'fileVersions', 'fileVersionName1'), {

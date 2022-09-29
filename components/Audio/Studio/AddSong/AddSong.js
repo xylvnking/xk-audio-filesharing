@@ -18,26 +18,19 @@ export default function AddSong() {
 
     const addSongToFirebase = async (event) => {
         event.preventDefault()
-        // users with access, users with admin ( or maybe make this be set in studio since there's access to that data already and it isn't NEEDED for the upload and would be optional anyways)
-        // regex for google document rules (listed above)
 
-        // perform check to see if project name already exists 
-
-        // using song names as documents also might not work because what happens when two people use the same song name?
-            // you'd have to have a way to differentiate between the different songs using 
 
         const songName = event.target[0].value
         const projectName = event.target[2].value
         const dateOfMostRecentEdit = new Date()
+        // const dateOfMostRecentEdit = 789
 
         const uniqueSongNameForDocumentName = '?'
 
-
-        await setDoc(doc(db, 'songs', songName), {
+        const docRef = await addDoc(collection(db, 'songs'), {
             metadata: {
                 songName: songName,
                 dateOfMostRecentEdit: dateOfMostRecentEdit,
-                projectName: projectName
             },
             usersWithAccess: [
                 auth.currentUser.uid
@@ -49,6 +42,42 @@ export default function AddSong() {
 
             ]
         })
+        // then the document id of the document we just created has to be put into the metadata
+        const songDocToUpdate = doc(db, 'songs', docRef.id)
+        await updateDoc(songDocToUpdate, {
+            'metadata.documentId': docRef.id
+        })
+
+
+        // then the users document has to be updated 
+        // to update the array in the users doc, it must be copied locally and replaced since we can't push into an array on firebase
+        const tempsongsAuthorizedOnArray = []
+        const tempSongsWithAdminArray = []
+
+        const userDocumentReference = doc(db, 'users', auth.currentUser.uid)
+        const userDocumentReferenceSnapshot = await getDoc(userDocumentReference)
+        if (userDocumentReferenceSnapshot.exists()) { // i think this check is redundant since only authorized users see this page anyways?
+
+            tempsongsAuthorizedOnArray = userDocumentReferenceSnapshot.data().songsAuthorizedOn
+            tempSongsWithAdminArray = userDocumentReferenceSnapshot.data().songsWithAdmin
+            tempsongsAuthorizedOnArray.push(docRef.id)
+            tempSongsWithAdminArray.push(docRef.id)
+            
+            const userDocToUpdate = doc(db, 'users', auth.currentUser.uid)
+            await updateDoc(userDocToUpdate, {
+                songsAuthorizedOn: tempsongsAuthorizedOnArray,
+                songsWithAdmin: tempSongsWithAdminArray
+            })
+        }
+        
+
+
+
+
+        // don't think i need to create file versions subcollection yet? depends on whether i'm letting them upload songs here or not
+
+        window.location.href=`/audio/studio/session/song/${docRef.id}`
+
 
     }
 

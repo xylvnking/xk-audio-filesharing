@@ -9,7 +9,7 @@ import ProfileMainComponent from '../../components/Audio/Profile/ProfileMainComp
 export default function Profile() {
     return (
         <AudioLayout>
-            <ProfileMainComponent />
+            <h1>this is where the user will manage their info</h1>
         </AudioLayout>
     )
 }
