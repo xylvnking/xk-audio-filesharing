@@ -10,6 +10,7 @@ export default function FileVersion(props) {
     const handleTyping = (text) => {
         updateRevisionNote(text)
     }
+    // console.log('why')
 
     return (
         mostRecentFileVersion &&
@@ -35,12 +36,14 @@ export default function FileVersion(props) {
                 {
                     // console.log(allFileVersions)
                     allFileVersions.map((fileVersion, index) => {
-                        return (
-                            <ul key={index} className={styles.pastFileVersionsListItem}>
-                                <li>{fileVersion.fileVersionName}</li>        
-                                <li>{fileVersion.revisionNote}</li>  
-                            </ul>
-                            )
+                        if (index !== allFileVersions.length - 1) { // removes most recent one since it's displayed on its own above
+                            return (
+                                <ul key={index} className={styles.pastFileVersionsListItem}>
+                                    <li>{fileVersion.fileVersionName}</li>        
+                                    <li>{fileVersion.revisionNote}</li>  
+                                </ul>
+                                )
+                        }
                         })
                         // allFileVersions
                     }

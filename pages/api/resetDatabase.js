@@ -64,7 +64,7 @@ export default async function handler(req, res) {
         metadata: {
             songName: 'songName1',
             songField1: 'someValue1',
-            songField2: 'someValue2',
+            documentId: 'songName1',
             dateOfMostRecentEdit: 5,
             projectName: 'projectName1',
         },
@@ -107,8 +107,7 @@ export default async function handler(req, res) {
     await setDoc(doc(db, 'songs', 'songName2'), { // create songs collection
         metadata: {
             songName: 'songName2',
-            songField1: 'someValue1',
-            songField2: 'someValue2',
+            documentId: 'songName2',
             dateOfMostRecentEdit: 3,
             projectName: 'projectName2'
         },
@@ -143,7 +142,7 @@ export default async function handler(req, res) {
         metadata: {
             songName: 'songName3',
             songField1: 'someValue1',
-            songField2: 'someValue2',
+            documentId: 'songName3',
             dateOfMostRecentEdit: 1,
             projectName: 'projectName1',
         },
@@ -178,8 +177,7 @@ export default async function handler(req, res) {
     await setDoc(doc(db, 'songs', 'songName4'), { // create songs collection
         metadata: {
             songName: 'songName4',
-            songField1: 'someValue1',
-            songField2: 'someValue2',
+            documentId: 'songName4',
             dateOfMostRecentEdit: 90,
         },
         usersWithAccess: [ // array seems like the right choice
@@ -215,8 +213,7 @@ export default async function handler(req, res) {
     await setDoc(doc(db, 'songs', 'songName5'), { // create songs collection
         metadata: {
             songName: 'songName5',
-            songField1: 'someValue1',
-            songField2: 'someValue2',
+            documentId: 'songName5',
             dateOfMostRecentEdit: 90,
         },
         usersWithAccess: [ // array seems like the right choice
@@ -244,6 +241,46 @@ export default async function handler(req, res) {
         })
     ).catch((error) => { console.log(error) })
     
+    //     // song 6
+
+    // await deleteDoc(doc(db, 'songs', 'songName6---doc1664465789'))
+    // await setDoc(doc(db, 'songs', 'songName5'), { // create songs collection
+    //     metadata: {
+    //         songName: 'songName5',
+    //         songField1: 'someValue1',
+    //         songField2: 'someValue2',
+    //         dateOfMostRecentEdit: 90,
+    //     },
+    //     usersWithAccess: [ // array seems like the right choice
+    //         'someUID1',
+    //         'someUID2',
+    //         'someUID3',
+    //         'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+    //         'UIDfakefakefake',
+    //         'xylvnKing'
+    //     ],
+    //     usersWithAdmin: [
+    //     ],
+    //     subcomponentsPublic: {
+    //         usersWith: true,
+    //         metadata: true,
+    //         audioPlayer: true,
+    //     },
+    // }).catch((error) => { console.log(error) })
+    // .then(
+    //     setDoc(doc(db, 'songs', 'songName5', 'fileVersions', 'fileVersionName1'), {
+    //         fileVersionName: 'fileVersionName1',
+    //         dateOfMostRecentEdit: '777',
+    //         revisionNote: 'this is a revision note for fileVersionName1',
+    //         downloadUrl: 'pathToStorageBucket'
+    //     })
+    // ).catch((error) => { console.log(error) })
+
+
+
+
+
+
 
 
 
@@ -290,6 +327,7 @@ export default async function handler(req, res) {
             artistName: 'xylvnKing',
             email: 'xylvnking@gmail.com',
             realName: 'Dylan King',
+            
         },
         songsAuthorizedOn: [
             'songName1',
@@ -315,5 +353,87 @@ export default async function handler(req, res) {
 
 
 
-    res.status(200).json({ name: 'it has been done' })
+
+
+
+
+    const docRef = await addDoc(collection(db, 'songs'), {
+                metadata: {
+                    songName: 'songName6',
+                    dateOfMostRecentEdit: 90,
+                },
+                usersWithAccess: [ // array seems like the right choice
+                    'someUID1',
+                    'someUID2',
+                    'someUID3',
+                    'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+                    'UIDfakefakefake',
+                    'xylvnKing'
+                ],
+                usersWithAdmin: [
+                    'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
+                ],
+                subcomponentsPublic: {
+                    usersWith: true,
+                    metadata: true,
+                    audioPlayer: true,
+                },
+    })
+
+    // then the document id has to be put into the metadata
+    const songDocToUpdate = doc(db, 'songs', docRef.id)
+    await updateDoc(songDocToUpdate, {
+        'metadata.documentId': docRef.id
+    })
+    
+    const fileVersionDocumentRef = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
+        fileVersionName: 'fileVersionName1',
+        dateOfMostRecentEdit: '666',
+        revisionNote: 'this is a revision note for fileVersionName1',
+        downloadUrl: 'pathToStorageBucket'
+    })
+    const fileVersionDocumentRef2 = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
+        fileVersionName: 'fileVersionName2',
+        dateOfMostRecentEdit: '777',
+        revisionNote: 'this is a revision note for fileVersionName2',
+        downloadUrl: 'pathToStorageBucket'
+    })
+    
+    // setDoc(doc(db, 'songs', docRef.id, 'fileVersions', 'fileVersionName1'), {
+    //     fileVersionName: 'fileVersionName1',
+    //     dateOfMostRecentEdit: '777',
+    //     revisionNote: 'this is a revision note for fileVersionName1',
+    //     downloadUrl: 'pathToStorageBucket'
+    // })
+    
+
+
+
+
+    const userDocToUpdate = doc(db, 'users', 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1')
+    await updateDoc(userDocToUpdate, {
+        songsAuthorizedOn: [
+            'songName1',
+            'songName3',
+            'songName4',
+            'projectName1',
+            'songName5',
+            docRef.id
+        ],
+        songsWithAdmin: [
+            'songName1',
+            'songName3',
+            'songName4',
+            docRef.id
+        ],
+    })
+    // console.log('yeah')
+    // console.log(docRef.id)
+
+
+
+
+
+
+    res.status(200).json({ databaseStatus: 'RESET' })
 }

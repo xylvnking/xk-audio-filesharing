@@ -14,7 +14,15 @@ export default function StudioSongPreview(props) {
     useEffect(() => {
 
         const getUserData = async () => {
-            const result = await getUsersWithAccessFromSpecificSong(props.songData.metadata.songName)
+
+
+            
+            // const result = await getUsersWithAccessFromSpecificSong(props.songData.metadata.songName)
+            const result = await getUsersWithAccessFromSpecificSong(props.songData.metadata.documentId)
+
+
+
+            // console.log(props.songData.metadata.songName, '=>', result)
             setEmailsOfUsersWithAccess(result.emailsOfUsersWithAccess)
             setEmailsOfUsersWithAdmin(result.emailsOfUsersWithAdmin)
 
@@ -30,7 +38,7 @@ export default function StudioSongPreview(props) {
 
     const handleClick = () => {
         // console.log('ye')
-        window.location.href=`/audio/studio/session/song/${props.songData.metadata.songName}`;
+        window.location.href=`/audio/studio/session/song/${props.songData.metadata.documentId}`;
         
     }
     

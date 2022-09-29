@@ -30,11 +30,12 @@ import FileVersion from './FileVersion'
 // main component rendered from /audio/studio/session/song/[...songSession].js
 export default function SessionMainComponent(props) {
 
-    const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
-    // const userRole = useRole(props.songName)
+    console.log(props.songName)
 
-    // console.log(allSongData.usersWithAccess)
-    // const songData = useSongData(props.songName) // destructuring isn't required, but it feels better
+    const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
+
+    
+    
 
     // I need to hold in state whether it's an admin or just somebody with access logged in - 
         // because that determines whether or not some things can happen/render
@@ -50,7 +51,7 @@ export default function SessionMainComponent(props) {
             }
 
             <h1>Session</h1>
-            <h2>{props.songName}</h2>
+            <h2>{metadata.songName}</h2>
             <h2>{userRole}</h2>
 
             <details style={{cursor: 'pointer'}}>
@@ -73,20 +74,23 @@ export default function SessionMainComponent(props) {
                 </ul>
                 <ul>
                     <li><strong>metadata</strong></li>
-                    <li>{metadata.projectName}</li>
+                    {/* <li>{metadata.projectName}</li> */}
                     <li>{metadata.songName}</li>
                     <li>{metadata.dateOfMostRecentEdit}</li>
                 </ul>
             </details>
 
             <FileVersion songName={props.songName} userRole={userRole}/>
+            {/* <FileVersion songName={metadata.songName} userRole={userRole}/> */}
+            {/* <h1>ye</h1> */}
 
-            {/* <h1>reminders / tasks</h1>
-            <h1>audio player</h1>
-            <h1>live chat</h1> */}
 
         </div>
         :
         <h1>LOADING</h1>
-    )
-}
+        )
+    }
+    
+    // <h1>reminders / tasks</h1>
+    // <h1>audio player</h1>
+    // <h1>live chat</h1>

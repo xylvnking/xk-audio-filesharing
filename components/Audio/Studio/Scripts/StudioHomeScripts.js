@@ -29,23 +29,13 @@ export const getAllSongDataFromFirebase = async (userUID) => {
 
 
 // called from each StudioSongPreview component
-export const getUsersWithAccessFromSpecificSong = async (songName) => {
 
-    // because how is the client request going to be able to access the user documents which aren't for itself?
-    // for the song documents it's easy because you can only see the documents which your uid is listed as
-    // but for this query, it won't work the same because clients wouldn't have access to other clients data.
+export const getUsersWithAccessFromSpecificSong = async (songDocumentId) => {
 
-    // i could make a security rule which gives team members access to each others data? 
-    // i'm not storing anything sensitive so that's fine?
+    
+    // console.log(songName)
 
-    // REMEMBER :: - - - - adding and removing data required by permissions is important
-        // when a song is uploadead or deleted, make sure every document which needs to be updated, is.
-
-
-    // , where('teamMembers', 'array-contains', userUID)) - - - - this only matters for security rules? 
-        // like, teamMembers will be given permission thru security rules, so I don't need to include it in the query.
-        // could also call is like 'network' or something
-
+    
     const everyUserWithAccessToSpecificSong = {
         allUsersData: [],
         emailsOfUsersWithAccess: [],
@@ -58,8 +48,8 @@ export const getUsersWithAccessFromSpecificSong = async (songName) => {
 
     const usersRef = collection(db, 'users');
 
-    const userQueryForSongsAuthorizedOn = query(usersRef, where('songsAuthorizedOn', 'array-contains', songName))
-    const userQueryForSongsWithAdmin = query(usersRef, where('songsWithAdmin', 'array-contains', songName))
+    const userQueryForSongsAuthorizedOn = query(usersRef, where('songsAuthorizedOn', 'array-contains', songDocumentId))
+    const userQueryForSongsWithAdmin = query(usersRef, where('songsWithAdmin', 'array-contains', songDocumentId))
 
     const userQueryForSongsAuthorizedOnSnapshot = await getDocs(userQueryForSongsAuthorizedOn)
     const userQueryForSongsWithAdminSnapshot = await getDocs(userQueryForSongsWithAdmin)

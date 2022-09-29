@@ -1,4 +1,5 @@
 
+import Link from 'next/link'
 import React, { useState, useEffect, useContext } from 'react'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, provider } from '../../../firebase/firebase-config'
@@ -31,7 +32,7 @@ export default function StudioHomeComponent() {
         }
     }, [userAuth])
 
-
+    console.log(allSongData)
 
 
     return (
@@ -42,6 +43,9 @@ export default function StudioHomeComponent() {
             {
                 !userAuthIsLoading && !userAuth && <button onClick={signInWithGoogle}> Sign In</button>
             }
+            <Link href='/audio/studio/addsong'>
+                <button>ADD SONG</button>
+            </Link>
 
             <h1>StudioHomeComponent</h1>
             {
@@ -56,11 +60,10 @@ export default function StudioHomeComponent() {
                     {
                         allSongData &&
                         allSongData.map((songData, index) => {
-                            // return <h1>{songData.metadata.songName}</h1>
+                            
+                            // i need to pass in the song DOCUMENT id here
                             return <StudioSongPreview key={index} songData={songData} userAuth={userAuth}/> // should be auth?
-                            // return <StudioSongPreview key={index} songData={songData}/>
-                            // cause then within each one, you could access what you needed with
-                            // props.songData.metadata  or  props.songData.usersWithAccess   etc
+                            
 
                         })
                     }
