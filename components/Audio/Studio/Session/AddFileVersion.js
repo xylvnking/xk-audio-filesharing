@@ -22,19 +22,19 @@ export default function AddFileVersion(props) {
 
         const fileVersionDocumentRef = await addDoc(collection(db, 'songs', songDocumentId, 'fileVersions'), {
             fileVersionName: fileVersionName,
-            // dateOfMostRecentEdit: '666',
+            dateOfMostRecentEdit: '999',
             revisionNote: `this is a revision note for: ${fileVersionName}`,
             downloadUrl: 'pathToStorageBucket',
-            metadata: {
-                fileVersionName: fileVersionName,
-                // dateOfMostRecentEdit: '666',
-                revisionNote: `this is a revision note for: ${fileVersionName}`,
-                downloadUrl: 'pathToStorageBucket'
-            }
+            // metadata: {
+            //     fileVersionName: fileVersionName,
+            //     // dateOfMostRecentEdit: '666',
+            //     revisionNote: `this is a revision note for: ${fileVersionName}`,
+            //     downloadUrl: 'pathToStorageBucket'
+            // }
         })
         const fileVersionDocumentToUpdate = doc(db, 'songs', songDocumentId, 'fileVersions', fileVersionDocumentRef.id)
         await updateDoc(fileVersionDocumentToUpdate, {
-            'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
+            'fileVersionDocumentId': fileVersionDocumentRef.id,
             // 'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
         })
 
@@ -58,7 +58,7 @@ export default function AddFileVersion(props) {
                 <br />
 
                 <label htmlFor='fileVersionTemp'>file version temp (see AddFileVersion.js)</label>
-                <input type='hidden' id='fileVersionTemp' defaultValue='some file version name' required></input>
+                <input type='text' id='fileVersionTemp' defaultValue='some file version name' required></input>
 
                 <button type='submit'>submit</button>
             </form>

@@ -10,7 +10,7 @@ export default function FileVersion(props) {
     // console.log(allFileVersions)
 
     const handleTyping = (text) => {
-        console.log(text)
+        // console.log(text)
         updateRevisionNote(text)
     }
     // console.log('why')
