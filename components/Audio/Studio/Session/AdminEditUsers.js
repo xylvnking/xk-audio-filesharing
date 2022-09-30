@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styles from './AdminEditUsers.module.scss'
-import { auth } from '../../../../firebase/firebase-config'
+import { db, auth } from '../../../../firebase/firebase-config'
+import { collection, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
 
-{/* <AdminEditUsers allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/> */}
+{/* <AdminEditUsers allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/> */ }
 
 /*
 
@@ -11,43 +12,62 @@ props.allSongData.usersWithAccess == array of UIDs of users with access (same wi
 
 */
 
-
+// rendered within SessionMainComponent.js
 export default function AdminEditUsers(props) {
 
-    // console.log(props.usersWithAdmin)
+    // console.log(props.usersWithAccess)
 
-    // console.log(props.allSongData.usersWithAccess)
-    // console.log(props.allSongData.usersWithAdmin)
+    const songDocumentId = useRef(props.allSongData.metadata.documentId)
 
-    
+    const updatePriviledge = async (action, uidOfUserToRemove) => {
 
-    const updatePriviledge = (action, uidOfUserToRemove) => {
-        // console.log(action, uid)
+        // create reference to song document
+        const songDocumentReference = doc(db, 'songs', songDocumentId.current)
+        // get snapshot of data
+        const songDocumentSnapshot = await getDoc(songDocumentReference)
 
-        // get the arrays for the song, clone them locally etc
-        // alter the arrays, (probably splice or something at the index which contains the value of the uid)
-        // update the documents with the altered arrays
+        // create local arrays
+        let usersWithAccessLocal
+        let usersWithAdminLocal
 
-        // update the user doc
+        // if the document exists, perform actions
+        if (songDocumentSnapshot.exists()) {
 
-        // update the song doc
+            // clone the song's permission arrays locally
+            usersWithAccessLocal = songDocumentSnapshot.data().usersWithAccess
+            usersWithAdminLocal = songDocumentSnapshot.data().usersWithAdmin
 
+            const indexToRemoveFromAccess = usersWithAccessLocal.indexOf(uidOfUserToRemove)
+            const indexToRemoveFromAdmin = usersWithAdminLocal.indexOf(uidOfUserToRemove)
 
-
-
+            // remove priviledges from local array
+            if (action == 'removeAccess') {
+                usersWithAccessLocal.splice(indexToRemoveFromAccess, 1)
+                // if they have admin access also, remove that
+                if (indexToRemoveFromAdmin > -1) {
+                    usersWithAdminLocal.splice(indexToRemoveFromAdmin, 1)
+                }
+            } else if (action == 'removeAdmin') {
+                usersWithAdminLocal.splice(indexToRemoveFromAdmin, 1)
+            }
+            await updateDoc(songDocumentReference, {
+                'usersWithAccess': usersWithAccessLocal,
+                'usersWithAdmin': usersWithAdminLocal,
+            })
+        }
     }
 
-  return (
-    <div className='simpleBorder'>
-        <p><em>AdminEditUsers.js</em></p>
-        <button>IMPLEMENT ADD USER</button>
-        {
-            props.usersWithAccess.map((user, index) => {
-
-                // props.usersWithAccess[index].metadata.uid !== auth.currentUser.uid && // USE THIS TO REMOVE THE CURRENT USER FROM OPTIONS LIST SO THEY DONT ACCIDENTALLY REMOVE THEMSELVES - MAYBE THAT SHOULD ONLY BE DONE IN PROFILE MENU OR SOMETHING
-
-
+    return (
+        <div className='simpleBorder'>
+            <p><em>AdminEditUsers.js</em></p>
+            <button>IMPLEMENT ADD USER</button>
+            {
+                props.usersWithAccess.map((user, index) => {
+                    
+                    
+                    
                     return ( // could make this it's own little user preview component, because only seeing email is a bit weird. a little id card is probably best
+                    props.usersWithAccess[index].metadata.uid !== auth.currentUser.uid && // USE THIS TO REMOVE THE CURRENT USER FROM OPTIONS LIST SO THEY DONT ACCIDENTALLY REMOVE THEMSELVES - MAYBE THAT SHOULD ONLY BE DONE IN PROFILE MENU OR SOMETHING
                         <ul key={index} className={styles.listItem}>
                             <li>{user.metadata.email}</li>
 
@@ -62,10 +82,10 @@ export default function AdminEditUsers(props) {
 
                         </ul>
                     )
-                
-            })
-        }
 
-    </div>
-  )
+                })
+            }
+
+        </div>
+    )
 }

@@ -35,7 +35,9 @@ export default function SessionMainComponent(props) {
     // console.log(props.songName)
 
     const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
+    // console.log(userRole)
     // console.log(usersWithAccess)
+    // console.log(allSongData)
 
     
 
@@ -85,7 +87,14 @@ export default function SessionMainComponent(props) {
 
             {
                 userRole == 'admin' &&
-                <AdminEditUsers allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/>
+
+                <AdminEditUsers 
+                    allSongData={allSongData} 
+
+                    // these should return the correct data, not rely on the component to sort it. one source of truth.
+                    usersWithAccess={usersWithAccess} 
+                    usersWithAdmin={usersWithAdmin}
+                />
             }
 
             <AddFileVersion allSongData={allSongData} />
@@ -98,7 +107,7 @@ export default function SessionMainComponent(props) {
 
         </div>
         :
-        <h1>LOADING</h1>
+        <h1>LOADING (or u dont have permission)</h1>
         )
     }
     

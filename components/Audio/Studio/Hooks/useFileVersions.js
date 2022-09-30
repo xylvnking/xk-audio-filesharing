@@ -58,8 +58,9 @@ export const useFileVersions = (songDocumentId) => {
                         clearTimeout(revisionTypingTimer)
                         
                         revisionTypingTimer = setTimeout(() => {
+                            // console.log('updating')
                             updateDoc(fileVersionDocumentReference, {
-                                'metadata.revisionNote': textToUpdateRevisionNoteWith,
+                                'revisionNote': textToUpdateRevisionNoteWith,
                             }).catch((error) => {
                                 alert(`the document you're trying to edit has been deleted since you loaded the page`)
                             })

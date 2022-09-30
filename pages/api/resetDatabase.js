@@ -1,12 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 // this call needs to reset the firebase database 
-import { db } from "../../firebase/firebase-config";
+import { db, auth } from "../../firebase/firebase-config";
 import { collection, addDoc, doc, getDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore"; 
 import { fakeData } from "../../fakeData";
 
 export default async function handler(req, res) {
-
+    console.log(auth)
 
     // creating PROJECTS
 
@@ -520,8 +520,6 @@ export default async function handler(req, res) {
             docRef.id,
         ],
     })
-    // console.log('yeah')
-    // console.log(docRef.id)
 
 
 

@@ -31,11 +31,19 @@ const resetFirebase = () => {
     console.log(x)
   })
 }
+const resetDataBypass = () => {
+    fetch('/api/resetDataBypass')
+    .then((res) => res.json())
+    .then((x) => {
+    console.log(x)
+  })
+}
 
 export default function AudioDevUtilities() {
   return (
     <>
     <button onClick={resetFirebase}>Reset Firebase</button>
+    <button onClick={resetDataBypass}>Reset resetDataBypass</button>
 
     </>
   )
