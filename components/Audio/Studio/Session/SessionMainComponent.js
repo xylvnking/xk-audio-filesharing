@@ -21,10 +21,6 @@ import AdminEditUsers from './AdminEditUsers'
             - and i need to make sure everything is backed up somewhere just in case but I was going to do that anyways
     I think using context here might be smart, because with the file versions or something there might end up being a lot of nesting
 
-
-
-    
-    custom song data fetching hook?
     
 
 */
@@ -32,17 +28,7 @@ import AdminEditUsers from './AdminEditUsers'
 // main component rendered from /audio/studio/session/song/[...songSession].js
 export default function SessionMainComponent(props) {
 
-    // console.log(props.songName)
-
     const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
-    // console.log(userRole)
-    // console.log(usersWithAccess)
-    // console.log(allSongData)
-
-    
-
-    // I need to hold in state whether it's an admin or just somebody with access logged in - 
-        // because that determines whether or not some things can happen/render
     
     return (
         props.songName && allSongData ? // this stops the entire component from rendering unless the router.query has been put into state

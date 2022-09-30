@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, provider } from '../../../firebase/firebase-config'
 import { signInWithGoogle, signUserOut } from '../../Audio/AuthFolder/Auth'
+import styles from './Styles/StudioSongPreview.module.scss'
 
 import {
     getAllSongDataFromFirebase
@@ -20,6 +21,8 @@ export default function StudioHomeComponent() {
     const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
     const [allSongData, setAllSongData] = useState(null) // array
 
+
+    // this could be in a custom hook?
     useEffect(() => {
         
         if (userAuth) {
@@ -62,7 +65,16 @@ export default function StudioHomeComponent() {
                         allSongData.map((songData, index) => {
                             
                             // i need to pass in the song DOCUMENT id here
-                            return <StudioSongPreview key={index} songData={songData} userAuth={userAuth}/> // should be auth?
+                            // return <StudioSongPreview key={index} songData={songData} userAuth={userAuth}/> // should be auth?
+                            return (
+                                // <h3 className={styles.container} key={index}>{songData.metadata.songName}</h3>
+                                    <Link key={index} href={'/audio/studio/session/song/' + songData.metadata.documentId}>
+                                        <div className={styles.container} >
+                                            {songData.metadata.songName}
+                                        </div>
+                                    </Link>
+                                
+                            )
                             
 
                         })

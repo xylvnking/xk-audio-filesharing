@@ -15,7 +15,7 @@ props.allSongData.usersWithAccess == array of UIDs of users with access (same wi
 // rendered within SessionMainComponent.js
 export default function AdminEditUsers(props) {
 
-    // console.log(props.usersWithAccess)
+    // console.log(props)
 
     const songDocumentId = useRef(props.allSongData.metadata.documentId)
 
@@ -54,6 +54,7 @@ export default function AdminEditUsers(props) {
                 'usersWithAccess': usersWithAccessLocal,
                 'usersWithAdmin': usersWithAdminLocal,
             })
+            window.location.href=`/audio/studio/session/song/${props.allSongData.metadata.documentId}`;
         }
     }
 

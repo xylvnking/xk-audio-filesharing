@@ -28,41 +28,32 @@ export const getAllSongDataFromFirebase = async (userUID) => {
 }
 
 
-// called from each StudioSongPreview component
-
+// called from each StudioSongPreview component, but that's not in use anymore
 export const getUsersWithAccessFromSpecificSong = async (songDocumentId) => {
 
-    
-    // console.log(songName)
+    // const everyUserWithAccessToSpecificSong = {
+    //     allUsersData: [],
+    //     emailsOfUsersWithAccess: [],
+    //     emailsOfUsersWithAdmin: [],
+    // }
 
-    
-    const everyUserWithAccessToSpecificSong = {
-        allUsersData: [],
-        emailsOfUsersWithAccess: [],
-        emailsOfUsersWithAdmin: [],
-        // include more here if you need it later, 
-        // this is most convenient place to get it all if you want usernames or whatever
-        // otherwise you'll be digging through allUsersData for it somewhere else
+    // const usersRef = collection(db, 'users');
 
-    }
+    // const userQueryForSongsAuthorizedOn = query(usersRef, where('songsAuthorizedOn', 'array-contains', songDocumentId))
+    // const userQueryForSongsWithAdmin = query(usersRef, where('songsWithAdmin', 'array-contains', songDocumentId))
 
-    const usersRef = collection(db, 'users');
+    // const userQueryForSongsAuthorizedOnSnapshot = await getDocs(userQueryForSongsAuthorizedOn)
+    // const userQueryForSongsWithAdminSnapshot = await getDocs(userQueryForSongsWithAdmin)
 
-    const userQueryForSongsAuthorizedOn = query(usersRef, where('songsAuthorizedOn', 'array-contains', songDocumentId))
-    const userQueryForSongsWithAdmin = query(usersRef, where('songsWithAdmin', 'array-contains', songDocumentId))
+    // userQueryForSongsAuthorizedOnSnapshot.forEach((user) => {
+    //     everyUserWithAccessToSpecificSong.allUsersData.push(user.data())
+    //     everyUserWithAccessToSpecificSong.emailsOfUsersWithAccess.push(user.data().metadata.email)
+    // })
 
-    const userQueryForSongsAuthorizedOnSnapshot = await getDocs(userQueryForSongsAuthorizedOn)
-    const userQueryForSongsWithAdminSnapshot = await getDocs(userQueryForSongsWithAdmin)
+    // userQueryForSongsWithAdminSnapshot.forEach((user) => {
+    //     everyUserWithAccessToSpecificSong.emailsOfUsersWithAdmin.push(user.data().metadata.email)
+    // })
 
-    userQueryForSongsAuthorizedOnSnapshot.forEach((user) => {
-        everyUserWithAccessToSpecificSong.allUsersData.push(user.data())
-        everyUserWithAccessToSpecificSong.emailsOfUsersWithAccess.push(user.data().metadata.email)
-    })
-
-    userQueryForSongsWithAdminSnapshot.forEach((user) => {
-        everyUserWithAccessToSpecificSong.emailsOfUsersWithAdmin.push(user.data().metadata.email)
-    })
-
-    return everyUserWithAccessToSpecificSong
+    // return everyUserWithAccessToSpecificSong
 
 }
