@@ -22,7 +22,7 @@ export default function AddFileVersion(props) {
 
         const fileVersionDocumentRef = await addDoc(collection(db, 'songs', songDocumentId, 'fileVersions'), {
             fileVersionName: fileVersionName,
-            dateOfMostRecentEdit: '999',
+            dateOfMostRecentEdit: new Date(),
             revisionNote: `this is a revision note for: ${fileVersionName}`,
             downloadUrl: 'pathToStorageBucket',
             // metadata: {
@@ -34,7 +34,7 @@ export default function AddFileVersion(props) {
         })
         const fileVersionDocumentToUpdate = doc(db, 'songs', songDocumentId, 'fileVersions', fileVersionDocumentRef.id)
         await updateDoc(fileVersionDocumentToUpdate, {
-            'fileVersionDocumentId': fileVersionDocumentRef.id,
+            'metadta.fileVersionDocumentId': fileVersionDocumentRef.id,
             // 'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
         })
 

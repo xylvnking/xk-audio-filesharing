@@ -394,7 +394,8 @@ export default async function handler(req, res) {
     
     const fileVersionDocumentRef = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
         fileVersionName: 'fileVersionName1',
-        dateOfMostRecentEdit: '666',
+        // dateOfMostRecentEdit: '666',
+        dateOfMostRecentEdit: new Date(),
         revisionNote: 'this is a revision note for fileVersionName1',
         downloadUrl: 'pathToStorageBucket'
     })
@@ -405,7 +406,8 @@ export default async function handler(req, res) {
 
     const fileVersionDocumentRef2 = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
         fileVersionName: 'fileVersionName2',
-        dateOfMostRecentEdit: '777',
+        // dateOfMostRecentEdit: '777',
+        dateOfMostRecentEdit: new Date(),
         revisionNote: 'this is a revision note for fileVersionName2',
         downloadUrl: 'pathToStorageBucket'
     })
@@ -451,7 +453,8 @@ export default async function handler(req, res) {
     
     const fileVersionDocumentRef71 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
         fileVersionName: 'fileVersionName1',
-        dateOfMostRecentEdit: '666',
+        // dateOfMostRecentEdit: '666',
+        dateOfMostRecentEdit: new Date(),
         revisionNote: 'this is a revision note for fileVersionName1',
         downloadUrl: 'pathToStorageBucket'
     })
@@ -462,7 +465,8 @@ export default async function handler(req, res) {
 
     const fileVersionDocumentRef72 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
         fileVersionName: 'fileVersionName2',
-        dateOfMostRecentEdit: '777',
+        // dateOfMostRecentEdit: '777',
+        dateOfMostRecentEdit: new Date(),
         revisionNote: 'this is a revision note for fileVersionName2',
         downloadUrl: 'pathToStorageBucket'
     })
