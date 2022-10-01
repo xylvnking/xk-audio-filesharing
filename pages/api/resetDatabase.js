@@ -303,6 +303,7 @@ export default async function handler(req, res) {
             artistName: 'artistName1',
             email: 'fakeEmail@fakeEmail.com',
             realName: 'someName',
+            photoURL: 'https://lh3.googleusercontent.com/a-/ACNPEu-pmVjFVtRIVIPLGS39Z2qZNHunSqG4Tuaes_FU5g=s96-c',
         },
         songsAuthorizedOn: [
             'songName1',
@@ -334,6 +335,8 @@ export default async function handler(req, res) {
             artistName: 'xylvnKing',
             email: 'xylvnking@gmail.com',
             realName: 'Dylan King',
+            photoURL: 'https://lh3.googleusercontent.com/a-/ACNPEu_VLAjn1_dZjuE1yjxGS0FFKGRYaMOkmL93bkMM=s96-c',
+            
             
         },
         songsAuthorizedOn: [

@@ -3,39 +3,30 @@ import {useFileVersions} from '../Hooks/useFileVersions'
 import TextareaAutosize from 'react-textarea-autosize';
 import styles from './FileVersion.module.scss'
 
+import { doc, updateDoc } from 'firebase/firestore'
+
+import { db } from '../../../../firebase/firebase-config'
+
+let revisionTypingTimer
+
 export default function FileVersion(props) {
-    // if this logic won't be reused anywhere, do i bother making it into a hook?
-    // console.log(props.songDocumentId)
     const [mostRecentFileVersion, allFileVersions, updateRevisionNote] = useFileVersions(props.songDocumentId)
-    console.log(allFileVersions)
-    // console.log(mostRecentFileVersion)
-
-
+    
+    // this could probably go into the hook? or another hook? since eventually there will probably be more places this needs to happen from, such as removing song
     const handleTyping = (text) => {
-        // console.log(text)
-        // updateRevisionNote(text)
-        
-
-        // const fileVersionDocumentReference = doc(db, 'songs', props.songDocumentId, 'fileVersions', currentFileVersion.metadata.fileVersionDocumentId)
-        
-        // const updateRevisionNote = (textToUpdateRevisionNoteWith) => {
-            
-        //     clearTimeout(revisionTypingTimer)
-            
-        //     revisionTypingTimer = setTimeout(() => {
-        //         // console.log('updating')
-        //         updateDoc(fileVersionDocumentReference, {
-        //             'revisionNote': textToUpdateRevisionNoteWith,
-        //         }).catch((error) => {
-        //             alert(`the document you're trying to edit has been deleted since you loaded the page`)
-        //         })
-        //     }, 500)
-            
-        // }
-        
-                 
+        const fileVersionDocumentReference = doc(db, 'songs', props.songDocumentId, 'fileVersions', mostRecentFileVersion.metadata.fileVersionDocumentId)
+        const updateRevisionNote = () => {
+            clearTimeout(revisionTypingTimer)
+            revisionTypingTimer = setTimeout(() => {
+                updateDoc(fileVersionDocumentReference, {
+                    'revisionNote': text,
+                }).catch((error) => {
+                    alert(`the document you're trying to edit has been deleted since you loaded the page`)
+                })
+            }, 500)
+        }
+        updateRevisionNote()            
     }
-    // console.log('why')
 
     return (
         mostRecentFileVersion &&
@@ -60,9 +51,10 @@ export default function FileVersion(props) {
             <details className='removeListStyleAndAddPointerCursor' open={true}>
                 <summary>past file versions:</summary>
                 <ul className='removeListStyleAndAddPointerCursor'>
-                
+                <p><small>reminder: the auto database reset function can produce unpreditable ordering here</small></p>
 
                 {
+                    
                     // console.log(allFileVersions)
                     allFileVersions.map((fileVersion, index) => {
                         // if (index !== allFileVersions.length - 1) { // removes most recent one since it's displayed on its own above

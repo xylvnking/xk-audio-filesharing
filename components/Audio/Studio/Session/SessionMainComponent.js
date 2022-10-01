@@ -4,7 +4,12 @@ import Link from 'next/link'
 import { useSongData } from '../Hooks/useSongData'
 import { useAuthState } from "react-firebase-hooks/auth"
 
-import { auth, provider } from '../../../../firebase/firebase-config'
+import { auth, provider, db } from '../../../../firebase/firebase-config'
+import { collection, query, where, getDocs, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+
+
+
+
 import FileVersion from './FileVersion'
 import AddFileVersion from './AddFileVersion'
 import AdminEditUsers from './AdminEditUsers'
@@ -29,6 +34,48 @@ import AdminEditUsers from './AdminEditUsers'
 export default function SessionMainComponent(props) {
 
     const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
+
+    const deleteSong = async () => {
+        if (userRole == 'admin') {
+            const fileVersionsSnapshot = await getDocs(collection(db, 'songs', props.songName, 'fileVersions'))
+            fileVersionsSnapshot.forEach(async (document) => {
+                await deleteDoc(doc(db, 'songs', props.songName, 'fileVersions', document.id))
+              });
+            await deleteDoc(doc(db, 'songs', props.songName))
+            window.location.href=`/audio/studio`
+        }
+    }
+
+    // update song document's priviledge array with new user's uid
+    // when testing: remember the ui also checks against user docs, 
+        // so if you enter random stuff here it'll add it to the doc but the hook knows its not a real user
+    const addUser = async (event) => {
+        event.preventDefault()
+        const userUidToAdd = event.target[0].value
+        const addAsAdminAlso = event.target[1].checked
+        console.log(event.target[1].checked)
+        if (userRole == 'admin') {
+            const songDocumentReference = doc(db, 'songs', props.songName)
+            const songDocumentSnapshot = await getDoc(songDocumentReference)
+            let usersWithAccessLocal
+            let usersWithAdminLocal
+            if (songDocumentSnapshot.exists()) {
+                usersWithAccessLocal = songDocumentSnapshot.data().usersWithAccess
+                usersWithAccessLocal.push(userUidToAdd)
+                usersWithAdminLocal = songDocumentSnapshot.data().usersWithAdmin
+                
+                if (addAsAdminAlso == true) {
+                    usersWithAdminLocal.push(userUidToAdd)
+                }
+
+                await updateDoc(songDocumentReference, {
+                    usersWithAccess: usersWithAccessLocal,
+                    usersWithAdmin: usersWithAdminLocal
+                })
+            }
+        }
+        window.location.href=`/audio/studio/session/song/${metadata.documentId}`
+    }
     
     return (
         props.songName && allSongData ? // this stops the entire component from rendering unless the router.query has been put into state
@@ -43,6 +90,21 @@ export default function SessionMainComponent(props) {
             <h1>Session</h1>
             <h2>{metadata.songName}</h2>
             <h2>{userRole}</h2>
+            <button onClick={() => deleteSong()}>DELETE SONG</button>
+
+            <br />
+            <br />
+
+            <form onSubmit={addUser}>
+                <label htmlFor='addsUser'>userUID:</label>
+                <input type='text' id='addUser' required></input>
+                <br />
+                <input type='checkbox' id='addAsAdmin'></input>
+                <label htmlFor='addAsAdmin'>Add as admin?:</label>
+                <button type='submit'>Add User</button>
+            </form>
+
+            <br />
 
             <details style={{cursor: 'pointer'}}>
                 <summary>info</summary>

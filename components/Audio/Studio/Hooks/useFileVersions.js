@@ -7,7 +7,7 @@ import { db, auth } from '../../../../firebase/firebase-config';
     
 */
 
-let revisionTypingTimer
+
 
 export const useFileVersions = (songDocumentId) => {
 
@@ -35,7 +35,6 @@ export const useFileVersions = (songDocumentId) => {
                 
                 // console.log(temporaryFileVersionsArray)
                 temporaryFileVersionsArray.sort(function(a, b) {
-                    console.log('sorting...')
                     return a.dateOfMostRecentEdit.seconds - b.dateOfMostRecentEdit.seconds
                     // return a.fileVersionName + b.fileVersionName
                 }).reverse()

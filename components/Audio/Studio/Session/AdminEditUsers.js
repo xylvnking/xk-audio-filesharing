@@ -61,7 +61,7 @@ export default function AdminEditUsers(props) {
     return (
         <div className='simpleBorder'>
             <p><em>AdminEditUsers.js</em></p>
-            <button>IMPLEMENT ADD USER</button>
+            <p><small>reminder: only users who have accepted their addition to the song will show up here</small></p>
             {
                 props.usersWithAccess.map((user, index) => {
                     

@@ -118,70 +118,64 @@ export const useSongData = (songDocumentId) => {
                         // i decided to complicate the hook and take care of it here.
                         
                         */
-                       
-                                    // create local arrays
-                                    //
-                                    let uidsWhichSayTheyHaveAccess = [] // should be named id?
-                                    let uidsWhichSayTheyHaveAdmin = []
-
-                                    let usersWithAccess = []
-                                    let usersWithAdmin = []
-
-                                    let newAccessArray = []
-                                    let newAdminArray = []
-
-                                    let usersWithAccessFilteredAccordingToSongPriviledgeArrays = []
-                                    let usersWithAdminFilteredAccordingToSongPriviledgeArrays = []
-
                                     // populate local variables with arrays of priviledged users according to the song's document
                                     let uidsWithAccessFromSongDoc = songDocumentSnapshot.data().usersWithAccess
                                     let uidsWithAdminFromSongDoc = songDocumentSnapshot.data().usersWithAdmin
-
-                                    // for each document which claims to have access to the session song,
+                                    
+                                    // for each document which claims to have access to the session song:
                                         // push all of that users data into a local array
                                         // push just the uid into a local array
+
+                                    let usersWithAccess = []
+                                    let uidsWhichSayTheyHaveAccess = [] // should be named id?
                                     queryForUsersWithAccessSnapshot.forEach((user) => {
                                         usersWithAccess.push(user.data())
                                         uidsWhichSayTheyHaveAccess.push(user.id)
                                     })
+
+                                    let usersWithAdmin = []
+                                    let uidsWhichSayTheyHaveAdmin = []
                                     queryForUsersWithAdminSnapshot.forEach((user) => {
                                         usersWithAdmin.push(user.data())
                                         uidsWhichSayTheyHaveAdmin.push(user.id)
                                     })
 
-                                    // for each priviledged uid in the array in the song's document
-                                        // if that array contains one of the uids which claims to have access
-                                            // add that uid to the array of users who's priviledge has been validated
+                                    // console.log(uidsWhichSayTheyHaveAccess)
+                                    // console.log(uidsWithAccessFromSongDoc)
+
+
+                                    const filteredSongUids = uidsWithAccessFromSongDoc.filter(x => uidsWhichSayTheyHaveAccess.includes(x))
+                                    // console.log('filteredSongUids =>', filteredSongUids)
+                                    // perform checks to make sure the users returned by the hook are validated by appearing in both the song doc, and the user docs which claim access
+
+                                    // returns an array which has been filtered to remove any user docs uids which claim access but aren't listed in the song docs uids
+                                    const userDocsCheckedAgainstSongDocsAccess = uidsWhichSayTheyHaveAccess.filter(x => uidsWithAccessFromSongDoc.includes(x))
+                                    // returns an array which has been filtered to remove any song docs uids which claim access but aren't listed user docs uids
+                                    const songDocsCheckedAgainstUserDocsAccess = uidsWithAccessFromSongDoc.filter(x => uidsWhichSayTheyHaveAccess.includes(x))
+                                    // returns an array which removes any difference between the last two arrays
+                                    const usersWithValidatedAccess = userDocsCheckedAgainstSongDocsAccess.filter(x => songDocsCheckedAgainstUserDocsAccess.includes(x))
                                     
-                                            /*
-                                                this might need further clarification because it is a bit clever (at least to me as a noob)
-                                                this works because the number of user documents which have legitimate access is equal to the amount of uids the song document says has legitimate access
-                                                so the foreach loops is just a way to iterate according to that number (the array length). it could have been a traditional for loop as well.
-                                                this also means that this must be maintained from the other end - anytime a user's doc removes the song from the array which states which songs it has priviledges on, the song document must be updated.
-                                            */
-                                    
-                                    uidsWithAccessFromSongDoc.forEach((uid, index) => {
-                                        if (uidsWithAccessFromSongDoc.includes(uidsWhichSayTheyHaveAccess[index])) {
-                                            newAccessArray.push(uidsWhichSayTheyHaveAccess[index])
-                                        }
-                                    })
-                                    uidsWithAdminFromSongDoc.forEach((uid, index) => {
-                                        if (uidsWithAdminFromSongDoc.includes(uidsWhichSayTheyHaveAdmin[index])) {
-                                            newAdminArray.push(uidsWhichSayTheyHaveAdmin[index])
-                                        }
-                                    })
+                                    const userDocsCheckedAgainstSongDocsAdmin = uidsWhichSayTheyHaveAdmin.filter(x => uidsWithAdminFromSongDoc.includes(x))
+                                    const songDocsCheckedAgainstUserDocsAdmin = uidsWithAdminFromSongDoc.filter(x => uidsWhichSayTheyHaveAdmin.includes(x))
+                                    const usersWithValidatedAdmin = userDocsCheckedAgainstSongDocsAdmin.filter(x => songDocsCheckedAgainstUserDocsAdmin.includes(x))
+
+                                    let usersWithValidatedAccessFullData = []
+                                    let usersWithValidatedAdminFullData = []
+                                    usersWithValidatedAccess.forEach((user, index) => {
+                                        usersWithValidatedAccessFullData.push()
+                                    }) 
 
                                     // for each user document which claimed priviledge,
                                         // determine whether their uid is included in the song document's priviledge array,
                                         // and if so, push all of that users data into the final array which is returned from the hook
                                     usersWithAccess.forEach((user, index) => {
-                                        if (newAccessArray.includes(user.metadata.uid)) {
-                                            usersWithAccessFilteredAccordingToSongPriviledgeArrays.push(user)
+                                        if (usersWithValidatedAccess.includes(user.metadata.uid)) {
+                                            usersWithValidatedAccessFullData.push(user)
                                         }
                                     })
                                     usersWithAdmin.forEach((user, index) => {
-                                        if (newAdminArray.includes(user.metadata.uid)) {
-                                            usersWithAdminFilteredAccordingToSongPriviledgeArrays.push(user)
+                                        if (usersWithValidatedAdmin.includes(user.metadata.uid)) {
+                                            usersWithValidatedAdminFullData.push(user)
                                         }
                                     })
 
@@ -189,8 +183,8 @@ export const useSongData = (songDocumentId) => {
                         // the order of these determines the order the hook must be destructured in
                         documentData.push(songDocumentSnapshot.data())
                         documentData.push(songDocumentSnapshot.data().metadata)
-                        documentData.push(usersWithAccessFilteredAccordingToSongPriviledgeArrays) // formerly: documentData.push(usersWithAccess)
-                        documentData.push(usersWithAdminFilteredAccordingToSongPriviledgeArrays) // formerly: documentData.push(usersWithAdmin)
+                        documentData.push(usersWithValidatedAccessFullData)
+                        documentData.push(usersWithValidatedAdminFullData)
                         
     
                         if (songDocumentSnapshot.data().usersWithAdmin.includes(auth.currentUser.uid)) {

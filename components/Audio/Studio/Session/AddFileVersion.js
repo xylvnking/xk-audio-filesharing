@@ -34,7 +34,7 @@ export default function AddFileVersion(props) {
         })
         const fileVersionDocumentToUpdate = doc(db, 'songs', songDocumentId, 'fileVersions', fileVersionDocumentRef.id)
         await updateDoc(fileVersionDocumentToUpdate, {
-            'metadta.fileVersionDocumentId': fileVersionDocumentRef.id,
+            'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
             // 'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
         })
 
