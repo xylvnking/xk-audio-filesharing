@@ -301,7 +301,7 @@ export default async function handler(req, res) {
         metadata: {
             uid:'dsdxGrUhqVcdhLpEP3kSeSW6Axi2',
             artistName: 'artistName1',
-            email: 'fakeEmail@fakeEmail.com',
+            email: 'dylanking6132@gmail.com',
             realName: 'someName',
             photoURL: 'https://lh3.googleusercontent.com/a-/ACNPEu-pmVjFVtRIVIPLGS39Z2qZNHunSqG4Tuaes_FU5g=s96-c',
         },

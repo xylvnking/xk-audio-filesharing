@@ -1,28 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-// export const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
-// fetch('/api/test')
-//   .then((res) => res.json())
-//   .then((x) => {
-//     console.log(x)
-//   })
-// fetch('/api/hello')
-//   .then((res) => res.json())
-//   .then((x) => {
-//     console.log(x)
-//   })
-
-// fetch('/api/test', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     // body: JSON.stringify({someField: 'someValue'})
-//     body: JSON.stringify(auth)
-// }).then((res) => res.json())
-//   .then((x) => {
-//     console.log(x)
-//   })
+import { auth, db } from '../../firebase/firebase-config'
 
 const resetFirebase = () => {
     fetch('/api/resetDatabase')
@@ -31,20 +9,27 @@ const resetFirebase = () => {
     console.log(x)
   })
 }
-const resetDataBypass = () => {
-    fetch('/api/resetDataBypass')
-    .then((res) => res.json())
-    .then((x) => {
-    console.log(x)
-  })
-}
+
+
 
 export default function AudioDevUtilities() {
+
+
+  useEffect(() => {
+    const checkUserPriviledges = async () => {
+      // get priviledge arrays from user doc
+      // get priviledge arrays from song doc (this should fail tho if the security rules prevent them from reading?)
+        // use that data remove the song's document id from their user docs priviledge array
+      // success?
+
+    }
+    checkUserPriviledges()
+  },[auth, db])
+
+  // console.log('AudioDevUtilities')
   return (
     <>
-    <button onClick={resetFirebase}>Reset Firebase</button>
-    <button onClick={resetDataBypass}>Reset resetDataBypass</button>
-
+    {/* <button onClick={resetFirebase}>Reset Firebase</button> */}
     </>
   )
 }

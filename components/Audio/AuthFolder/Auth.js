@@ -17,22 +17,11 @@ export const signUserOut = async () => {
 export const signInWithGoogle = async () => {
     await signInWithPopup(auth, provider).then((result) => {
         console.log('signed in')
-    
     })
+
     .catch(function (error) {
         console.error("there was an error signing in", error);
     })
-
-    // check if new user 
-    // const queryForUserSigningIn = query(collection(db, 'users'), where('metadata.uid', '==', auth.currentUser.uid))
-    // const queryForUserSigningInSnapshot = await getDocs(queryForUserSigningIn)
-    // // console.log(queryForUserSigningInSnapshot.length())
-    
-    // if (queryForUserSigningInSnapshot) {
-    //     console.log('user exists!')
-    // } else {
-    //     console.log('new user, creating document.')
-    // }
 
     const userDocumentReference = doc(db, 'users', auth.currentUser.uid)
     const userDocumentSnapshot = await getDoc(userDocumentReference)

@@ -50,3 +50,9 @@ I found out that pages with dynamic routes render twice, ok cool, but I don't wa
 My solution was to handle the router query within the page itself, and pass the data to the component, while also conditionally rendering it. This also has the advantage that my component, if rendered, is guaranteed to have the router query data, so it can safely render jsx or subcomponents unconditionally. 
 
 I'm currently unsure if I should also pass authentication info, because the component can't (and shouldn't) work without it, so maybe it is best to pass it from the page?
+
+## count lines of code
+
+```shell
+    git ls-files | xargs wc -l
+```

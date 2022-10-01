@@ -35,8 +35,6 @@ export default function StudioHomeComponent() {
         }
     }, [userAuth])
 
-    
-
 
     return (
         <>
