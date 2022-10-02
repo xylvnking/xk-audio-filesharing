@@ -36,6 +36,9 @@ import AdminEditUsers from './AdminEditUsers'
 export default function SessionMainComponent(props) {
 
     const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
+    // console.log('usersWithAccess => ', usersWithAccess)
+    // console.log('usersWithAdmin => ', usersWithAdmin)
+    // console.log('fart')
 
     const deleteSong = async () => {
         if (userRole == 'admin') {

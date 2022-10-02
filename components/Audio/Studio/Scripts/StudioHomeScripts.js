@@ -31,29 +31,6 @@ export const getAllSongDataFromFirebase = async (userUID) => {
 // called from each StudioSongPreview component, but that's not in use anymore
 export const getUsersWithAccessFromSpecificSong = async (songDocumentId) => {
 
-    // const everyUserWithAccessToSpecificSong = {
-    //     allUsersData: [],
-    //     emailsOfUsersWithAccess: [],
-    //     emailsOfUsersWithAdmin: [],
-    // }
 
-    // const usersRef = collection(db, 'users');
-
-    // const userQueryForSongsAuthorizedOn = query(usersRef, where('songsAuthorizedOn', 'array-contains', songDocumentId))
-    // const userQueryForSongsWithAdmin = query(usersRef, where('songsWithAdmin', 'array-contains', songDocumentId))
-
-    // const userQueryForSongsAuthorizedOnSnapshot = await getDocs(userQueryForSongsAuthorizedOn)
-    // const userQueryForSongsWithAdminSnapshot = await getDocs(userQueryForSongsWithAdmin)
-
-    // userQueryForSongsAuthorizedOnSnapshot.forEach((user) => {
-    //     everyUserWithAccessToSpecificSong.allUsersData.push(user.data())
-    //     everyUserWithAccessToSpecificSong.emailsOfUsersWithAccess.push(user.data().metadata.email)
-    // })
-
-    // userQueryForSongsWithAdminSnapshot.forEach((user) => {
-    //     everyUserWithAccessToSpecificSong.emailsOfUsersWithAdmin.push(user.data().metadata.email)
-    // })
-
-    // return everyUserWithAccessToSpecificSong
 
 }

@@ -305,7 +305,7 @@ export default async function handler(req, res) {
             realName: 'someName',
             photoURL: 'https://lh3.googleusercontent.com/a-/ACNPEu-pmVjFVtRIVIPLGS39Z2qZNHunSqG4Tuaes_FU5g=s96-c',
         },
-        songsAuthorizedOn: [
+        songsWithAccess: [
             'songName1',
             'songName2',
             'songName3'
@@ -339,7 +339,7 @@ export default async function handler(req, res) {
             
             
         },
-        songsAuthorizedOn: [
+        songsWithAccess: [
             'songName1',
             'songName3',
             'songName4',
@@ -370,7 +370,7 @@ export default async function handler(req, res) {
     const docRef = await addDoc(collection(db, 'songs'), {
                 metadata: {
                     songName: 'songName6',
-                    dateOfMostRecentEdit: 90,
+                    dateOfMostRecentEdit: new Date(),
                 },
                 usersWithAccess: [ // array seems like the right choice
                     'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1',
@@ -426,7 +426,7 @@ export default async function handler(req, res) {
     const docRef7 = await addDoc(collection(db, 'songs'), {
                 metadata: {
                     songName: 'songName7',
-                    dateOfMostRecentEdit: 92,
+                    dateOfMostRecentEdit: new Date(),
                 },
                 usersWithAccess: [ // array seems like the right choice
                     'someUID1',
@@ -491,7 +491,7 @@ export default async function handler(req, res) {
 
     const userDocToUpdate = doc(db, 'users', 'c6EqhwHBFCZ6qIPOQRfZp1UTFyo1')
     await updateDoc(userDocToUpdate, {
-        songsAuthorizedOn: [
+        songsWithAccess: [
             'songName1',
             'songName3',
             'songName4',
@@ -511,7 +511,7 @@ export default async function handler(req, res) {
     // console.log(docRef7.id)
     const userDocToUpdate2 = doc(db, 'users', 'dsdxGrUhqVcdhLpEP3kSeSW6Axi2')
     await updateDoc(userDocToUpdate2, {
-        songsAuthorizedOn: [
+        songsWithAccess: [
             'songName1',
             'songName3',
             'songName4',

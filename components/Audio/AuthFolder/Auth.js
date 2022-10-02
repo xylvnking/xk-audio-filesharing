@@ -43,7 +43,7 @@ export const signInWithGoogle = async () => {
                 displayName: auth.currentUser.displayName,
 
             },
-            songsAuthorizedOn: [
+            songsWithAccess: [
             ],
             projectsAuthorizedOn: [
             ],

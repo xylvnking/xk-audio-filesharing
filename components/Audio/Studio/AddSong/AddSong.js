@@ -51,21 +51,21 @@ export default function AddSong() {
 
         // then the users document has to be updated 
         // to update the array in the users doc, it must be copied locally and replaced since we can't push into an array on firebase
-        const tempsongsAuthorizedOnArray = []
+        const tempSongsWithAccessArray = []
         const tempSongsWithAdminArray = []
 
         const userDocumentReference = doc(db, 'users', auth.currentUser.uid)
         const userDocumentReferenceSnapshot = await getDoc(userDocumentReference)
         if (userDocumentReferenceSnapshot.exists()) { // i think this check is redundant since only authorized users see this page anyways?
 
-            tempsongsAuthorizedOnArray = userDocumentReferenceSnapshot.data().songsAuthorizedOn
+            tempSongsWithAccessArray = userDocumentReferenceSnapshot.data().songsWithAccess
             tempSongsWithAdminArray = userDocumentReferenceSnapshot.data().songsWithAdmin
-            tempsongsAuthorizedOnArray.push(docRef.id)
+            tempSongsWithAccessArray.push(docRef.id)
             tempSongsWithAdminArray.push(docRef.id)
             
             const userDocToUpdate = doc(db, 'users', auth.currentUser.uid)
             await updateDoc(userDocToUpdate, {
-                songsAuthorizedOn: tempsongsAuthorizedOnArray,
+                songsWithAccess: tempSongsWithAccessArray,
                 songsWithAdmin: tempSongsWithAdminArray
             })
         }

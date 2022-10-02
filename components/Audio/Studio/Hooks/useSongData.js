@@ -91,6 +91,7 @@ export const useSongData = (songDocumentId) => {
                     userHasAccessToSongSnapshot.forEach((song) => { userHasAccess = true })
 
                     // // //
+                    // userHasAccess = true
                     if (userHasAccess == true) {
                         
                         let documentData = []
@@ -98,7 +99,7 @@ export const useSongData = (songDocumentId) => {
                         const usersRef = collection(db, 'users');
                         
                         // create reference to documents within the users collection which claim to be authorized on the session song
-                        const queryForUsersWithAccess = query(usersRef, where('songsAuthorizedOn', 'array-contains', songDocumentId))
+                        const queryForUsersWithAccess = query(usersRef, where('songsWithAccess', 'array-contains', songDocumentId))
                         const queryForUsersWithAdmin = query(usersRef, where('songsWithAdmin', 'array-contains', songDocumentId))
                         
                         // get the data from the documents which claim to be authorized on the session song

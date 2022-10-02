@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, query, where, collection, getDocs, updateDoc } from 'firebase/firestore'
 import React, { useEffect, useRef } from 'react'
 
 import { auth, provider, db } from '../../firebase/firebase-config'
@@ -26,11 +26,51 @@ export default function AudioDevUtilities() {
       // get priviledge arrays from song doc (this should fail tho if the security rules prevent them from reading?)
         // use that data remove the song's document id from their user docs priviledge array
       // success?
+
       if (userAuth) {
         const userDocumentReference = doc(db, 'users', auth.currentUser.uid)
         const userDocumentSnapshot = await getDoc(userDocumentReference)
+
+        let songsUserDocumentClaimsAccess
+        let songsUserDocumentClaimsAdmin
         if (userDocumentSnapshot.exists()) {
-          console.log(userDocumentSnapshot.data())
+          // this might not be needed,
+          songsUserDocumentClaimsAccess = userDocumentSnapshot.data().songsWithAccess
+          songsUserDocumentClaimsAdmin = userDocumentSnapshot.data().songsWithAdmin
+
+          // console.log(songsUserDocumentClaimsAccess)
+
+          // i think all thats needed is to query the songs they have access and update their document accordingly
+          const songsRef = collection(db, 'songs')
+
+
+
+
+          const querySongDocumentsWhereUserHasAccess = query(songsRef, where('usersWithAccess', 'array-contains', auth.currentUser.uid))
+          const querySongDocumentsWhereUserHasAdmin = query(songsRef, where('usersWithAdmin', 'array-contains', auth.currentUser.uid))
+
+          const querySongDocumentsWhereUserHasAccessSnapshot = await getDocs(querySongDocumentsWhereUserHasAccess)
+          const querySongDocumentsWhereUserHasAdminSnapshot = await getDocs(querySongDocumentsWhereUserHasAdmin)
+
+          let songsWithUserAccessValidated = []
+          querySongDocumentsWhereUserHasAccessSnapshot.forEach((document) => {
+            songsWithUserAccessValidated.push(document.id)
+          })
+          let songsWithUserAdminValidated = []
+          querySongDocumentsWhereUserHasAdminSnapshot.forEach((document) => {
+            songsWithUserAdminValidated.push(document.id)
+          })
+
+
+          await updateDoc(userDocumentReference, {
+            songsWithAccess: songsWithUserAccessValidated,
+            songsWithAdmin: songsWithUserAdminValidated
+          })
+
+
+
+
+
         }
       }
 
@@ -43,7 +83,7 @@ export default function AudioDevUtilities() {
 
   return (
     <>
-    {/* <button onClick={resetFirebase}>Reset Firebase</button> */}
+    <button onClick={resetFirebase}>Reset Firebase</button>
     <button onClick={() => console.log(auth.currentUser)}>log auth</button>
     {/* <button onClick={() => console.log(userAuth)}>log auth</button> */}
     {/* <button onClick={() => console.log(auth.currentUser.uid)}>log auth</button> */}
