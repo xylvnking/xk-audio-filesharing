@@ -1,10 +1,16 @@
 import React from 'react'
-import ArtistNav from './AudioNav/AudioNav'
+import AudioNav from './AudioNav/AudioNav'
+// import { useAuthState } from "react-firebase-hooks/auth"
+// import { auth, provider } from '../../../firebase/firebase-config'
 
 export default function AudioLayout({ children }) {
+
+  // const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
+  // console.log(userAuth)
+  
   return (
     <>
-        <ArtistNav />
+        <AudioNav />
     <main>
         {children}
     </main>
