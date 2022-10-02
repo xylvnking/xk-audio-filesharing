@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { doc, getDoc, query, where, collection, getDocs, updateDoc } from "firebase/firestore";
-import { db, auth } from '../../../../firebase/firebase-config';
+import { db, auth, storage } from '../../../../firebase/firebase-config';
+import { ref, uploadBytes, getDownloadURL, listAll, list, getStorage, deleteObject} from "firebase/storage";
 
 /*
     this hook:
@@ -44,9 +45,22 @@ export const useFileVersions = (songDocumentId) => {
                 
                 // let currentFileVersion = temporaryFileVersionsArray[temporaryFileVersionsArray.length - 1]
                 let currentFileVersion = temporaryFileVersionsArray[0]
-                temporaryFileVersionArrayToSetToState.push(currentFileVersion, temporaryFileVersionsArray)
+                temporaryFileVersionArrayToSetToState.push(currentFileVersion)
 
-                setFileVersionData(temporaryFileVersionArrayToSetToState)
+                // generate download link from firebase and set it as the 2nd element returned by the hook
+                let fileVersionDownloadURL
+
+                if (currentFileVersion) { // blocks unless at least one file version exists
+                    const fileVersionAudioFileReference = ref(storage, currentFileVersion.filePathReference)
+                    await getDownloadURL(fileVersionAudioFileReference).then((url) => {
+                        fileVersionDownloadURL = url
+                        temporaryFileVersionArrayToSetToState.push(fileVersionDownloadURL)
+                    })
+    
+                    temporaryFileVersionArrayToSetToState.push(temporaryFileVersionsArray)
+    
+                    setFileVersionData(temporaryFileVersionArrayToSetToState)
+                }
 
             }
             getFileVersionDataFromFirebase()

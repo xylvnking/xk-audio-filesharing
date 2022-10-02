@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { collection, addDoc, doc, getDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore"; 
-import { db, auth } from '../../../../firebase/firebase-config';
+import { ref, uploadBytes, getDownloadURL, listAll, list, getStorage, deleteObject} from "firebase/storage";
+import { db, auth, storage } from '../../../../firebase/firebase-config';
 
 export default function AddSong() {
 
@@ -10,6 +11,7 @@ export default function AddSong() {
 
 
         const songName = event.target[0].value
+        // const fileToUpload = event.target[1].files[0]
         // const projectName = event.target[2].value
         const dateOfMostRecentEdit = new Date()
 
@@ -30,22 +32,19 @@ export default function AddSong() {
 
             ]
         })
-        console.log('fuck you')
         // then the document id of the document we just created has to be put into the metadata
+        
         const songDocToUpdate = doc(db, 'songs', docRef.id)
-        await updateDoc(songDocToUpdate, {
-            'metadata.documentId': docRef.id
-        })
-
+        
         // then the users document has to be updated 
         // to update the array in the users doc, it must be copied locally and replaced since we can't push into an array on firebase
         const tempSongsWithAccessArray = []
         const tempSongsWithAdminArray = []
-
+        
         const userDocumentReference = doc(db, 'users', auth.currentUser.uid)
         const userDocumentReferenceSnapshot = await getDoc(userDocumentReference)
         if (userDocumentReferenceSnapshot.exists()) { // i think this check is redundant since only authorized users see this page anyways?
-
+            
             tempSongsWithAccessArray = userDocumentReferenceSnapshot.data().songsWithAccess
             tempSongsWithAdminArray = userDocumentReferenceSnapshot.data().songsWithAdmin
             tempSongsWithAccessArray.push(docRef.id)
@@ -57,8 +56,21 @@ export default function AddSong() {
                 songsWithAdmin: tempSongsWithAdminArray
             })
         }
+        
+        
+        // const pathReference = `songs/${docRef.id}`
+        // const folderRef = ref(storage, pathReference)
+        // await uploadBytes(folderRef, fileToUpload).then((snapshot) => {
+        //     getDownloadURL(snapshot.ref).then((url) => {
+        //         console.log(url)
+        //     })
+        // })
 
-        window.location.href=`/audio/studio/session/song/${docRef.id}`
+        await updateDoc(songDocToUpdate, {
+            'metadata.documentId': docRef.id
+        })
+        
+        // window.location.href=`/audio/studio/session/song/${docRef.id}`
 
     }
 
@@ -67,29 +79,20 @@ export default function AddSong() {
     <div>
         <form onSubmit={addSongToFirebase}>
 
-            {/* 0 */}
-            <label htmlFor='songName'>song name<em>(implement regex)</em></label>
+            
+            <label htmlFor='songName'>Song name:</label>
             <input type='text' id='songName' defaultValue='songName7' required></input>
-
-            <br />
-
-            {/* 1 */}
-            <label htmlFor='fileSelectionButton'>fileSelectionButton</label>
+            
+            {/* <label htmlFor='fileSelectionButton'>fileSelectionButton</label>
             <input id='fileSelectionButton' type='file'></input>
-
-            {/* <br /> */}
-
-            {/* 2 */}
-            {/* <label htmlFor='projectName'>project name</label> */}
+            
+            <label htmlFor='projectName'>project name</label>
             <input type='hidden' id='projectName' defaultValue='projectName1' required></input>
 
-            {/* <br /> */}
-
-            {/* 3 */}
-            {/* <label htmlFor='dateOfMostRecentEdit'>dateOfMostRecentEdit</label> */}
+            <label htmlFor='dateOfMostRecentEdit'>dateOfMostRecentEdit</label>
             <input type='hidden' id='dateOfMostRecentEdit' required readOnly defaultValue={new Date()}></input>
             
-            <br />
+            <br /> */}
             <button type='submit'>submit</button>
 
         </form>

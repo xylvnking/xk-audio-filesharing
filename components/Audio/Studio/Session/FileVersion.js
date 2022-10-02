@@ -10,9 +10,8 @@ import { db } from '../../../../firebase/firebase-config'
 let revisionTypingTimer
 
 export default function FileVersion(props) {
-    const [mostRecentFileVersion, allFileVersions, updateRevisionNote] = useFileVersions(props.songDocumentId)
-
-    // console.log(mostRecentFileVersion)
+    
+    const [mostRecentFileVersion, mostRecentFileVersionDownloadLink, allFileVersions] = useFileVersions(props.songDocumentId)
     
     // this could probably go into the hook? or another hook? since eventually there will probably be more places this needs to happen from, such as removing song
     const handleTyping = (text) => {
@@ -36,7 +35,8 @@ export default function FileVersion(props) {
             <p><em>FileVersion.js</em></p>
             {/* <h5>{mostRecentFileVersion.metadata.fileVersionName}</h5> */}
             <h5>{mostRecentFileVersion.fileVersionName}</h5>
-            <audio controls></audio>
+            
+            <audio preload='none' controls src={mostRecentFileVersionDownloadLink}></audio>
             <br />
             {
                 props.userRole == 'admin' ?
