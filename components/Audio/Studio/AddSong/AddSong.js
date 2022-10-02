@@ -30,6 +30,7 @@ export default function AddSong() {
 
             ]
         })
+        console.log('fuck you')
         // then the document id of the document we just created has to be put into the metadata
         const songDocToUpdate = doc(db, 'songs', docRef.id)
         await updateDoc(songDocToUpdate, {

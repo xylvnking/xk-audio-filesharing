@@ -48,10 +48,10 @@ export default function AudioDevUtilities() {
           // console.log(songsUserDocumentClaimsAccess)
 
           // i think all thats needed is to query the songs they have access and update their document accordingly
+          let songsWithUserAccessValidated = []
+          let songsWithUserAdminValidated = []
+          
           const songsRef = collection(db, 'songs')
-
-
-
 
           const querySongDocumentsWhereUserHasAccess = query(songsRef, where('usersWithAccess', 'array-contains', auth.currentUser.uid))
           const querySongDocumentsWhereUserHasAdmin = query(songsRef, where('usersWithAdmin', 'array-contains', auth.currentUser.uid))
@@ -59,20 +59,21 @@ export default function AudioDevUtilities() {
           const querySongDocumentsWhereUserHasAccessSnapshot = await getDocs(querySongDocumentsWhereUserHasAccess)
           const querySongDocumentsWhereUserHasAdminSnapshot = await getDocs(querySongDocumentsWhereUserHasAdmin)
 
-          let songsWithUserAccessValidated = []
           querySongDocumentsWhereUserHasAccessSnapshot.forEach((document) => {
             songsWithUserAccessValidated.push(document.id)
           })
-          let songsWithUserAdminValidated = []
           querySongDocumentsWhereUserHasAdminSnapshot.forEach((document) => {
             songsWithUserAdminValidated.push(document.id)
           })
 
+          // console.log(auth.currentUser.uid)
 
           await updateDoc(userDocumentReference, {
             songsWithAccess: songsWithUserAccessValidated,
             songsWithAdmin: songsWithUserAdminValidated
-          }).catch((error) => {
+          })
+
+          .catch((error) => {
             alert(error)
           })
 
