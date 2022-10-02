@@ -7,46 +7,33 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, provider, db } from '../../../../firebase/firebase-config'
 import { collection, query, where, getDocs, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
-
+import {userRealtimeSongData} from '../../AudioUtilitiesAndHooks'
 
 
 import FileVersion from './FileVersion'
 import AddFileVersion from './AddFileVersion'
 import AdminEditUsers from './AdminEditUsers'
 
-/*
-
-    - get all data
-    - display all data
-    - similarish to 'song' component
-    - but also link to the file versions? or just include the most recent file version here?
-        - either way they'll need to be fetched for previews
-    - admins will have some extra parts to manage permissions and write to docs
-        - i'm currently going to give admins all the same powers, but maybe that requires an 'owner' who is the only one who can actually add admins
-            - and i need to make sure everything is backed up somewhere just in case but I was going to do that anyways
-    I think using context here might be smart, because with the file versions or something there might end up being a lot of nesting
-
-    
-
-*/
-
-
-
 // main component rendered from /audio/studio/session/song/[...songSession].js
 export default function SessionMainComponent(props) {
 
-    const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songName)
+    const [allSongData, metadata, usersWithAccess, usersWithAdmin, userRole] = useSongData(props.songDocumentId)
     // console.log('usersWithAccess => ', usersWithAccess)
     // console.log('usersWithAdmin => ', usersWithAdmin)
     // console.log('fart')
+    // console.log(allSongData)
+
+    const realtimeSongData = userRealtimeSongData(props.songDocumentId)
+
+    // console.log(realtimeSongData)
 
     const deleteSong = async () => {
         if (userRole == 'admin') {
-            const fileVersionsSnapshot = await getDocs(collection(db, 'songs', props.songName, 'fileVersions'))
+            const fileVersionsSnapshot = await getDocs(collection(db, 'songs', props.songDocumentId, 'fileVersions'))
             fileVersionsSnapshot.forEach(async (document) => {
-                await deleteDoc(doc(db, 'songs', props.songName, 'fileVersions', document.id))
+                await deleteDoc(doc(db, 'songs', props.songDocumentId, 'fileVersions', document.id))
               });
-            await deleteDoc(doc(db, 'songs', props.songName))
+            await deleteDoc(doc(db, 'songs', props.songDocumentId))
             window.location.href=`/audio/studio`
         }
     }
@@ -60,7 +47,7 @@ export default function SessionMainComponent(props) {
         const addAsAdminAlso = event.target[1].checked
         console.log(event.target[1].checked)
         if (userRole == 'admin') {
-            const songDocumentReference = doc(db, 'songs', props.songName)
+            const songDocumentReference = doc(db, 'songs', props.songDocumentId)
             const songDocumentSnapshot = await getDoc(songDocumentReference)
             let usersWithAccessLocal
             let usersWithAdminLocal
@@ -83,7 +70,7 @@ export default function SessionMainComponent(props) {
     }
     
     return (
-        props.songName && allSongData ? // this stops the entire component from rendering unless the router.query has been put into state
+        props.songDocumentId && allSongData ? // this stops the entire component from rendering unless the router.query has been put into state
         <div>
             
             {
@@ -93,7 +80,7 @@ export default function SessionMainComponent(props) {
             }
 
             <h1>Session</h1>
-            <h2>{metadata.songName}</h2>
+            <h2>{realtimeSongData.metadata.songName}</h2>
             <h2>{userRole}</h2>
             <button onClick={() => deleteSong()}>DELETE SONG</button>
 
@@ -111,7 +98,7 @@ export default function SessionMainComponent(props) {
 
             <br />
 
-            <details style={{cursor: 'pointer'}}>
+            {/* <details style={{cursor: 'pointer'}}>
                 <summary>info</summary>
                 <ul>
                     <li><strong>users with access</strong></li>
@@ -131,18 +118,17 @@ export default function SessionMainComponent(props) {
                 </ul>
                 <ul>
                     <li><strong>metadata</strong></li>
-                    {/* <li>{metadata.projectName}</li> */}
                     <li>{metadata.songName}</li>
-                    {/* <li>{metadata.dateOfMostRecentEdit.toLocaleString()}</li> */}
                     <li>{Date(metadata.dateOfMostRecentEdit.seconds)}</li>
                 </ul>
-            </details>
+            </details> */}
 
             {
                 userRole == 'admin' &&
 
                 <AdminEditUsers 
-                    allSongData={allSongData} 
+                    // allSongData={allSongData} 
+                    allSongData={realtimeSongData} 
 
                     // these should return the correct data, not rely on the component to sort it. one source of truth.
                     usersWithAccess={usersWithAccess} 
@@ -150,8 +136,9 @@ export default function SessionMainComponent(props) {
                 />
             }
 
-            <AddFileVersion allSongData={allSongData} />
-            <FileVersion songName={props.songName} userRole={userRole} songDocumentId={metadata.documentId}/>
+            {/* <AddFileVersion allSongData={allSongData} /> */}
+            <AddFileVersion realtimeSongData={realtimeSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/>
+            <FileVersion songName={props.songDocumentId} userRole={userRole} songDocumentId={metadata.documentId}/>
 
             
             {/* <FileVersion songName={metadata.songName} userRole={userRole}/> */}

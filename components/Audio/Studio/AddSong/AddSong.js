@@ -3,17 +3,6 @@ import React from 'react'
 import { collection, addDoc, doc, getDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore"; 
 import { db, auth } from '../../../../firebase/firebase-config';
 
-
-/*
-    https://firebase.google.com/docs/firestore/quotas
-    Must be valid UTF-8 characters
-    Must be no longer than 1,500 bytes
-    Cannot contain a forward slash (/)
-    Cannot solely consist of a single period (.) or double periods (..)
-    Cannot match the regular expression __.*__
-
-*/
-
 export default function AddSong() {
 
     const addSongToFirebase = async (event) => {
@@ -21,9 +10,8 @@ export default function AddSong() {
 
 
         const songName = event.target[0].value
-        const projectName = event.target[2].value
+        // const projectName = event.target[2].value
         const dateOfMostRecentEdit = new Date()
-        // const dateOfMostRecentEdit = 789
 
         const uniqueSongNameForDocumentName = '?'
 
@@ -48,7 +36,6 @@ export default function AddSong() {
             'metadata.documentId': docRef.id
         })
 
-
         // then the users document has to be updated 
         // to update the array in the users doc, it must be copied locally and replaced since we can't push into an array on firebase
         const tempSongsWithAccessArray = []
@@ -69,15 +56,8 @@ export default function AddSong() {
                 songsWithAdmin: tempSongsWithAdminArray
             })
         }
-        
-
-
-
-
-        // don't think i need to create file versions subcollection yet? depends on whether i'm letting them upload songs here or not
 
         window.location.href=`/audio/studio/session/song/${docRef.id}`
-
 
     }
 
@@ -96,17 +76,17 @@ export default function AddSong() {
             <label htmlFor='fileSelectionButton'>fileSelectionButton</label>
             <input id='fileSelectionButton' type='file'></input>
 
-            <br />
+            {/* <br /> */}
 
             {/* 2 */}
-            <label htmlFor='projectName'>project name</label>
-            <input type='text' id='projectName' defaultValue='projectName1' required></input>
+            {/* <label htmlFor='projectName'>project name</label> */}
+            <input type='hidden' id='projectName' defaultValue='projectName1' required></input>
 
-            <br />
+            {/* <br /> */}
 
             {/* 3 */}
-            <label htmlFor='dateOfMostRecentEdit'>dateOfMostRecentEdit</label>
-            <input type='text' id='dateOfMostRecentEdit' required readOnly defaultValue={new Date()}></input>
+            {/* <label htmlFor='dateOfMostRecentEdit'>dateOfMostRecentEdit</label> */}
+            <input type='hidden' id='dateOfMostRecentEdit' required readOnly defaultValue={new Date()}></input>
             
             <br />
             <button type='submit'>submit</button>

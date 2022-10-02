@@ -26,11 +26,3 @@ export const getAllSongDataFromFirebase = async (userUID) => {
 
     return allSongData
 }
-
-
-// called from each StudioSongPreview component, but that's not in use anymore
-export const getUsersWithAccessFromSpecificSong = async (songDocumentId) => {
-
-
-
-}

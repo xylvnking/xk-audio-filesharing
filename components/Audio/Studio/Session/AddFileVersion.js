@@ -11,8 +11,8 @@ export default function AddFileVersion(props) {
     const addFileVersion = async (event) => {
         event.preventDefault()
 
-        const songDocumentId = props.allSongData.metadata.documentId
-        const songName = props.allSongData.metadata.songName
+        const songDocumentId = props.realtimeSongData.metadata.documentId
+        const songName = props.realtimeSongData.metadata.songName
         // TEMPORARY - THIS WILL BE FROM FILE
         const fileVersionName = event.target[1].value
         
@@ -25,24 +25,31 @@ export default function AddFileVersion(props) {
             dateOfMostRecentEdit: new Date(),
             revisionNote: `this is a revision note for: ${fileVersionName}`,
             downloadUrl: 'pathToStorageBucket',
+            usersWithAccess: props.usersWithAccess,
+            usersWithAdmin: props.usersWithAdmin,
             // metadata: {
             //     fileVersionName: fileVersionName,
             //     // dateOfMostRecentEdit: '666',
             //     revisionNote: `this is a revision note for: ${fileVersionName}`,
             //     downloadUrl: 'pathToStorageBucket'
             // }
+        }).catch((error) => {
+            console.log('errrrrr')
+            alert(error)
         })
         const fileVersionDocumentToUpdate = doc(db, 'songs', songDocumentId, 'fileVersions', fileVersionDocumentRef.id)
         await updateDoc(fileVersionDocumentToUpdate, {
             'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
             // 'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
+        }).catch((error) => {
+            alert(error)
         })
 
 
 
 
         
-        window.location.href=`/audio/studio/session/song/${props.allSongData.metadata.documentId}`
+        window.location.href=`/audio/studio/session/song/${props.realtimeSongData.metadata.documentId}`
 
     }
 

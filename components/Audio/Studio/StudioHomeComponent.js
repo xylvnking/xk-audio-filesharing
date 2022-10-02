@@ -10,7 +10,8 @@ import {
     getAllSongDataFromFirebase
 } from './Scripts/StudioHomeScripts'
 
-import StudioSongPreview from './StudioSongPreview'
+import { useRealtimeDataFromEverySongWithAccess } from '../AudioUtilitiesAndHooks'
+
 
 
 
@@ -20,6 +21,8 @@ export default function StudioHomeComponent() {
 
     const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
     const [allSongData, setAllSongData] = useState(null) // array
+
+    const realTimeSongsWithAccessData = useRealtimeDataFromEverySongWithAccess()
 
 
     // this could be in a custom hook?
@@ -49,39 +52,34 @@ export default function StudioHomeComponent() {
             </Link>
 
             <h1>StudioHomeComponent</h1>
-            {
-                !userAuthIsLoading && userAuth && // should be auth?
-                <UserContext.Provider value={userAuth}> // should be auth?
-                    <p>user info</p>
-                    <p>projects member on</p>
-                    <p>projects admin on</p>
-                    <p>songs member on</p>
-                    <p>songs admin on</p>
-
+            {/* {
+                !userAuthIsLoading && userAuth &&
+                <UserContext.Provider value={userAuth}>
                     {
                         allSongData &&
                         allSongData.map((songData, index) => {
-                            
-                            // i need to pass in the song DOCUMENT id here
-                            // return <StudioSongPreview key={index} songData={songData} userAuth={userAuth}/> // should be auth?
                             return (
-                                // <h3 className={styles.container} key={index}>{songData.metadata.songName}</h3>
                                     <Link key={index} href={'/audio/studio/session/song/' + songData.metadata.documentId}>
                                         <div className={styles.container} >
                                             {songData.metadata.songName}
                                         </div>
-                                    </Link>
-                                
+                                    </Link>   
                             )
-                            
-
                         })
                     }
-
-
-
-
                 </UserContext.Provider>
+            } */}
+            {
+                realTimeSongsWithAccessData &&
+                realTimeSongsWithAccessData.map((songData, index) => {
+                    return (
+                        <Link key={index} href={'/audio/studio/session/song/' + songData.metadata.documentId}>
+                            <div className={styles.container} >
+                                {songData.metadata.songName}
+                            </div>
+                        </Link>
+                    )
+                })
             }
         </>
     )

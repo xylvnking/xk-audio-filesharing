@@ -27,19 +27,20 @@ import { auth,provider } from '../../../../../firebase/firebase-config'
 const songSession = () => {
     const router = useRouter()
     // const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth) // this isn't even needed???
-    const [songName, setSongName] = useState(null)
+    const [songDocumentId, setSongDocumentId] = useState(null)
 
     useEffect(() => {
         if (router.query.songSession) {
-            setSongName(router.query.songSession[0])
+            setSongDocumentId(router.query.songSession[0])
         }
     }, [router.query])
 
     return (
         <AudioLayout>
             {
-            songName && auth &&
-            <SessionMainComponent songName={songName} userAuth={auth}/>
+            songDocumentId && auth &&
+            // <SessionMainComponent songName={songName} userAuth={auth}/>
+            <SessionMainComponent songDocumentId={songDocumentId} userAuth={auth}/>
             }
         </AudioLayout>
         // <AudioLayout>

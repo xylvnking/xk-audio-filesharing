@@ -4,6 +4,10 @@ import React, { useEffect, useRef } from 'react'
 import { auth, provider, db } from '../../firebase/firebase-config'
 import { useAuthState } from "react-firebase-hooks/auth"
 
+// import { AudioUtilitiesAndHooks, useRealtimeDataFromEverySongWithAccess } from './AudioUtilitiesAndHooks'
+
+
+
 const resetFirebase = () => {
     fetch('/api/resetDatabase')
     .then((res) => res.json())
@@ -16,6 +20,9 @@ const resetFirebase = () => {
 
 export default function AudioDevUtilities() {
   const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
+
+  // const realTimeSongsWithAccessData = useRealtimeDataFromEverySongWithAccess()
+  // console.log(poop)
 
 
 
@@ -65,6 +72,8 @@ export default function AudioDevUtilities() {
           await updateDoc(userDocumentReference, {
             songsWithAccess: songsWithUserAccessValidated,
             songsWithAdmin: songsWithUserAdminValidated
+          }).catch((error) => {
+            alert(error)
           })
 
 
@@ -83,6 +92,11 @@ export default function AudioDevUtilities() {
 
   return (
     <>
+    {/* <AudioUtilitiesAndHooks /> */}
+    {/* {
+      realTimeSongsWithAccessData &&
+      <p>{realTimeSongsWithAccessData[0].metadata.songName}</p>
+    } */}
     <button onClick={resetFirebase}>Reset Firebase</button>
     <button onClick={() => console.log(auth.currentUser)}>log auth</button>
     {/* <button onClick={() => console.log(userAuth)}>log auth</button> */}

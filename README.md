@@ -56,3 +56,8 @@ I'm currently unsure if I should also pass authentication info, because the comp
 ```shell
     git ls-files | xargs wc -l
 ```
+
+
+# firebase
+
+dont put a catch error on a debounced firebase update function, it'll cause issues with permissions

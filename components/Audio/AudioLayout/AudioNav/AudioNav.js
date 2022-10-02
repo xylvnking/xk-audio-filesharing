@@ -24,11 +24,11 @@ export default function AudioNav(props) {
                     <p>Profile</p>
                 </Link>
 
-                {/* {
+                {
                     userAuth &&
                     <Link href='/audio/profile'>
                         <a>
-                        <p>Profile</p>
+                        {/* <p>Profile</p> */}
                             <Image
                                 src={userAuth.photoURL}
                                 width={50}
@@ -38,7 +38,7 @@ export default function AudioNav(props) {
                             />
                         </a>
                     </Link>
-                } */}
+                }
             </nav>
         </div>
     )

@@ -22,7 +22,9 @@ export const useFileVersions = (songDocumentId) => {
 
                 let fileVersionsExist = false
 
-                const fileVersionsSnapshot = await getDocs(collection(db, 'songs', songDocumentId, 'fileVersions'))
+                const fileVersionsSnapshot = await getDocs(collection(db, 'songs', songDocumentId, 'fileVersions')).catch((error) => {
+            alert(error)
+          })
                 fileVersionsSnapshot.forEach((fileVersion) => {
                     // console.log('file versions exist')
                     // console.log('thing')

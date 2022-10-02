@@ -11,6 +11,8 @@ let revisionTypingTimer
 
 export default function FileVersion(props) {
     const [mostRecentFileVersion, allFileVersions, updateRevisionNote] = useFileVersions(props.songDocumentId)
+
+    // console.log(mostRecentFileVersion)
     
     // this could probably go into the hook? or another hook? since eventually there will probably be more places this needs to happen from, such as removing song
     const handleTyping = (text) => {
@@ -20,9 +22,8 @@ export default function FileVersion(props) {
             revisionTypingTimer = setTimeout(() => {
                 updateDoc(fileVersionDocumentReference, {
                     'revisionNote': text,
-                }).catch((error) => {
-                    alert(`the document you're trying to edit has been deleted since you loaded the page`)
                 })
+               
             }, 500)
         }
         updateRevisionNote()            
