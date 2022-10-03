@@ -2,9 +2,10 @@
 import Link from 'next/link'
 import React, { useState, useEffect, useContext } from 'react'
 import { useAuthState } from "react-firebase-hooks/auth"
-import { auth, provider } from '../../../firebase/firebase-config'
+import { db, auth, provider } from '../../../firebase/firebase-config'
 import { signInWithGoogle, signUserOut } from '../../Audio/AuthFolder/Auth'
 import styles from './Styles/StudioSongPreview.module.scss'
+import { doc, getDoc, query, where, orderBy, limit, collection, getDocs  } from "firebase/firestore";
 
 import {
     getAllSongDataFromFirebase
@@ -30,8 +31,22 @@ export default function StudioHomeComponent() {
         
         if (userAuth) {
             const getAllSongData = async () => {
+
+                const songsRef = collection(db, 'songs');
+                const songDocsAuthorizedOn = query(songsRef, where('usersWithAccess', 'array-contains', userAuth.uid))
+                const querySnapshot = await getDocs(songDocsAuthorizedOn);
+
+                let fetchedSongsDataTemp = []
+                querySnapshot.forEach((doc) => {
+                    fetchedSongsDataTemp.push(doc.data())
+                })
+                fetchedSongsDataTemp.sort(function(a, b) { // sort by date
+                    return a.metadata.dateOfMostRecentEdit + b.metadata.dateOfMostRecentEdit
+                })
                 
-                setAllSongData(await getAllSongDataFromFirebase(userAuth.uid)) // array
+                setAllSongData(fetchedSongsDataTemp)
+                
+                // setAllSongData(await getAllSongDataFromFirebase(userAuth.uid)) // array
 
             }
             getAllSongData()

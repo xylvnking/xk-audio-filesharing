@@ -11,7 +11,6 @@ export const getAllSongDataFromFirebase = async (userUID) => {
 
     const songDocsAuthorizedOn = query(songsRef, where('usersWithAccess', 'array-contains', userUID))
 
-    // let songNamesList = []
     let allSongData = []
     
     const querySnapshot = await getDocs(songDocsAuthorizedOn);
