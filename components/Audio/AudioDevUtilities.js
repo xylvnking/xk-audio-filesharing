@@ -6,6 +6,11 @@ import { useAuthState } from "react-firebase-hooks/auth"
 
 // import { AudioUtilitiesAndHooks, useRealtimeDataFromEverySongWithAccess } from './AudioUtilitiesAndHooks'
 
+/*
+
+ this module fires off right away and does some housekeeping
+
+*/
 
 
 const resetFirebase = () => {
@@ -73,9 +78,7 @@ export default function AudioDevUtilities() {
             songsWithAdmin: songsWithUserAdminValidated
           })
 
-          .catch((error) => {
-            alert(error)
-          })
+
 
 
 

@@ -16,11 +16,11 @@ export const AudioUtilitiesAndHooks = () => {
 // const usersWithAccessToSongDocument = onSnapshot(doc(db, ''))
 
 
-export const getUserPrivilegeOnSong = (songDocumentId) => {
-    const userPrivilege = onSnapshot(doc(db, 'songs', songDocumentId), (doc) => {
-        console.log(doc.data.usersWithAccess)
-    })
-}
+// export const getUserPrivilegeOnSong = (songDocumentId) => {
+//     const userPrivilege = onSnapshot(doc(db, 'songs', songDocumentId), (doc) => {
+//         console.log(doc.data.usersWithAccess)
+//     })
+// }
 
 export const useRealtimeDataFromEverySongWithAccess = () => {
 

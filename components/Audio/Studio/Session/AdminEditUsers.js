@@ -1,7 +1,8 @@
 import React, { useRef } from 'react'
 import styles from './AdminEditUsers.module.scss'
-import { db, auth } from '../../../../firebase/firebase-config'
+import { db, auth, storage } from '../../../../firebase/firebase-config'
 import { collection, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
+// import { ref, uploadBytes, getDownloadURL, listAll, list, getStorage, deleteObject, updateMetadata, getMetadata} from "firebase/storage";
 
 {/* <AdminEditUsers allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/> */ }
 
@@ -54,6 +55,11 @@ export default function AdminEditUsers(props) {
                 'usersWithAccess': usersWithAccessLocal,
                 'usersWithAdmin': usersWithAdminLocal,
             })
+
+
+            
+
+
             window.location.href=`/audio/studio/session/song/${props.allSongData.metadata.documentId}`;
         }
     }

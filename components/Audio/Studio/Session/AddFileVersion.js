@@ -19,27 +19,41 @@ export default function AddFileVersion(props) {
         // TEMPORARY - THIS WILL BE FROM FILE
         const fileVersionName = event.target[1].value
         
-        
+
         const dateOfMostRecentEdit = new Date()
         
         const fileToUpload = event.target[0].files[0]
         const pathReference = `songs/${songDocumentId}/${fileVersionName}`
         const folderRef = ref(storage, pathReference)
+        // console.log(pathReference)
         await uploadBytes(folderRef, fileToUpload)
+        // .then((snapshot) => {
+        //     getDownloadURL(snapshot.ref).then((url) => {
+        //         console.log(url)
+        //     })
+        // })
+        console.log('ok')
+        // await uploadBytes(folderRef, fileToUpload).then((snapshot) => {
+        //     getDownloadURL(snapshot.ref).then((url) => {
+        //       console.log(url)
+        //     })
+        //   })
+        // console.log('log')
         const metadata2 = {
             customMetadata: {
                 [auth.currentUser.uid]: 'admin'
             }
         }
-
         props.realtimeSongData.usersWithAccess.forEach((userUid) => {
             metadata2.customMetadata[userUid] = 'access'
         })
         props.realtimeSongData.usersWithAdmin.forEach((userUid) => {
             metadata2.customMetadata[userUid] = 'admin'
         })
-        console.log(metadata2)
         await updateMetadata(folderRef, metadata2)
+        // console.log('sorted')
+        // console.log(metadata2)
+        // await updateMetadata(folderRef, metadata2)
         // .catch((error) => {
         //     console.log('errrrrr')
         //     alert(error)
@@ -74,10 +88,10 @@ export default function AddFileVersion(props) {
             alert(error)
         })
 
-
-        await getMetadata(folderRef).then((thing) => {
-            console.log(thing)
-        })
+        
+        // await getMetadata(folderRef).then((thing) => {
+        //     console.log(thing)
+        // })
 
 
         

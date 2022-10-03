@@ -4,11 +4,13 @@ import Link from 'next/link'
 import { useSongData } from '../Hooks/useSongData'
 import { useAuthState } from "react-firebase-hooks/auth"
 
-import { auth, provider, db } from '../../../../firebase/firebase-config'
+import { auth, provider, db, storage } from '../../../../firebase/firebase-config'
 import { collection, query, where, getDocs, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL, listAll, list, getStorage, deleteObject, updateMetadata, getMetadata, } from "firebase/storage";
 
 import {userRealtimeSongData} from '../../AudioUtilitiesAndHooks'
 
+// const storage = getStorage();
 
 import FileVersion from './FileVersion'
 import AddFileVersion from './AddFileVersion'
@@ -41,11 +43,121 @@ export default function SessionMainComponent(props) {
     // update song document's priviledge array with new user's uid
     // when testing: remember the ui also checks against user docs, 
         // so if you enter random stuff here it'll add it to the doc but the hook knows its not a real user
+        // console.log(realtimeSongData)
+
+    // const updateFileVersionsMetadata = async (userUidToAdd) => {
+    //     // console.log(props.songDocumentId)
+    //     console.log('ok')
+        
+    //     const listRef = ref(storage, `songs/${props.songDocumentId}`)
+
+    //     listAll(listRef)
+    //         .then((res) => {
+    //             res.prefixes.forEach((folderRef) => {
+    //             // All the prefixes under listRef.
+    //             // You may call listAll() recursively on them.
+    //             });
+    //             res.items.forEach((itemRef) => {
+    //             // All the items under listRef.
+    //             // console.log(itemRef._location.path)
+    //             const folderRef = ref(storage, itemRef._location.path)
+    //             // console.log('yeah')
+    //             getMetadata(folderRef)
+    //             .then(async (currentMetadata) => {
+    //                 if (currentMetadata)  {
+
+    //                     const customMetadataLocal = currentMetadata.customMetadata
+    //                     // let userId = auth.currentUser.uid
+    //                     if (customMetadataLocal) {
+    //                         // customMetadataLocal[userUidToAdd] = 'access'
+    //                         customMetadataLocal[userUidToAdd] = 'admin'
+    
+    //                         const pathReference2 = `songs/${props.songDocumentId}/${itemRef.name}`
+    //                         const filePathFolderRef = ref(storage, pathReference2)
+    //                         // console.log(filePathFolderRef)
+    //                         if (customMetadataLocal[userUidToAdd] == 'admin') {
+    //                             // console.log('yeah')
+    //                             await updateMetadata(filePathFolderRef, customMetadataLocal)
+    //                         }
+    //                 }
+
+    //                     // console.log(customMetadataLocal)
+    //                     // customMetadataLocal[auth.currentUser.uid] = 'admin'
+    //                     // customMetadataLocal[auth.currentUser.uid] = 'access'
+    //                     // console.log(customMetadataLocal)
+    //                 }
+    //                 // const filePathReference = `songs/${props.songDocumentId}/${itemRef.name}`
+    //                 // console.log(currentMetadata.ref._location)
+    //                 // console.log(listRef)
+    //                 // if (currentMetadata) {
+    //                 // }
+                    
+                    
+    //             })
+    //             });
+    //         }).catch((error) => {
+    //             console.log(error)
+    //             // Uh-oh, an error occurred!
+    //         });
+
+    //     // const pathReference = `songs/${props.songDocumentId}/10`
+    //     // const folderRef = ref(storage, pathReference)
+    //     // await getMetadata(folderRef)
+    //     // .then((currentMetadata) => {
+    //     //     console.log(currentMetadata)
+    //     //     // let x = currentMetadata
+    //     //     // x.customMetadata[auth.currentUser.uid] = 
+            
+    //     //     })
+
+    //     // const allFileVersionsSnapshot = await getDocs(collection(db, 'songs', props.songDocumentId, 'fileVersions'))
+    //     // allFileVersionsSnapshot.forEach(async (FileVersion) => {
+    //     //     // console.log(FileVersion.data())
+    //     //     // console.log(FileVersion.data().metadata.fileVersionDocumentId)
+    //     //     // // const pathReference = `songs/${props.songDocumentId}/${FileVersion.data().metadata.fileVersionDocumentId}`
+    //     //     // const pathReference = `songs/${props.songDocumentId}/10`
+    //     //     // const folderRef = ref(storage, pathReference)
+    //     //     // await getMetadata(folderRef)
+    //     //     // .then((currentMetadata) => {
+    //     //     //     console.log(currentMetadata)
+    //     //     //     // let x = currentMetadata
+    //     //     //     // x.customMetadata[auth.currentUser.uid] = 
+                
+    //     //     //     })
+    //     //     // await getMetadata(folderRef).then((currentMetadata) => {
+    //     //     // console.log(currentMetadata)
+    //     //     // let x = currentMetadata
+    //     //     // x.customMetadata[auth.currentUser.uid] = 
+            
+    //     //     // })
+    //     // })
+
+
+
+    //     // allFileVersionsSnapshot.forEach(async (fileVersion, index) => {
+    //     //     console.log(index)
+    //     //     // const oldMetadata = await getMetadata(folderRef)
+    //     //     // console.log(oldMetadata)
+    
+    //     // })
+
+    // }
+    // // updateFileVersionsMetadata()
+    
+    // // useEffect(() => {
+    // //     // for each file version, update the metadata 
+    // //     if (allSongData) {
+    // //         console.log('useEffect')
+    // //         updateFileVersionsMetadata()
+    // //     }
+    // // }, [allSongData])
+    
+
     const addUser = async (event) => {
         event.preventDefault()
         const userUidToAdd = event.target[0].value
         const addAsAdminAlso = event.target[1].checked
-        console.log(event.target[1].checked)
+        // console.log(event.target[1].checked)
         if (userRole == 'admin') {
             const songDocumentReference = doc(db, 'songs', props.songDocumentId)
             const songDocumentSnapshot = await getDoc(songDocumentReference)
@@ -64,9 +176,37 @@ export default function SessionMainComponent(props) {
                     usersWithAccess: usersWithAccessLocal,
                     usersWithAdmin: usersWithAdminLocal
                 })
+                await updateFileVersionsMetadata(userUidToAdd)
+
+
+                // // for each file version, update the metadata 
+                // const allFileVersionsSnapshot = await getDocs(collection(db, 'songs', props.songDocumentId, 'fileVersions'))
+                // allFileVersionsSnapshot.forEach(async (fileVersion, index) => {
+                //     const pathReference = `songs/${props.songDocumentId}/${fileVersion.id}`
+                //     const folderRef = ref(storage, pathReference)
+                //     const oldMetadata = await getMetadata(folderRef)
+
+                //     // await getMetadata(folderRef).then((currentMetadata) => {
+                //     // console.log(currentMetadata)
+                //     // let x = currentMetadata
+                //     // x.customMetadata[auth.currentUser.uid] = 
+                    
+                //     // })
+                // })
+
+
+
+                // console.log(realtimeSongData)
+                // const folderRef = ref(storage, pathReference)
+                // await getMetadata(folderRef).then((currentMetadata) => {
+                //     console.log(currentMetadata)
+                //     // let x = currentMetadata
+                //     // x.customMetadata[auth.currentUser.uid] = 
+                    
+                // })
             }
         }
-        window.location.href=`/audio/studio/session/song/${metadata.documentId}`
+        // window.location.href=`/audio/studio/session/song/${metadata.documentId}`
     }
     
     return (
