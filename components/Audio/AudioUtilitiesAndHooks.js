@@ -3,49 +3,41 @@ import { collection, query, where, getDocs, deleteDoc, doc, getDoc, updateDoc, o
 import { auth, db, provider } from '../../firebase/firebase-config';
 import { useAuthState } from "react-firebase-hooks/auth"
 
-export const AudioUtilitiesAndHooks = () => {
-    const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
-    const listener = onSnapshot(doc(db, 'songs', 'rppNJVW4vS735c37TSVZ'), (doc) => {
-        // console.log('Current data: ', doc.data())
-    })
-    return (
-        <div>AudioUtilitiesAndHooks</div>
-    )
-}
-
-// const usersWithAccessToSongDocument = onSnapshot(doc(db, ''))
-
-
-// export const getUserPrivilegeOnSong = (songDocumentId) => {
-//     const userPrivilege = onSnapshot(doc(db, 'songs', songDocumentId), (doc) => {
-//         console.log(doc.data.usersWithAccess)
+// export const AudioUtilitiesAndHooks = () => {
+//     const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
+//     const listener = onSnapshot(doc(db, 'songs', 'rppNJVW4vS735c37TSVZ'), (doc) => {
+//         // console.log('Current data: ', doc.data())
 //     })
+//     return (
+//         <div>AudioUtilitiesAndHooks</div>
+//     )
 // }
 
-export const useRealtimeDataFromEverySongWithAccess = () => {
+// called from StudioHomeComponent
+// export const useRealtimeDataFromEverySongWithAccess = () => {
 
-    const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
-    // const [realtimeSongsWithAccessData, setRealtimeSongsWithAccessData] = useState(null)
-    const realtimeSongsWithAccessData = useRef(null)
-
-    // const songsQuery = query(collection(db, 'songs'), where('usersWithAccess', 'array-contains', auth.currentUser.uid))
-    useEffect(() => {
-        if (userAuth) {
-            const songsWithAccess = query(collection(db, 'songs'), where('usersWithAccess', 'array-contains', userAuth.uid))
-            const x = onSnapshot(songsWithAccess, (songsWithAccessSnapshot) => {
-                const allData = []
-                songsWithAccessSnapshot.forEach((doc) => {
-                    allData.push(doc.data())
-                })
-                // setRealtimeSongsWithAccessData(allData)
-                realtimeSongsWithAccessData.current = allData
-            })
-        }
-    }, [userAuth])
-    if (realtimeSongsWithAccessData.current) {
-        return realtimeSongsWithAccessData.current
-    }
-}
+//     // const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
+    
+//     const [realtimeSongsWithAccessData, setRealtimeSongsWithAccessData] = useState(null)
+//     useEffect(() => {
+//         // if (userAuth) {
+//         if (auth.currentUser) {
+//             // const songsWithAccess = query(collection(db, 'songs'), where('usersWithAccess', 'array-contains', userAuth.uid))
+//             const songsWithAccess = query(collection(db, 'songs'), where('usersWithAccess', 'array-contains', auth.currentUser.uid))
+//             const x = onSnapshot(songsWithAccess, (songsWithAccessSnapshot) => {
+//                 const allData = []
+//                 songsWithAccessSnapshot.forEach((doc) => {
+//                     allData.push(doc.data())
+//                 })
+//                 setRealtimeSongsWithAccessData(allData)
+//             })
+//         }
+//     // }, [userAuth])
+//     }, [auth.currentUser])
+//     if (realtimeSongsWithAccessData) {
+//         return realtimeSongsWithAccessData
+//     }
+// }
 
 export const userRealtimeSongData = (songDocumentId) => {
     const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)

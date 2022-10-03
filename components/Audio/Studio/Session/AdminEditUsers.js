@@ -55,11 +55,6 @@ export default function AdminEditUsers(props) {
                 'usersWithAccess': usersWithAccessLocal,
                 'usersWithAdmin': usersWithAdminLocal,
             })
-
-
-            
-
-
             window.location.href=`/audio/studio/session/song/${props.allSongData.metadata.documentId}`;
         }
     }

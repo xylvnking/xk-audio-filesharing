@@ -12,6 +12,7 @@ export const signUserOut = async () => {
     .catch(function (error) {
         console.error("there was an error signing out", error);
     })
+    window.location.href=`/`
 }
 
 export const signInWithGoogle = async () => {
@@ -54,6 +55,9 @@ export const signInWithGoogle = async () => {
 
         }).catch((error) => { console.log(error) })
         console.log('user dont got no doc')
+
+        
+        window.location.href=`/audio/studio/`
 
     }
 

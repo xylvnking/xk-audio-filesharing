@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { collection, addDoc, doc, getDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore"; 
-import { ref, uploadBytes, getDownloadURL, listAll, list, getStorage, deleteObject} from "firebase/storage";
 import { db, auth, storage } from '../../../../firebase/firebase-config';
 
 export default function AddSong() {
@@ -9,13 +8,10 @@ export default function AddSong() {
     const addSongToFirebase = async (event) => {
         event.preventDefault()
 
-
         const songName = event.target[0].value
         // const fileToUpload = event.target[1].files[0]
         // const projectName = event.target[2].value
         const dateOfMostRecentEdit = new Date()
-
-        const uniqueSongNameForDocumentName = '?'
 
         const docRef = await addDoc(collection(db, 'songs'), {
             metadata: {
@@ -56,21 +52,13 @@ export default function AddSong() {
                 songsWithAdmin: tempSongsWithAdminArray
             })
         }
-        
-        
-        // const pathReference = `songs/${docRef.id}`
-        // const folderRef = ref(storage, pathReference)
-        // await uploadBytes(folderRef, fileToUpload).then((snapshot) => {
-        //     getDownloadURL(snapshot.ref).then((url) => {
-        //         console.log(url)
-        //     })
-        // })
+
 
         await updateDoc(songDocToUpdate, {
             'metadata.documentId': docRef.id
         })
         
-        // window.location.href=`/audio/studio/session/song/${docRef.id}`
+        window.location.href=`/audio/studio/session/song/${docRef.id}`
 
     }
 

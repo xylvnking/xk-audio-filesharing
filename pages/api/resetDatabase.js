@@ -108,29 +108,29 @@ export default async function handler(req, res) {
         'metadata.documentId': docRef.id
     })
     
-    const fileVersionDocumentRef = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
-        fileVersionName: 'fileVersionName1',
-        // dateOfMostRecentEdit: '666',
-        dateOfMostRecentEdit: new Date(),
-        revisionNote: 'this is a revision note for fileVersionName1',
-        downloadUrl: 'pathToStorageBucket'
-    })
-    const fileVersionDocumentToUpdate1 = doc(db, 'songs', docRef.id, 'fileVersions', fileVersionDocumentRef.id)
-    await updateDoc(fileVersionDocumentToUpdate1, {
-        'metadata.fileVersionDocumentId': fileVersionDocumentRef.id
-    })
+    // const fileVersionDocumentRef = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
+    //     fileVersionName: 'fileVersionName1',
+    //     // dateOfMostRecentEdit: '666',
+    //     dateOfMostRecentEdit: new Date(),
+    //     revisionNote: 'this is a revision note for fileVersionName1',
+    //     downloadUrl: 'pathToStorageBucket'
+    // })
+    // const fileVersionDocumentToUpdate1 = doc(db, 'songs', docRef.id, 'fileVersions', fileVersionDocumentRef.id)
+    // await updateDoc(fileVersionDocumentToUpdate1, {
+    //     'metadata.fileVersionDocumentId': fileVersionDocumentRef.id
+    // })
 
-    const fileVersionDocumentRef2 = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
-        fileVersionName: 'fileVersionName2',
-        // dateOfMostRecentEdit: '777',
-        dateOfMostRecentEdit: new Date(),
-        revisionNote: 'this is a revision note for fileVersionName2',
-        downloadUrl: 'pathToStorageBucket'
-    })
-    const fileVersionDocumentToUpdate2 = doc(db, 'songs', docRef.id, 'fileVersions', fileVersionDocumentRef2.id)
-    await updateDoc(fileVersionDocumentToUpdate2, {
-        'metadata.fileVersionDocumentId': fileVersionDocumentRef2.id
-    })
+    // const fileVersionDocumentRef2 = await addDoc(collection(db, 'songs', docRef.id, 'fileVersions'), {
+    //     fileVersionName: 'fileVersionName2',
+    //     // dateOfMostRecentEdit: '777',
+    //     dateOfMostRecentEdit: new Date(),
+    //     revisionNote: 'this is a revision note for fileVersionName2',
+    //     downloadUrl: 'pathToStorageBucket'
+    // })
+    // const fileVersionDocumentToUpdate2 = doc(db, 'songs', docRef.id, 'fileVersions', fileVersionDocumentRef2.id)
+    // await updateDoc(fileVersionDocumentToUpdate2, {
+    //     'metadata.fileVersionDocumentId': fileVersionDocumentRef2.id
+    // })
 
 
 
@@ -167,29 +167,29 @@ export default async function handler(req, res) {
         'metadata.documentId': docRef7.id
     })
     
-    const fileVersionDocumentRef71 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
-        fileVersionName: 'fileVersionName1',
-        // dateOfMostRecentEdit: '666',
-        dateOfMostRecentEdit: new Date(),
-        revisionNote: 'this is a revision note for fileVersionName1',
-        downloadUrl: 'pathToStorageBucket'
-    })
-    const fileVersionDocumentToUpdate71 = doc(db, 'songs', docRef7.id, 'fileVersions', fileVersionDocumentRef71.id)
-    await updateDoc(fileVersionDocumentToUpdate71, {
-        'metadata.fileVersionDocumentId': fileVersionDocumentRef71.id
-    })
+    // const fileVersionDocumentRef71 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
+    //     fileVersionName: 'fileVersionName1',
+    //     // dateOfMostRecentEdit: '666',
+    //     dateOfMostRecentEdit: new Date(),
+    //     revisionNote: 'this is a revision note for fileVersionName1',
+    //     downloadUrl: 'pathToStorageBucket'
+    // })
+    // const fileVersionDocumentToUpdate71 = doc(db, 'songs', docRef7.id, 'fileVersions', fileVersionDocumentRef71.id)
+    // await updateDoc(fileVersionDocumentToUpdate71, {
+    //     'metadata.fileVersionDocumentId': fileVersionDocumentRef71.id
+    // })
 
-    const fileVersionDocumentRef72 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
-        fileVersionName: 'fileVersionName2',
-        // dateOfMostRecentEdit: '777',
-        dateOfMostRecentEdit: new Date(),
-        revisionNote: 'this is a revision note for fileVersionName2',
-        downloadUrl: 'pathToStorageBucket'
-    })
-    const fileVersionDocumentToUpdate72 = doc(db, 'songs', docRef7.id, 'fileVersions', fileVersionDocumentRef72.id)
-    await updateDoc(fileVersionDocumentToUpdate72, {
-        'metadata.fileVersionDocumentId': fileVersionDocumentRef72.id
-    })
+    // const fileVersionDocumentRef72 = await addDoc(collection(db, 'songs', docRef7.id, 'fileVersions'), {
+    //     fileVersionName: 'fileVersionName2',
+    //     // dateOfMostRecentEdit: '777',
+    //     dateOfMostRecentEdit: new Date(),
+    //     revisionNote: 'this is a revision note for fileVersionName2',
+    //     downloadUrl: 'pathToStorageBucket'
+    // })
+    // const fileVersionDocumentToUpdate72 = doc(db, 'songs', docRef7.id, 'fileVersions', fileVersionDocumentRef72.id)
+    // await updateDoc(fileVersionDocumentToUpdate72, {
+    //     'metadata.fileVersionDocumentId': fileVersionDocumentRef72.id
+    // })
     
     // setDoc(doc(db, 'songs', docRef.id, 'fileVersions', 'fileVersionName1'), {
     //     fileVersionName: 'fileVersionName1',

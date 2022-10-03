@@ -5,62 +5,32 @@ import { ref, uploadBytes, getDownloadURL, listAll, list, getStorage, deleteObje
 import { db, auth, storage } from '../../../../firebase/firebase-config';
 
 export default function AddFileVersion(props) {
-
-    // cons
-    // console.log(props.realtimeSongData)
-    
     
     const addFileVersion = async (event) => {
         event.preventDefault()
         
-
-        const songDocumentId = props.realtimeSongData.metadata.documentId
-        const songName = props.realtimeSongData.metadata.songName
-        // TEMPORARY - THIS WILL BE FROM FILE
-        const fileVersionName = event.target[1].value
+        const songDocumentId = props.allSongData.metadata.documentId
         
-
-        const dateOfMostRecentEdit = new Date()
+        const fileVersionName = event.target[1].value
         
         const fileToUpload = event.target[0].files[0]
         const pathReference = `songs/${songDocumentId}/${fileVersionName}`
         const folderRef = ref(storage, pathReference)
-        // console.log(pathReference)
         await uploadBytes(folderRef, fileToUpload)
-        // .then((snapshot) => {
-        //     getDownloadURL(snapshot.ref).then((url) => {
-        //         console.log(url)
-        //     })
-        // })
-        console.log('ok')
-        // await uploadBytes(folderRef, fileToUpload).then((snapshot) => {
-        //     getDownloadURL(snapshot.ref).then((url) => {
-        //       console.log(url)
-        //     })
-        //   })
-        // console.log('log')
         const metadata2 = {
             customMetadata: {
                 [auth.currentUser.uid]: 'admin'
             }
         }
-        props.realtimeSongData.usersWithAccess.forEach((userUid) => {
+
+        props.allSongData.usersWithAccess.forEach((userUid) => {
             metadata2.customMetadata[userUid] = 'access'
         })
-        props.realtimeSongData.usersWithAdmin.forEach((userUid) => {
+        props.allSongData.usersWithAdmin.forEach((userUid) => {
             metadata2.customMetadata[userUid] = 'admin'
         })
+
         await updateMetadata(folderRef, metadata2)
-        // console.log('sorted')
-        // console.log(metadata2)
-        // await updateMetadata(folderRef, metadata2)
-        // .catch((error) => {
-        //     console.log('errrrrr')
-        //     alert(error)
-        // })
-        
-        // console.log('updating?')
-        // console.log(metadata2)
 
         const fileVersionDocumentRef = await addDoc(collection(db, 'songs', songDocumentId, 'fileVersions'), {
             filePathReference: pathReference,
@@ -68,34 +38,13 @@ export default function AddFileVersion(props) {
             dateOfMostRecentEdit: new Date(),
             revisionNote: `this is a revision note for: ${fileVersionName}`,
             downloadUrl: 'pathToStorageBucket',
-            // usersWithAccess: props.usersWithAccess,
-            // usersWithAdmin: props.usersWithAdmin,
-            // metadata: {
-            //     fileVersionName: fileVersionName,
-            //     // dateOfMostRecentEdit: '666',
-            //     revisionNote: `this is a revision note for: ${fileVersionName}`,
-            //     downloadUrl: 'pathToStorageBucket'
-            // }
-        }).catch((error) => {
-            console.log('errrrrr')
-            alert(error)
         })
         const fileVersionDocumentToUpdate = doc(db, 'songs', songDocumentId, 'fileVersions', fileVersionDocumentRef.id)
         await updateDoc(fileVersionDocumentToUpdate, {
             'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
-            // 'metadata.fileVersionDocumentId': fileVersionDocumentRef.id,
-        }).catch((error) => {
-            alert(error)
         })
-
         
-        // await getMetadata(folderRef).then((thing) => {
-        //     console.log(thing)
-        // })
-
-
-        
-        // window.location.href=`/audio/studio/session/song/${props.realtimeSongData.metadata.documentId}`
+        window.location.href=`/audio/studio/session/song/${props.allSongData.metadata.documentId}`
 
     }
 
