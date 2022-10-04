@@ -1,0 +1,9 @@
+@use '../../audioStyles.module.scss';
+
+.container {
+
+    @include audioStyles.defaultTheme;
+    
+    width: 100%;
+
+}

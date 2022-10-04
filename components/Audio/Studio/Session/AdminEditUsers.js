@@ -1,7 +1,8 @@
 import React, { useRef } from 'react'
-import styles from './AdminEditUsers.module.scss'
+// import styles from './AdminEditUsers.module.scss'
 import { db, auth, storage } from '../../../../firebase/firebase-config'
 import { collection, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
+import styles from '../Styles/ManageTeam.module.scss'
 // import { ref, uploadBytes, getDownloadURL, listAll, list, getStorage, deleteObject, updateMetadata, getMetadata} from "firebase/storage";
 
 {/* <AdminEditUsers allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/> */ }
@@ -20,7 +21,33 @@ export default function AdminEditUsers(props) {
 
     const songDocumentId = useRef(props.allSongData.metadata.documentId)
 
-    
+    const addUser = async (event) => {
+        event.preventDefault()
+        const userUidToAdd = event.target[0].value
+        const addAsAdminAlso = event.target[1].checked
+        
+            const songDocumentReference = doc(db, 'songs', props.allSongData.metadata.documentId)
+            const songDocumentSnapshot = await getDoc(songDocumentReference)
+            let usersWithAccessLocal
+            let usersWithAdminLocal
+            if (songDocumentSnapshot.exists()) {
+                usersWithAccessLocal = songDocumentSnapshot.data().usersWithAccess
+                usersWithAccessLocal.push(userUidToAdd)
+                usersWithAdminLocal = songDocumentSnapshot.data().usersWithAdmin
+                
+                if (addAsAdminAlso == true) {
+                    usersWithAdminLocal.push(userUidToAdd)
+                }
+
+                await updateDoc(songDocumentReference, {
+                    usersWithAccess: usersWithAccessLocal,
+                    usersWithAdmin: usersWithAdminLocal
+                })
+                
+            }
+        
+        window.location.href=`/audio/studio/session/song/${props.allSongData.metadata.documentId}`
+    }
 
     const updatePriviledge = async (action, uidOfUserToRemove) => {
 
@@ -62,9 +89,16 @@ export default function AdminEditUsers(props) {
     }
 
     return (
-        <div>
-            <p><em>AdminEditUsers.js</em></p>
-            <p><small>reminder: only users who have accepted their addition to the song will show up here</small></p>
+        <div className={styles.container}>
+            {/* <p><small>reminder: only users who have accepted their addition to the song will show up here</small></p> */}
+            <form onSubmit={addUser}>
+                <label htmlFor='addsUser'>userUID:</label>
+                <input type='text' id='addUser' required></input>
+                <br />
+                <input type='checkbox' id='addAsAdmin'></input>
+                <label htmlFor='addAsAdmin'>Add as admin?:</label>
+                <button type='submit'>Add User</button>
+            </form>
             {
                 props.usersWithAccess.map((user, index) => {
                     

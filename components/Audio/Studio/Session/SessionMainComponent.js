@@ -42,34 +42,6 @@ export default function SessionMainComponent(props) {
             window.location.href=`/audio/studio`
         }
     }    
-
-    const addUser = async (event) => {
-        event.preventDefault()
-        const userUidToAdd = event.target[0].value
-        const addAsAdminAlso = event.target[1].checked
-        if (userRole == 'admin') {
-            const songDocumentReference = doc(db, 'songs', props.songDocumentId)
-            const songDocumentSnapshot = await getDoc(songDocumentReference)
-            let usersWithAccessLocal
-            let usersWithAdminLocal
-            if (songDocumentSnapshot.exists()) {
-                usersWithAccessLocal = songDocumentSnapshot.data().usersWithAccess
-                usersWithAccessLocal.push(userUidToAdd)
-                usersWithAdminLocal = songDocumentSnapshot.data().usersWithAdmin
-                
-                if (addAsAdminAlso == true) {
-                    usersWithAdminLocal.push(userUidToAdd)
-                }
-
-                await updateDoc(songDocumentReference, {
-                    usersWithAccess: usersWithAccessLocal,
-                    usersWithAdmin: usersWithAdminLocal
-                })
-                
-            }
-        }
-        window.location.href=`/audio/studio/session/song/${metadata.documentId}`
-    }
     
     return (
         props.songDocumentId && allSongData ? // this stops the entire component from rendering unless the router.query has been put into state
@@ -111,22 +83,11 @@ export default function SessionMainComponent(props) {
                         }
                         {
                             manageTeamMenuOpen &&
-                            <div>
-                                <form onSubmit={addUser}>
-                                    <label htmlFor='addsUser'>userUID:</label>
-                                    <input type='text' id='addUser' required></input>
-                                    <br />
-                                    <input type='checkbox' id='addAsAdmin'></input>
-                                    <label htmlFor='addAsAdmin'>Add as admin?:</label>
-                                    <button type='submit'>Add User</button>
-                                </form>
                                 <AdminEditUsers 
                                     allSongData={allSongData} 
                                     usersWithAccess={usersWithAccess} 
                                     usersWithAdmin={usersWithAdmin}
                                 />
-                            </div>
-
                         }
                         
                     </div>
