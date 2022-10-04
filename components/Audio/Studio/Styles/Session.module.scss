@@ -1,5 +1,7 @@
 @use '../../audioStyles.module.scss';
 
+$blue: #6ecbf5;
+
 .container {
     // margin: auto;
     max-width: 1000px;
@@ -12,67 +14,166 @@
         margin: 10px;
         
     }
+    // width: 100%;
+    .sessionInfo {
+        
+        // @include audioStyles.flexCenterCenter;
+        // @include audioStyles.defaultTheme;
+        // width: 100%;
+
+        // flex-direction: column;
+        display: flex;
+        align-items: center;
+        // justify-content: flex-start;
+        justify-content:space-between;
+        cursor: default;
+        position: sticky;
+        top: 0px;
+        background-color: white;
+
+        // margin-top: 50px;
+        // margin-bottom: 50px;
+
+
+        // padding: 20px;
+        // overflow: hidden;
+
+
+        // padding: ;
+        // margin: 10px;
+        // display: flex;
+        // ali
+        // justify-content: center;
+        // align-items: center;
+        // background-image: url('https://media3.giphy.com/media/2SYpZ92iLQsF6QZl5u/giphy.gif?cid=ecf05e476ebgnwjcboi5jilwvnmdsnjw9y2m9dc1jl23thp1&rid=giphy.gif&ct=g');
+        // background-color: black;
+        // // background-image: url('https://media0.giphy.com/media/mNmkP1mYnEUXC/giphy.gif?cid=790b7611a226765881ef6f6c1558d2b0f6fa8487d537f5b3&rid=giphy.gif&ct=g');
+        // background-size: cover;
+        // background-position: center;
+        border-radius: 10px;
+        // z-index: 999;
+        box-shadow: rgba(0, 0, 0, 0.537) 0px 3px 8px;
+        // box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 100px -20px, rgba(0, 0, 0, 0.3) 0px 0px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        
+        width: 100%;
+        // max-width: 450px;
+        
+        h1 {
+            // width: 100%;
+            // background-color: white;
+            margin: 5px;
+            // padding: 5px 10px 5px 10px;
+            padding: 10px;
+            // border-radius: 5px;
+            // text-align: center;
+            font-weight: 500;
+            font-size: 16px;
+            // max-width: 650px;
+            // color: rgb(0, 0, 0);
+            // background-color: rgba(255, 255, 255, 0.511);
+            // backdrop-filter: blur(10px);
+            
+            // overflow:hidden;
+            // overflow-wrap: break-word;
+        }
+        .role {
+            color: $blue;
+        }
+
+    }
     
     main {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        h1 {
-            text-align: center;
-            max-width: 650px;
-            // overflow: scroll;
-            overflow:hidden;
-            overflow-wrap: break-word;
-            margin-top: 0px;
-            // font-size: 5vw;
-            
-        }
-        h2 {
-            margin-top: -10px;
-            align-self: flex-end;
-            margin: 20px;
-            margin-bottom: 0px;
-            // text-align:end;
-            // font-size: 5vw;
-            color: rgba(0, 0, 0, 0.493);
-
-        }
-        nav {
-            
-            @include audioStyles.defaultTheme;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr;
-            background-color: rgb(53, 139, 214);
-            // color: aqua;
-            // display: none;
-            button {
-                cursor: pointer;
-                box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 100px -20px, rgba(0, 0, 0, 0.3) 0px 0px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-                margin: 10px;
-                border-radius: 10px;
-                background-color: white;
-                border-width: 0px;
-                transition: background-color .5s, color .5s;
-                svg {
-                    // padding-bottom: -10px;
-                    margin-top:10px;
-                    margin-bottom: -10px;
-                }
-                &:hover {
+        // width: 100%;
+        // justify-content: center;
+        
+        .navContainer {
+            display: flex;
+            flex-direction: column;
+            // align-items: flex-start;
+            align-items: center;
+            justify-content: center;
+            nav {
+                
+                @include audioStyles.defaultTheme;
+                display: grid;
+                width: 100%;
+                grid-template-columns: 1fr 1fr 1fr;
+                
+                grid-template-rows: 1fr;
+                background-color: rgb(53, 139, 214);
+                // color: aqua;
+                // display: none;
+                button {
+                    cursor: pointer;
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 100px -20px, rgba(0, 0, 0, 0.3) 0px 0px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+                    margin: 10px;
+                    border-radius: 10px;
+                    background-color: white;
+                    border-width: 0px;
                     transition: background-color .5s, color .5s;
-                    background-color: black;
-                    color: white;
+                    font-family: 'Poppins', sans-serif;
                     svg {
-                        fill: white;
+                        // padding-bottom: -10px;
+                        margin-top:10px;
+                        margin-bottom: -10px;
+                    }
+                    &:hover {
+                        transition: background-color .5s, color .5s;
+                        background-color: black;
+                        color: white;
+                        svg {
+                            fill: white;
+                        }
                     }
                 }
-
             }
         }
-        // @include audioStyles.defaultTheme
+        .deleteModalBackground {
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.394);
+            position: fixed;
+            // position: sticky;
+            z-index: 998;
+            backdrop-filter: blur(10px);
+        }
+        .deleteModal {
+            @include audioStyles.flexCenterCenter;
+            background: rgb(176,27,27);
+            background: linear-gradient(90deg, rgba(176,27,27,1) 0%, rgba(255,91,91,1) 100%);
+            // height: 200px;
+            width: 275px;
+            border-radius: 10px;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            h2 {
+                cursor:default;
+                color: white;
+                text-align: center;
+            }
+            p {
+                cursor: pointer;
+                color: red;
+                background-color: white;
+                padding: 10px;
+                border-radius: 5px;
+                margin: 10px;
+                margin-top: 0px;
+                margin-bottom: 20px;
+                box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            }
+        }
     }
-
 }
+// @include audioStyles.defaultTheme

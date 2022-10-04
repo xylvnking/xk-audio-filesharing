@@ -20,6 +20,8 @@ export default function AdminEditUsers(props) {
 
     const songDocumentId = useRef(props.allSongData.metadata.documentId)
 
+    
+
     const updatePriviledge = async (action, uidOfUserToRemove) => {
 
         // create reference to song document
@@ -60,7 +62,7 @@ export default function AdminEditUsers(props) {
     }
 
     return (
-        <div className='simpleBorder'>
+        <div>
             <p><em>AdminEditUsers.js</em></p>
             <p><small>reminder: only users who have accepted their addition to the song will show up here</small></p>
             {
