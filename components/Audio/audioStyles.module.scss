@@ -1,0 +1,40 @@
+// https://coolors.co/6ecbf5-586ae2-2a2356-c252e1-ffffff
+
+@mixin gradientBackground {
+
+    // background: rgb(194,82,225);
+    // background: linear-gradient(90deg, rgba(194,82,225,1) 0%, rgba(110,203,245,1) 50%);
+
+    background: rgb(194,82,225);
+    background: linear-gradient(90deg, rgba(194,82,225,1) 0%, rgba(110,203,245,1) 88%);
+
+
+
+    // background: rgb(110,203,245);
+    // background: linear-gradient(90deg, rgba(110,203,245,1) 0%, rgba(101,113,251,1) 100%);
+
+    // background: rgb(176,27,27);
+    // background: linear-gradient(90deg, rgba(176,27,27,1) 0%, rgba(255,91,91,1) 100%);
+
+    
+
+
+    
+}
+
+@mixin defaultTheme {
+    @include gradientBackground;
+    border-radius: 10px;
+    margin: 10px;
+    list-style: none;
+    max-width: 1000px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; // #2
+
+
+}
+
+@mixin flexCenterCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

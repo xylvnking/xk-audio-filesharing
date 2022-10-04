@@ -15,6 +15,8 @@ body {
     /* background-color: #393939; */
     /* color: #2A2356; */
     /* color: aqua; */
+    /* margin: 10px; */
+    
 
 }
 
@@ -34,6 +36,9 @@ a {
     color: white;
     background: black;
   } */
+  body {
+    /* background-color: black; */
+  }
 }
 
 .simpleBorder {
