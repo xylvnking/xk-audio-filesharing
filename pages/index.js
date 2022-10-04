@@ -6,11 +6,7 @@ import AudioLayout from '../components/Audio/AudioLayout/AudioLayout'
 
 
 export default function Home() {
-    // console.log('yeah')
     return (
-        // <FrontLayout>
-        <AudioLayout>
-
         <div>
             <Head>
                 <title>xk-audio-filesharing</title>
@@ -21,7 +17,5 @@ export default function Home() {
             <footer>
             </footer>
         </div>
-        </AudioLayout>
-        // </FrontLayout>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AudioLayout from '../../../../../components/Audio/AudioLayout/AudioLayout'
+// import AudioLayout from '../../../../../components/Audio/AudioLayout/AudioLayout'
 import SessionMainComponent from '../../../../../components/Audio/Studio/Session/SessionMainComponent'
 import { useRouter } from 'next/router'
 
@@ -36,16 +36,9 @@ const songSession = () => {
     }, [router.query])
 
     return (
-        <AudioLayout>
-            {
             songDocumentId && auth &&
             // <SessionMainComponent songName={songName} userAuth={auth}/>
             <SessionMainComponent songDocumentId={songDocumentId} userAuth={auth}/>
-            }
-        </AudioLayout>
-        // <AudioLayout>
-        //   <SessionMainComponent />
-        // </AudioLayout>
     )
 }
 

@@ -5,9 +5,6 @@ import AudioNav from './AudioNav/AudioNav'
 
 export default function AudioLayout({ children }) {
 
-  // const [userAuth, userAuthIsLoading, userAuthError] = useAuthState(auth)
-  // console.log(userAuth)
-  
   return (
     <>
         <AudioNav />

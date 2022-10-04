@@ -4,8 +4,6 @@ import AddSong from '../../../components/Audio/Studio/AddSong/AddSong'
 
 export default function addSong() {
   return (
-      <AudioLayout>
           <AddSong />
-      </AudioLayout>
   )
 }

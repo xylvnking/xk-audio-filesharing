@@ -52,7 +52,7 @@ export default function StudioHomeComponent() {
                 <button>ADD SONG</button>
             </Link>
 
-            <h1>StudioHomeComponent</h1>
+            {/* <h1>StudioHomeComponent</h1> */}
 
             {
                 realtimeSongsWithAccessData &&

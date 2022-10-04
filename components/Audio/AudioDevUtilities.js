@@ -70,34 +70,19 @@ export default function AudioDevUtilities() {
                         songsWithAccess: songsWithUserAccessValidated,
                         songsWithAdmin: songsWithUserAdminValidated
                     })
-
-
-
-
-
-
-
                 }
             }
-
-
         }
         checkUserPriviledges()
     }, [userAuth])
 
 
 
-    return (
-        <>
-            {/* <AudioUtilitiesAndHooks /> */}
-            {/* {
-      realTimeSongsWithAccessData &&
-      <p>{realTimeSongsWithAccessData[0].metadata.songName}</p>
-    } */}
-            <button onClick={resetFirebase}>Reset Firebase</button>
-            <button onClick={() => console.log(auth.currentUser)}>log auth</button>
-            {/* <button onClick={() => console.log(userAuth)}>log auth</button> */}
-            {/* <button onClick={() => console.log(auth.currentUser.uid)}>log auth</button> */}
-        </>
-    )
+    // return (
+    //     <>
+
+    //         <button onClick={resetFirebase}>Reset Firebase</button>
+    //         <button onClick={() => console.log(auth.currentUser)}>log auth</button>
+    //     </>
+    // )
 }

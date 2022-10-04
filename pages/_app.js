@@ -1,11 +1,17 @@
 import '../styles/globals.css'
 import AudioDevUtilities from '../components/Audio/AudioDevUtilities'
+import AudioLayout from '../components/Audio/AudioLayout/AudioLayout'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <AudioDevUtilities />
-      <Component {...pageProps} />
+      <AudioLayout>
+
+        <Component {...pageProps} />
+
+      </AudioLayout>
+
     </>
   )
   
