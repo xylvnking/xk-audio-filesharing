@@ -3,12 +3,14 @@
     background: linear-gradient(90deg, rgba(194,82,225,1) 0%, rgba(110,203,245,1) 50%);
     border-radius: 10px;
     margin: 10px;
+    margin-bottom: 50px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; // #2
     nav {
         height: 100%;
         display: grid;
         grid-template-columns: 100px 1fr 100px;
         grid-template-rows: 1fr;
+        
         div {
             
             display: flex;
@@ -65,29 +67,38 @@
     // border-bottom-right-radius: 10px;
     // border-style: solid;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; // #2
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; // #2
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 0px 100px -20px, rgba(0, 0, 0, 0.3) 0px 0px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    
+    transition: box-shadow .25s;
     &:hover {
+        
         // background: linear-gradient(90deg, rgba(110,203,245,1) 0%, rgba(194,82,225,1) 50%);
         // background: rgb(110,203,245);
-        // background-color: black;
+        // background-color: rgb(238, 255, 237);
         // color: wheat;
         // background-image: url('https://media1.giphy.com/media/2SYpZ92iLQsF6QZl5u/giphy.gif?cid=790b761194151ecbe843e36634143320a4e6dc0295878196&rid=giphy.gif&ct=g');
+        
+        
         background-color: black;
         background-image: url('https://media0.giphy.com/media/mNmkP1mYnEUXC/giphy.gif?cid=790b7611a226765881ef6f6c1558d2b0f6fa8487d537f5b3&rid=giphy.gif&ct=g');
         background-size: cover;
         background-position: center;
         color: white;
         transition: color 2s;
-
-
         svg {
             transition: fill 2s;
             fill: white
         }
+        
     }
     &:active {
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        transition: box-shadow .25s;
+        // border-style: solid;
+        // border-width: 1px;
+        // border-color: white;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+        // box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     }
     user-select: none;
     div {
