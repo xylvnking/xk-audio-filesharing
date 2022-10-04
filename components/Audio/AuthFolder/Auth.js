@@ -36,8 +36,9 @@ export const signInWithGoogle = async () => {
             // 'metadata.displayName': 'auth.currentUser.displayName',
         }).catch((error) => { console.log(error) })
     } else {
+        console.log('ye')
         await setDoc(doc(db, 'users', auth.currentUser.uid), { // create users collection
-            metadta: {
+            metadata: {
                 uid: auth.currentUser.uid,
                 email: auth.currentUser.email,
                 photoURL: auth.currentUser.photoURL,

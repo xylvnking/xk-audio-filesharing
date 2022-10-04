@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useState, useRef } from 'react'
 // import styles from './AdminEditUsers.module.scss'
 import { db, auth, storage } from '../../../../firebase/firebase-config'
 import { collection, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
@@ -20,6 +20,8 @@ export default function AdminEditUsers(props) {
     // console.log(props)
 
     const songDocumentId = useRef(props.allSongData.metadata.documentId)
+
+    const [addingNewUserMenuOpen, setAddingNewUserMenuOpen] = useState(false)
 
     const addUser = async (event) => {
         event.preventDefault()
@@ -89,40 +91,48 @@ export default function AdminEditUsers(props) {
     }
 
     return (
+        props.userRole == 'admin' &&
         <div className={styles.container}>
             {/* <p><small>reminder: only users who have accepted their addition to the song will show up here</small></p> */}
-            <form onSubmit={addUser}>
-                <label htmlFor='addsUser'>userUID:</label>
-                <input type='text' id='addUser' required></input>
-                <br />
-                <input type='checkbox' id='addAsAdmin'></input>
-                <label htmlFor='addAsAdmin'>Add as admin?:</label>
-                <button type='submit'>Add User</button>
-            </form>
             {
-                props.usersWithAccess.map((user, index) => {
-                    
-                    
-                    
-                    return ( // could make this it's own little user preview component, because only seeing email is a bit weird. a little id card is probably best
-                    props.usersWithAccess[index].metadata.uid !== auth.currentUser.uid && // USE THIS TO REMOVE THE CURRENT USER FROM OPTIONS LIST SO THEY DONT ACCIDENTALLY REMOVE THEMSELVES - MAYBE THAT SHOULD ONLY BE DONE IN PROFILE MENU OR SOMETHING
-                        <ul key={index} className={styles.listItem}>
-                            <li>{user.metadata.email}</li>
-
-                            {
-                                props.allSongData.usersWithAccess.includes(user.metadata.uid) &&
-                                <button onClick={() => updatePriviledge('removeAccess', user.metadata.uid)}>remove access</button>
-                            }
-                            {
-                                props.allSongData.usersWithAdmin.includes(user.metadata.uid) &&
-                                <button onClick={() => updatePriviledge('removeAdmin', user.metadata.uid)}>remove admin</button>
-                            }
-
-                        </ul>
-                    )
-
-                })
+                addingNewUserMenuOpen &&
+                <form onSubmit={addUser}>
+                    <label htmlFor='addsUser'>userUID:</label>
+                    <input type='text' id='addUser' required></input>
+                    <br />
+                    <input type='checkbox' id='addAsAdmin'></input>
+                    <label htmlFor='addAsAdmin'>Add as admin?:</label>
+                    <button type='submit'>Add User</button>
+                </form>
             }
+            <ul>
+                <li className={styles.userListItem} onClick={() => setAddingNewUserMenuOpen(true)}>yeah</li>
+                {
+                    props.usersWithAccess.map((user, index) => {
+                        return ( // could make this it's own little user preview component, because only seeing email is a bit weird. a little id card is probably best
+                        props.usersWithAccess[index].metadata.uid !== auth.currentUser.uid && // USE THIS TO REMOVE THE CURRENT USER FROM OPTIONS LIST SO THEY DONT ACCIDENTALLY REMOVE THEMSELVES - MAYBE THAT SHOULD ONLY BE DONE IN PROFILE MENU OR SOMETHING
+                            <ul key={index} className={styles.userListItem}>
+                                <li>{user.metadata.email}</li>
+
+                                {
+                                    props.allSongData.usersWithAccess.includes(user.metadata.uid) &&
+                                    <button onClick={() => updatePriviledge('removeAccess', user.metadata.uid)}>remove access</button>
+                                }
+                                {
+                                    props.allSongData.usersWithAccess.includes(user.metadata.uid) && !props.allSongData.usersWithAdmin.includes(user.metadata.uid) &&
+                                    <button>promote to admin</button>
+                                }
+                                {
+                                    props.allSongData.usersWithAdmin.includes(user.metadata.uid) &&
+                                    <button onClick={() => updatePriviledge('removeAdmin', user.metadata.uid)}>remove admin</button>
+                                }
+
+                            </ul>
+                        )
+
+                    })
+                }
+            </ul>
 
         </div>
     )

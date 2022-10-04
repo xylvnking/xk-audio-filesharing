@@ -82,21 +82,22 @@ export default function SessionMainComponent(props) {
                             </div>
                         }
                         {
-                            manageTeamMenuOpen &&
+                            manageTeamMenuOpen && userRole == 'admin' &&
                                 <AdminEditUsers 
                                     allSongData={allSongData} 
                                     usersWithAccess={usersWithAccess} 
                                     usersWithAdmin={usersWithAdmin}
+                                    userRole={userRole}
                                 />
                         }
                         
                     </div>
                 }
-                {
+                {/* {
                     userRole == 'admin' &&
                     <AddFileVersion allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/>
                 }
-                <FileVersion songName={props.songDocumentId} userRole={userRole} songDocumentId={metadata.documentId}/>
+                <FileVersion songName={props.songDocumentId} userRole={userRole} songDocumentId={metadata.documentId}/> */}
             </main>
 
 

@@ -39,6 +39,7 @@ export default function AudioDevUtilities() {
         const checkUserPriviledges = async () => {
 
             if (userAuth) {
+                
                 const userDocumentReference = doc(db, 'users', auth.currentUser.uid)
                 const userDocumentSnapshot = await getDoc(userDocumentReference)
 
@@ -52,20 +53,20 @@ export default function AudioDevUtilities() {
                     let songsWithUserAdminValidated = []
 
                     const songsRef = collection(db, 'songs')
-
                     const querySongDocumentsWhereUserHasAccess = query(songsRef, where('usersWithAccess', 'array-contains', auth.currentUser.uid))
                     const querySongDocumentsWhereUserHasAdmin = query(songsRef, where('usersWithAdmin', 'array-contains', auth.currentUser.uid))
-
+                    
                     const querySongDocumentsWhereUserHasAccessSnapshot = await getDocs(querySongDocumentsWhereUserHasAccess)
                     const querySongDocumentsWhereUserHasAdminSnapshot = await getDocs(querySongDocumentsWhereUserHasAdmin)
-
+                    
                     querySongDocumentsWhereUserHasAccessSnapshot.forEach((document) => {
                         songsWithUserAccessValidated.push(document.id)
                     })
                     querySongDocumentsWhereUserHasAdminSnapshot.forEach((document) => {
                         songsWithUserAdminValidated.push(document.id)
                     })
-
+                    
+                    console.log('check')
                     await updateDoc(userDocumentReference, {
                         songsWithAccess: songsWithUserAccessValidated,
                         songsWithAdmin: songsWithUserAdminValidated
