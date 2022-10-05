@@ -1,0 +1,71 @@
+@use '../audioStyles.module.scss';
+
+$red: rgba(255,91,91,1);
+$pink: #c252e1;
+$blue: #6ecbf5;
+$grey: rgb(51, 51, 51);
+$subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+$button-hover-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+
+.container {
+    @include audioStyles.defaultTheme;
+    padding: 10px;
+    ul {
+        padding: 0px;
+    }
+    h2 {
+        font-size: 16px;
+    }
+    h1 {
+        font-size: 20px;
+        font-weight: 400;
+    }
+    .signOutButton {
+        
+        cursor: pointer;
+        background-color: white;
+        border-style: none;
+        // border-width: 2px;
+        border-radius: 10px;
+        border-color:$blue;
+        padding: 10px;
+        margin: 10px;
+        font-size: 30px;
+        box-shadow: $subtle-shadow;
+        width: 200px;
+        height: 100px;
+        color: $blue;
+        &:hover {
+            color: black;
+            box-shadow: $button-hover-shadow;
+        }
+
+        
+    }
+    
+}
+.signInButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .signInButton {
+        cursor: pointer;
+        background-color: $blue;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 10px;
+        border-color:$blue;
+        padding: 10px;
+        margin: 10px;
+        font-size: 30px;
+        box-shadow: $subtle-shadow;
+        width: 200px;
+        height: 100px;
+        color: white;
+        &:hover {
+            box-shadow: $button-hover-shadow;
+        }
+
+    }
+}
