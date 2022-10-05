@@ -13,20 +13,20 @@ export default function ProfileMainComponent() {
     // console.log(userAuth)
     return (
             // <h1>this is where the user will manage their info</h1>
-            <div>
+            <div className={styles.profileContainer}>
                 {
                     userAuth ?
                     <main className={styles.container}>
                         
                         <ul>
                             <li>
-                                <h2>
+                                <h1>
                                     {userAuth.displayName}
-                                </h2>
+                                </h1>
                             </li>
                             <li>
                                 <h2>
-                                    {userAuth.email}
+                                    <span style={{fontWeight: 400}}>{userAuth.email}</span>
                                 </h2>
                             </li>
                             <li>
