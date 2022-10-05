@@ -9,9 +9,9 @@ $subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0p
     @include audioStyles.defaultTheme;
     width: 100%;
     max-width: 1000px;
-    margin-top: -10px;
-    margin-bottom: 10px;
+    // margin-top: -10px;
     margin: 0px;
+    margin-bottom: 10px;
     form {
         background-color: aqua;
         padding: 40px;

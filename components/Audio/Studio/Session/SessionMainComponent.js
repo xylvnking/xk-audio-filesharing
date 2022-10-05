@@ -31,7 +31,7 @@ export default function SessionMainComponent(props) {
     // UI
     const [deleteSongMenuOpen, setDeleteSongMenuOpen] = useState(false)
     const [manageTeamMenuOpen, setManageTeamMenuOpen] = useState(false)
-    const [addUserMenuOpen, setAddUserMenuOpen] = useState(false)
+    const [addFileVersionMenuOpen, setAddFileVersionMenuOpen] = useState(false)
 
     const deleteSong = async () => {
         if (userRole == 'admin') {
@@ -57,8 +57,9 @@ export default function SessionMainComponent(props) {
                     userRole == 'admin' &&
                     <div className={styles.navContainer}>
                         <nav>
-                                <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M22.6 36.5h2.85v-6.45h6.5V27.2h-6.5v-6.5H22.6v6.5h-6.5v2.85h6.5ZM6.9 45.05V2.9h22.75l11.5 11.4v30.75ZM27.25 16.6V7.5h-15.8v33h25.1V16.6Zm-15.8-9.1v9.1-9.1 33Z"/></svg>
+                                <button onClick={() => setAddFileVersionMenuOpen(!addFileVersionMenuOpen)}>
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M22.6 36.5h2.85v-6.45h6.5V27.2h-6.5v-6.5H22.6v6.5h-6.5v2.85h6.5ZM6.9 45.05V2.9h22.75l11.5 11.4v30.75ZM27.25 16.6V7.5h-15.8v33h25.1V16.6Zm-15.8-9.1v9.1-9.1 33Z"/></svg> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M22.6 30.05v5q0 .6.425 1.025.425.425.975.425.6 0 1.025-.425.425-.425.425-1.025v-5h5.05q.55 0 1-.425.45-.425.45-1.025 0-.6-.45-1t-1-.4h-5.05v-5.1q0-.55-.425-.975Q24.6 20.7 24 20.7q-.6 0-1 .425t-.4.975v5.1h-5.1q-.55 0-.975.425-.425.425-.425.975 0 .6.425 1.025.425.425.975.425Zm-11.15 15q-1.8 0-3.175-1.35Q6.9 42.35 6.9 40.5v-33q0-1.9 1.375-3.25T11.45 2.9h16.3q.95 0 1.8.375Q30.4 3.65 31 4.3l8.7 8.65q.65.7 1.05 1.525t.4 1.825v24.2q0 1.85-1.4 3.2t-3.2 1.35Zm15.8-30.75V7.5h-15.8v33h25.1V16.6h-7q-1.05 0-1.675-.625T27.25 14.3Zm-15.8-6.8v9.1-9.1 33-33Z"/></svg>
                                     <p>Add File</p>
                                 </button>
                                 <button onClick={() => setManageTeamMenuOpen(!manageTeamMenuOpen)} className={manageTeamMenuOpen ? `${styles.sectionOpen}` : null}>
@@ -71,7 +72,8 @@ export default function SessionMainComponent(props) {
                                 </button> */}
                             {
                                 <button onClick={() => setDeleteSongMenuOpen(true)} className={deleteSongMenuOpen ? `${styles.sectionOpen}` : null}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M8.05 43.05V10.9h-2.9V6.35h11.4V4H31.4v2.35h11.4v4.55h-2.9v32.15Zm4.6-4.55H35.3V10.9H12.65Zm5.2-3.9h3.7V14.7h-3.7Zm8.65 0h3.75V14.7H26.5ZM12.65 10.9v27.6Z"/></svg>
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M8.05 43.05V10.9h-2.9V6.35h11.4V4H31.4v2.35h11.4v4.55h-2.9v32.15Zm4.6-4.55H35.3V10.9H12.65Zm5.2-3.9h3.7V14.7h-3.7Zm8.65 0h3.75V14.7H26.5ZM12.65 10.9v27.6Z"/></svg> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M12.65 43.05q-1.8 0-3.2-1.35-1.4-1.35-1.4-3.2V10.9H7.5q-.95 0-1.575-.65T5.3 8.65q0-1 .625-1.65.625-.65 1.575-.65h9.1q0-1 .65-1.675T18.9 4h10.2q1 0 1.675.675t.675 1.675h9q1 0 1.65.675.65.675.65 1.575 0 1.05-.65 1.675t-1.65.625h-.55v27.6q0 1.85-1.35 3.2t-3.25 1.35Zm0-32.15v27.6H35.3V10.9Zm5.2 21.9q0 .7.55 1.25t1.25.55q.75 0 1.325-.55t.575-1.25V16.6q0-.75-.6-1.325t-1.3-.575q-.75 0-1.275.575-.525.575-.525 1.325Zm8.65 0q0 .7.575 1.25t1.275.55q.75 0 1.325-.55t.575-1.25V16.6q0-.75-.575-1.325T28.35 14.7q-.75 0-1.3.575T26.5 16.6ZM12.65 10.9v27.6-27.6Z"/></svg>
                                     <p>Delete Song</p>
                                 </button>
                             }
@@ -93,18 +95,16 @@ export default function SessionMainComponent(props) {
                                     usersWithAccess={usersWithAccess} 
                                     usersWithAdmin={usersWithAdmin}
                                     userRole={userRole}
-                                    addUserMenuOpen={addUserMenuOpen}
-                                    // open={manageTeamMenuOpen}
                                 />
                         }
                         
                     </div>
                 }
                 {
-                    userRole == 'admin' &&
+                    userRole == 'admin' && addFileVersionMenuOpen &&
                     <AddFileVersion allSongData={allSongData} usersWithAccess={usersWithAccess} usersWithAdmin={usersWithAdmin}/>
                 }
-                <FileVersion songName={props.songDocumentId} userRole={userRole} songDocumentId={metadata.documentId}/>
+                <FileVersion userRole={userRole} songDocumentId={metadata.documentId}/>
             </main>
 
 

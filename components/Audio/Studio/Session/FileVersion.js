@@ -1,7 +1,8 @@
 import React from 'react'
 import {useFileVersions} from '../Hooks/useFileVersions'
 import TextareaAutosize from 'react-textarea-autosize';
-import styles from './FileVersion.module.scss'
+import styles from '../Styles/FileVersion.module.scss'
+// import styles from './FileVersion.module.scss'
 
 import { doc, updateDoc } from 'firebase/firestore'
 
@@ -30,48 +31,55 @@ export default function FileVersion(props) {
 
     return (
         mostRecentFileVersion &&
-        <div className='simpleBorder'>
-            {/* <h4>{props.songName}</h4> */}
-            <p><em>FileVersion.js</em></p>
-            {/* <h5>{mostRecentFileVersion.metadata.fileVersionName}</h5> */}
-            <h5>{mostRecentFileVersion.fileVersionName}</h5>
-            
-            <audio preload='none' controls src={mostRecentFileVersionDownloadLink}></audio>
-            <br />
-            {
-                props.userRole == 'admin' ?
-                <TextareaAutosize 
-                    // defaultValue={mostRecentFileVersion.metadata.revisionNote}
-                    defaultValue={mostRecentFileVersion.revisionNote}
-                    onChange={(e) => handleTyping(e.target.value)}
-                />
-                :
-                // <p>{mostRecentFileVersion.metadata.revisionNote}</p>
-                <p>{mostRecentFileVersion.revisionNote}</p>
-            }
-            <details className='removeListStyleAndAddPointerCursor' open={true}>
-                <summary>past file versions:</summary>
-                <ul className='removeListStyleAndAddPointerCursor'>
-                <p><small>reminder: the auto database reset function can produce unpreditable ordering here</small></p>
+        <div>
+            <section className={styles.fileVersionTitle}>
+                <h1>{mostRecentFileVersion.fileVersionName}</h1>
+            </section>
 
+        <main className={styles.container}>
+
+            
+                {/* <h4>{props.songDocumentId}</h4> */}
+                {/* <p><em>FileVersion.js</em></p> */}
+                {/* <h5>{mostRecentFileVersion.metadata.fileVersionName}</h5> */}
+                
+                <audio preload='none' controls src={mostRecentFileVersionDownloadLink}></audio>
+                <br />
                 {
-                    
-                    // console.log(allFileVersions)
-                    allFileVersions.map((fileVersion, index) => {
-                        // if (index !== allFileVersions.length - 1) { // removes most recent one since it's displayed on its own above
-                        if (index > 0) { // removes most recent one since it's displayed on its own above
-                            return (
-                                <ul key={index} className={styles.pastFileVersionsListItem}>
-                                    <li>{fileVersion.fileVersionName}</li>        
-                                    <li>{fileVersion.revisionNote}</li>  
-                                </ul>
-                                )
+                    props.userRole == 'admin' ?
+                    <div className={styles.currentRevisionTextAreaContainer}>
+                        <TextareaAutosize 
+                            // defaultValue={mostRecentFileVersion.metadata.revisionNote}
+                            defaultValue={mostRecentFileVersion.revisionNote}
+                            onChange={(e) => handleTyping(e.target.value)}
+                            spellCheck="false"
+                            
+                        />
+                    </div>
+                    :
+                    // <p>{mostRecentFileVersion.metadata.revisionNote}</p>
+                    <p>{mostRecentFileVersion.revisionNote}</p>
+                }
+                    <ul className={styles.pastFileVersionsList}>
+                    {/* <p><small>reminder: the auto database reset function can produce unpreditable ordering here</small></p> */}
+
+                    {
+                        
+                        // console.log(allFileVersions)
+                        allFileVersions.map((fileVersion, index) => {
+                            // if (index !== allFileVersions.length - 1) { // removes most recent one since it's displayed on its own above
+                            if (index > 0) { // removes most recent one since it's displayed on its own above
+                                return (
+                                    <ul key={index} className={styles.pastFileVersionsListItem}>
+                                        <h1>{fileVersion.fileVersionName}</h1>        
+                                        <li>{fileVersion.revisionNote}</li>  
+                                    </ul>
+                                    )
+                            }
+                            })
                         }
-                        })
-                        // allFileVersions
-                    }
-                </ul>
-            </details>
+                    </ul>
+        </main>
         </div>
     )
 }

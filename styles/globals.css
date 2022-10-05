@@ -29,6 +29,10 @@ a {
 button {
   font-family: 'Poppins', sans-serif;
 }
+
+ul {
+  list-style: none;
+}
 @media (prefers-color-scheme: dark) {
   /* html {
     color-scheme: dark;

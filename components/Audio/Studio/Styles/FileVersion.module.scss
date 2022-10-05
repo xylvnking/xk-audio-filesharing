@@ -1,0 +1,114 @@
+@use '../../audioStyles.module.scss';
+
+$red: rgba(255,91,91,1);
+$pink: #c252e1;
+$blue: #6ecbf5;
+$subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+.fileVersionTitle {
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    cursor: default;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.537) 0px 3px 8px;
+    width: 100%;
+    // margin-top: 10px;
+    h1 {
+        margin: 5px;
+        padding: 10px;
+        font-weight: 500;
+        font-size: 16px;
+    }
+    .role {
+        color: $blue;
+    }
+
+}
+
+.container {
+    @include audioStyles.defaultTheme;
+    margin: 0px;
+    margin-top: 10px;
+    padding: 10px;
+    // height: 200vh;
+    // width: 100%;
+    // display: grid;
+    // display: grid;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: 1fr 1fr;
+    // gap: 50px;
+    // display: flex;
+    // align-items: flex-start;
+    // margin-left: auto;
+    // width: 50%;
+    // al
+    audio {
+        // height: 200px;
+        width: 100%;
+        // border-radius: 10px;
+    }
+
+    .currentRevisionTextAreaContainer {
+
+        display: flex;
+        textArea {
+            font-family: 'Poppins', sans-serif;
+            color: #1f1f1f;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2px;
+            
+            width: 100%;
+            resize: none;
+            padding: 20px;
+            // margin: 10px;
+            border-radius: 10px;
+            // width: 50ch;
+            // border-style: solid;
+            // border-width: 2px;
+            font-size: 16px;
+            border: 2px solid white;
+            background-color:#f6f6f6;
+            &:focus {
+                outline: none !important;
+                border:2px solid $pink;
+                // box-shadow: 0 0 10px #719ECE;
+            }
+    
+        }
+    }
+    .pastFileVersionsList {
+        padding: 0px;
+        margin-top: 10px;
+        // margin: 10px;
+        // margin: 0px;
+        ul { margin: 0px; padding: 0px;}
+        .pastFileVersionsListItem {
+            color: #1f1f1f;
+            margin-top: 10px;
+            box-shadow: $subtle-shadow;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: white;
+            // margin: 10px;
+            h1 {
+                font-size: 16px;
+                padding: 10px;
+                margin: 0px;
+            }
+            li {
+                margin: 0px;
+                padding: 10px;
+            }
+            &:is(:last-child) {
+                margin-bottom: -15px;
+            }
+        }
+    }
+
+}
