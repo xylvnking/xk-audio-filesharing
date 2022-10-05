@@ -99,13 +99,14 @@ export default function AdminEditUsers(props) {
 
     // console.log(props.allSongData.usersWithAdmin.includes(user.metadata.uid))
     // console.log(props.allSongData.)
+    console.log(props.addUserMenuOpen)
     
 
     return (
         props.userRole == 'admin' &&
         <div className={styles.container}>
             {/* <p><small>reminder: only users who have accepted their addition to the song will show up here</small></p> */}
-            {
+            {/* {
                 addingNewUserMenuOpen &&
                 <form onSubmit={addUser}>
                     <label htmlFor='addsUser'>userUID:</label>
@@ -115,14 +116,32 @@ export default function AdminEditUsers(props) {
                     <label htmlFor='addAsAdmin'>Add as admin?:</label>
                     <button type='submit'>Add User</button>
                 </form>
-            }
+            } */}
             <ul className={styles.userList}>
-                <li className={`${styles.addUserButtonContainer} `} onClick={() => setAddingNewUserMenuOpen(true)} style={{backgroundColor: '#ffffff00'}}>
+                <li className={`${styles.addUserButtonContainer}`} onClick={() => setAddingNewUserMenuOpen(!addingNewUserMenuOpen)} >
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="M32.625 21.875q-.792 0-1.229-.5-.438-.5-.438-1.208v-3.334h-3.333q-.792 0-1.25-.458-.458-.458-.458-1.208t.458-1.229q.458-.48 1.25-.48h3.333v-3.291q0-.792.438-1.229.437-.438 1.187-.438t1.25.438q.5.437.5 1.229v3.291h3.25q.792 0 1.25.48.459.479.459 1.187 0 .792-.459 1.25-.458.458-1.25.458h-3.25v3.334q0 .708-.5 1.208t-1.208.5ZM15.25 19.333q-3.292 0-5.458-2.145-2.167-2.146-2.167-5.438t2.167-5.437q2.166-2.146 5.458-2.146 3.292 0 5.458 2.125 2.167 2.125 2.167 5.458 0 3.292-2.167 5.438-2.166 2.145-5.458 2.145ZM2.833 35.208q-.916 0-1.541-.625-.625-.625-.625-1.541v-3.25q0-1.834.937-3.292.938-1.458 2.479-2.208 3.042-1.417 5.688-2.042 2.646-.625 5.437-.625 2.792 0 5.438.625t5.687 2.042q1.625.708 2.563 2.146.937 1.437.937 3.312v3.292q0 .916-.645 1.541-.646.625-1.605.625Zm2.292-4.416h20.292v-.834q0-.583-.334-1.104-.333-.521-.916-.729-2.5-1.208-4.542-1.625-2.042-.417-4.417-.417-2.291 0-4.396.417-2.104.417-4.562 1.625-.583.208-.854.729t-.271 1.104Zm10.083-15.875q1.334 0 2.292-.917.958-.917.958-2.25t-.937-2.271q-.938-.937-2.313-.937-1.333 0-2.229.937-.896.938-.896 2.271t.896 2.25q.896.917 2.229.917Zm.042-3.167Zm0 14.333Z"/></svg>
                         <p>add user</p>
                     </div>
                 </li>
+                {
+                addingNewUserMenuOpen &&
+                <form onSubmit={addUser}>
+                    <div>
+                        <label htmlFor='addsUser'>uid:</label>
+                        <input type='text' id='addUser' required></input>
+                        {/* <svg style={{marginLeft: '10px'}} fill='grey'xmlns="http://www.w3.org/2000/svg" height="20" width="20"><path d="M9.979 14.875q.438 0 .729-.292.292-.291.292-.729 0-.437-.292-.729-.291-.292-.729-.292-.437 0-.729.292t-.292.729q0 .438.292.729.292.292.729.292Zm.083-8.354q.584 0 .959.312.375.313.375.792 0 .333-.208.698-.209.365-.626.698-.562.521-.937.989-.375.469-.354 1.032 0 .291.198.489t.51.198q.313 0 .531-.198.219-.198.282-.531.062-.333.281-.625.219-.292.698-.771.646-.604.875-1.073.229-.469.229-1.052 0-1.062-.75-1.708-.75-.646-2-.646-.833 0-1.469.344-.635.343-1.135.989-.167.209-.094.469.073.261.281.427.271.208.594.136.323-.073.531-.386.229-.271.532-.427.302-.156.697-.156ZM10 18.125q-1.667 0-3.146-.635-1.479-.636-2.594-1.73-1.114-1.093-1.75-2.583-.635-1.489-.635-3.177 0-1.708.646-3.187.646-1.48 1.75-2.573 1.104-1.094 2.583-1.73Q8.333 1.875 10 1.875q1.708 0 3.188.635 1.479.636 2.583 1.73 1.104 1.093 1.729 2.573.625 1.479.625 3.187 0 1.688-.635 3.177-.636 1.49-1.73 2.583-1.093 1.094-2.572 1.73-1.48.635-3.188.635ZM10 10Zm0 6.479q2.729 0 4.604-1.896 1.875-1.895 1.875-4.583t-1.875-4.583Q12.729 3.521 10 3.521q-2.667 0-4.573 1.896Q3.521 7.312 3.521 10q0 2.667 1.906 4.573Q7.333 16.479 10 16.479Z"/></svg> */}
+                    </div>
+                    <div>
+                        <label htmlFor='addAsAdmin'>Add as admin?:</label>
+                        <input type='checkbox' id='addAsAdmin'></input>
+                    </div>
+                    <div>
+                        <button type='submit'>Add User</button>
+                        <button type='button' className={styles.cancelNewUser} onClick={() => setAddingNewUserMenuOpen(false)}>Cancel</button>
+                    </div>
+                </form>
+            }
                 {
                     props.usersWithAccess.map((user, index) => {
                         return ( // could make this it's own little user preview component, because only seeing email is a bit weird. a little id card is probably best
