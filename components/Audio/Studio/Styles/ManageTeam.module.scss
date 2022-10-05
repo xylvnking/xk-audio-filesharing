@@ -1,6 +1,9 @@
 @use '../../audioStyles.module.scss';
 
 $red: rgba(255,91,91,1);
+$pink: #c252e1;
+$blue: #6ecbf5;
+$subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
 .container {
 
@@ -40,6 +43,7 @@ $red: rgba(255,91,91,1);
             padding: 0;
         }
         .userListItem {
+            overflow: scroll;
             border-radius: 10px;
             padding: 10px;
             background-color: white;
@@ -47,13 +51,57 @@ $red: rgba(255,91,91,1);
                 margin-bottom: 10px;
             }
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            .idCard {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                .nextImageWrapper {
+                    width: 100px;
+                    height: 100px;
+                    position: relative;
+                    border-radius: 50%;
+                    overflow: 'hidden';
+                    box-shadow: $subtle-shadow;
+                    // z-index: 2;
+                    .nextImage {
+                        // z-index: 2;
+                        // z-index: 2;
+                        border-radius: 50%;
+                        
+                    }
+                }
+            }
+
+
             .actionButtons {
                 display: flex;
                 flex-direction: row;
-                align-items: center;
+                // align-items: center;
+                align-self: flex-end;
+                // background-color: #c252e1;
+                @media (max-width: 400px) { 
+                    width: 100%;
+                    flex-direction: column;
+                    align-self: center;
+                    // margin: 10px;
+                    
+                }
                 // height: 100px;
+            }
+            .giveAdmin {
+
+                border-style: solid;
+                border-width: 2px;
+                color: white;
+                background-color: $blue;
+                border-color: $blue;
+                svg {
+                    fill: white;
+                }
+                
+                border-radius: 10px;
             }
             .removeAction {
                 border-style: solid;
@@ -66,16 +114,23 @@ $red: rgba(255,91,91,1);
                 // background-color: red;
             }
             .removeAccess {
-                border-color:white;
+                border-color:rgba(255, 255, 255, 0);
                 background-color: $red;
-                padding: 12px;
+                // padding: 10px;
                 color: white;
                 svg {
                     fill: white;
-                    
+                }
+                &:hover {
+                    // padding: 10px;
+                    border-color: rgb(0, 0, 0);
                 }
             }
             button {
+                box-shadow: $subtle-shadow;
+                // width: 200px;
+                min-width: 150px;
+                cursor: pointer;
                 // min-height: 100px;
                 padding: 10px;
                 color: $red;
@@ -84,6 +139,14 @@ $red: rgba(255,91,91,1);
                 // background-color: green;
                 // margin: 10px;
                 margin-left: 10px;
+                @media (max-width: 400px) { 
+                    margin-left: 0px;
+                    margin: 10px;
+                    // width: 100%;
+                    // align-self: center;
+                    // margin: 10px;
+                    
+                }
                 // gap: 10px;
                 // display: flex;
                 // flex-direction: column;
@@ -94,6 +157,14 @@ $red: rgba(255,91,91,1);
                 p {
                     margin: 0px;
                     padding: 0px;
+                }
+                &:hover {
+                    background-color: black;
+                    border-color: black;
+                    color: white;
+                    svg {
+                        fill: white;
+                    }
                 }
             }
         }

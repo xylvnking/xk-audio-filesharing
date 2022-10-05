@@ -16,7 +16,7 @@ $blue: #6ecbf5;
     }
     // width: 100%;
     .sessionInfo {
-        
+        z-index: 99;
         // @include audioStyles.flexCenterCenter;
         // @include audioStyles.defaultTheme;
         // width: 100%;
@@ -95,6 +95,7 @@ $blue: #6ecbf5;
             nav {
                 
                 @include audioStyles.defaultTheme;
+                
                 display: grid;
                 width: 100%;
                 grid-template-columns: 1fr 1fr 1fr;
@@ -176,6 +177,6 @@ $blue: #6ecbf5;
         }
     }
 
-    
+
 }
 // @include audioStyles.defaultTheme

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import Image from 'next/image'
 // import styles from './AdminEditUsers.module.scss'
 import { db, auth, storage } from '../../../../firebase/firebase-config'
 import { collection, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
@@ -116,25 +117,48 @@ export default function AdminEditUsers(props) {
                 </form>
             }
             <ul className={styles.userList}>
-                <li className={styles.userListItem} onClick={() => setAddingNewUserMenuOpen(true)}>yeah</li>
+                <li className={styles.userListItem} onClick={() => setAddingNewUserMenuOpen(true)}>add user</li>
                 {
                     props.usersWithAccess.map((user, index) => {
                         return ( // could make this it's own little user preview component, because only seeing email is a bit weird. a little id card is probably best
                         props.usersWithAccess[index].metadata.uid !== auth.currentUser.uid && // USE THIS TO REMOVE THE CURRENT USER FROM OPTIONS LIST SO THEY DONT ACCIDENTALLY REMOVE THEMSELVES - MAYBE THAT SHOULD ONLY BE DONE IN PROFILE MENU OR SOMETHING
                             <ul key={index} className={styles.userListItem}>
-                                <div>
-                                    <li>{user.metadata.displayName}</li>
-                                    <li>{user.metadata.email}</li>
-                                    {/* <li>{user.metadata.photoURL}</li> */}
-                                    <li>{user.metadata.uid}</li>
+                                <div className={styles.idCard}>
+                                    <div className={styles.nextImageWrapper}>
+                                        <Image
+                                            src={user.metadata.photoURL}
+                                            // width={50}
+                                            // height={50}
+                                            className={styles.nextImage}
+                                            // layout='fixed'
+                                            layout='fill'
+                                            // layout='fixed'
+                                            // objectFit='cover'
+                                            // objectFit='contain'
+                                            style={{
+                                                // borderRadius: '50%',
+                                                // borderStyle: 'solid',
+                                                // borderColor: 'red',
+                                                // borderWidth: '10px'
+                                                
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <li>{user.metadata.displayName}</li>
+                                        <li>{user.metadata.email}</li>
+                                        {/* <li>{user.metadata.photoURL}</li> */}
+                                        <li>{user.metadata.uid}</li>
+                                    </div>
                                 </div>
                                 
                                 {/* {console.log(user.metadata)} */}
                                 <div className={styles.actionButtons}>
                                     {
                                         props.allSongData.usersWithAccess.includes(user.metadata.uid) && !props.allSongData.usersWithAdmin.includes(user.metadata.uid) &&
-                                        <button>
-                                            give admin
+                                        <button className={styles.giveAdmin}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="M20 26.417q-.917 0-1.562-.646-.646-.646-.646-1.563V13.083l-2.459 2.459q-.625.666-1.521.646-.895-.021-1.562-.646-.625-.625-.625-1.542t.625-1.542L18.5 6.25q.25-.333.667-.479.416-.146.833-.146t.833.146q.417.146.709.479l6.208 6.208q.625.625.625 1.521 0 .896-.625 1.563-.625.666-1.542.666-.916 0-1.541-.666l-2.459-2.459v11.125q0 .917-.646 1.563-.645.646-1.562.646Zm-6.958 8.541q-.959 0-1.584-.646-.625-.645-.625-1.562 0-.958.625-1.583t1.584-.625h13.916q.959 0 1.584.625.625.625.625 1.583 0 .917-.625 1.562-.625.646-1.584.646Z"/></svg>
+                                            <p>give admin</p>
                                         </button>
                                     }
                                     {
