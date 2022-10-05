@@ -37,15 +37,21 @@ $subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0p
         // list-style: none;
         margin: 0px;
         padding: 10px;
+        // display: grid;
+        
         ul {
+            // background-color: #6ecbf5;
+            // display: grid;
             list-style: none;
             margin: 0px;
             padding: 0;
+            // background-color: #c252e1;
         }
         .addUserButtonContainer {
             display: flex;
             // flex-direction: column;
-
+            // width: 100%  ;
+            // background-color: #6ecbf5;
 
             cursor: pointer;
             // align-items: flex-end;
@@ -57,28 +63,30 @@ $subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0p
             // padding-top: 10px;
             background-color: #ffffff00;
             div {
-                min-width: 150px;
+                // min-width: 150px;
+                width: 100%;
                 box-shadow: $subtle-shadow;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                // justify-self: flex-end;
                 border-radius: 10px;
                 padding: 10px;
-                // color: white;
-
-                // background-color: $blue;
-    
+                margin-bottom: 10px;
                 svg {
                     padding-top: 10px;
-                    // fill: white;
-                    // margin-bottom: -10px;
+                    fill: white;
                 }
                 p {
+                    color: white;
                     padding-bottom: 10px;
-                    // padding: 0px;
-                    
                     margin: 0px;
+                }
+                &:hover {
+                    background-color: white;
+                    svg { fill: black;}
+                    p { color: black;}
                 }
             }
             
@@ -89,12 +97,16 @@ $subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0p
             overflow: scroll;
             border-radius: 10px;
             padding: 10px;
+            box-shadow: $subtle-shadow;
             background-color: white;
             &:not(:last-child) {
                 margin-bottom: 10px;
             }
+
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: space-between;
+
             .idCard {
                 display: flex;
                 align-items: center;
@@ -118,6 +130,15 @@ $subtle-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0p
                         border-radius: 50%;
                         
                     }
+                }
+                .idCardTextItem {
+                    border-left-style: solid;
+                    border-width: 2px;
+                    padding-left: 10px;
+                    margin: 5px;
+                    border-color: $blue;
+                    
+                    // background-color: #6ecbf5;
                 }
             }
 
