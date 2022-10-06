@@ -17,6 +17,11 @@ export default function ProfileMainComponent() {
                 {
                     userAuth ?
                     <main className={styles.container}>
+                        <h1>
+                            Haven't really built out the features for this page yet. 
+                             I develop first then design, so I don't want to create a design
+                              based around functionality which will change during development.
+                        </h1>
                         
                         <ul>
                             <li>

@@ -1,63 +1,79 @@
-# why?
+# An application for asynchronous collaboration in the music industry
 
-There's a ton of apps for making music together online, but not really any geared towards professionals working in studios, where the work is usually done asynchronously without the client and engineer/producer/whoever scheduling a time and meeting for a call or whatever. I don't offer 1 on 1 sessions with my clients because 99% of the time I can get the work done far before the time we schedule, or I've been so busy that I actually have zero time to schedule, and have to plan on short notice (for example if something takes less time than expected, I can do some work from my backlog, but if i have to wait until a scheduled time to do the work, it has to wait. *most* professionals I know in the music industry work this way)
+React | Next | Firebase | Sass
 
-This app is to provide a hub for asynchronous music industry pipelines. It has support for real-time events, and is something I'd like to make sure *is* there, even if it's not the focus, because in the odd time it is needed I don't need to have users having to all use another program when stuff like video conferencing and live chat and whatnot are all within my ability to include natively here.
+[visit the live demo (no authentication required)](www.github.com)
 
-This is my passion project, because I'm going to be the most active user.
+![screenshot of the application's ui](/public/static/screenshot1.png)
 
-# Relevant links
-[favicon.io](https://favicon.io/)
+# About
 
-[I'm heading out right now and can't check but this might allow me to pull all the songs an artist is a part of onto their profile easily](https://firebase.blog/posts/2019/06/understanding-collection-group-queries)
+During the pandemic lots of tools for real-time collaboration popped up to allow live sessions to take place online, but that's not the way myself and many other audio professionals work.
 
-[how-to-get-the-email-of-any-user-in-firebase-based-on-user-id](https://stackoverflow.com/a/66544110/19101255)
+Time is extremely valuable when running a remote service based business - and with effective time management one can keep their schedule packed but also flexible. Generally we have an idea of how long a project will take, but sometimes things take less time and we're left with some extra left over. The reason myself and many others choose not to schedule sessions or zoom calls or whatnot is because then those extra moments of free time go to waste. If I have a revision to do for a song and I have the notes ready to go in an email, if I finish other work early I can get that done and get it over same day. If I have to wait for a scheduled session to accomplish the same work, the process gets delayed, and my time is potentially wasted.
 
-[might not need for a while, but an npm package promising video conferencing](https://www.npmjs.com/package/@videosdk.live/react-sdk)
+I work asynchronously, as do many other freelancing professionals, because it allows me to keep my schedule flexible and in the end have more energy and time to put into doing great work. I'm building this application to fascilitate that workflow, and much more in the future.
 
-[might use this for dates later because I find them annoying to deal with](https://www.npmjs.com/package/date-fns)
+There's currently 3 relevant options for this which I could find:
 
-# so ref
+[highnote.fm](https://www.highnote.fm/) | [notetracks](https://www.notetracks.com/) | [filepass](https://filepass.com/)
 
-[how-to-query-within-an-array-of-object-in-firestore](https://stackoverflow.com/a/70812323/19101255)
+If you're looking to use a service like this for professional work right now, check those out. They seem great. I'm building my own because I want it to have the exact features I want, and because I want to do more public facing 'community' features in the future. It also allows me to leverage the platform however I want by offering discounts to my clients, implementing their feedback, and building the absolute perfect solution for my audio career's needs. 
 
-[why-does-this-firestore-query-require-an-index](https://stackoverflow.com/a/53790652/19101255)
+I'm planning to have the app also have a public version of each song where fans can come on and see extra media surrounding the song and the process, leave comments, ahve discussions, etc. This was born out of frustration surrounding the lack of community features on streaming services, which has always bothered me. This side of the project is much further down the line, but it's where I will be taking the project long term.
 
-https://stackoverflow.com/questions/51412901/javascript-sort-an-array-of-objects-based-on-numeric-key
+# Current Features
 
-# learned
+## Authorization
 
-Pages with dynamic routes always render twice in Next.
+## NoSQL Cloud Backend
 
-## custom hooks
+## Security Rules
 
-Custom hooks are amazing. I had already written reusable functions I was importing with modules, but I was still using native hooks within the components. Switching over to custom hooks allowed me to also put all of the necessary native hook logic outside of the component as well, making it reusable and the component cleaner, which was just a win win win.
+## File Storage
 
-So far I have two, one for getting song data, then one for getting file version data, since the two aren't always used together. I'm destructuring a lot from them, and using the uid directly from the firebase session token or whatever to make sure that the uid being passed around the hook is not just the correct one, but also the one of the signed in user. 
+## Custom hooks for fetching and organizing data 
 
-I really thought it would be tougher to create custom hooks, and every time something like this happens I always feel goofy that I never took the time to learn about the topic sooner.
+## User-customizable priviledges to allow either access or admin roles
 
-## next
+## Realtime updates with Cloud Firestore
 
-I'm learning the difference between pages and components.
+## CRUD functionality
 
-The situation is that I had a page which rendered a component which rendered everything on the page.
+## Audio file uploading and streaming
 
-The component was rendering multipl times even if it was empty, so I made sure it wasn't strict mode and it ended up being the page.
+# Features to add
 
-I found out that pages with dynamic routes render twice, ok cool, but I don't want to rerender my component if it doesn't need to. (I'm also assuming strict mode might do some trickery behind the scenes and it not be as 'heavy' of a rerender so I wanted to avoid the re-render I was causing because I knew it was a 'full' render)
+## Live chat
 
-My solution was to handle the router query within the page itself, and pass the data to the component, while also conditionally rendering it. This also has the advantage that my component, if rendered, is guaranteed to have the router query data, so it can safely render jsx or subcomponents unconditionally. 
+## Photo/mood boards
 
-I'm currently unsure if I should also pass authentication info, because the component can't (and shouldn't) work without it, so maybe it is best to pass it from the page?
+## Markdown support for revision notes
 
-## count lines of code
+## Custom audio player
 
-```shell
-    git ls-files | xargs wc -l
-```
+## 
 
+# Learned / Challenges during development
 
-# firebase
+## Firebase security
 
-dont put a catch error on a debounced firebase update function, it'll cause issues with permissions
+The biggest challenge was learning how to allow specific users to access specific data, according to data set by other users, all while making sure there's no exploitable vulnerabilities. It's easy enough to accomplish this client-side, but I also had to make sure that somebody with malicious intent would be blocked from performing any destructive actions. I have to become very comfortable with writing security rules on firebase. I learned that I should do that *first* during development, because trying to trace exactly where permissions issues are coming from within a fully built out app was a pain. If I did them first, I'd immediately know what was causing any issues since it would be exactly what I'm working on - so then I could adjust the action I'm building or the security rule to allow it. I figured it all out and learned a lot.
+
+## Development experience
+
+I've created and finished about 20 projects in the past 6 months. I'm really starting to value good DX. With this project I spent a couple full days planning out the entire folder structure as well as the routes and component hiearchy and ended up sticking to it about 90%, which saved a ton of time. Any refactoring I did was generally 'close-by' and didn't involve big structural changes. I'm still learning the best practises for all of this, but I started to really focus on it during this project and it showed by how much smoother it went than the 19+ before it.
+
+## Custom hooks
+
+I don't know why I thought these would be was more complicated to create. You don't know what you don't know, I guess. I ended up going a little hook crazy and undid some of them and just put the functionality back into the component itself, but learning how to create them was super valuable.
+
+## UI Design
+
+I'm not a designer. I have a creative eye but visuals have never been my strong suit. I chose a style and stuck to it, and I'm satisfied with the results for now. I wanted it to feel like an app, which I'd say it mostly does. 
+
+I plan to implement a LOT more features into this project, so I didn't want to go overboard on the design because it will probably change completely over time.
+
+## SASS
+
+Sass is awesome. I'd just it before but basically just for nesting. This time though I used @use, @include, and $variables which sped up my work a lot and provided a much better dx than vanilla css. I'm very happy I picked it up, and can't wait to really dive into the docs.
