@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { collection, query, where, getDocs, deleteDoc, doc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import { useState, useEffect, useRef } from 'react'
+// import React, { useState, useEffect, useRef } from 'react'
+import { doc, onSnapshot } from "firebase/firestore";
+// import { collection, query, where, getDocs, deleteDoc, doc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { auth, db, provider } from '../../firebase/firebase-config';
 import { useAuthState } from "react-firebase-hooks/auth"
 

@@ -1,28 +1,9 @@
 import React, { useState, useEffect } from 'react'
-// import AudioLayout from '../../../../../components/Audio/AudioLayout/AudioLayout'
 import SessionMainComponent from '../../../../../components/Audio/Studio/Session/SessionMainComponent'
 import { useRouter } from 'next/router'
 
-import { useAuthState } from "react-firebase-hooks/auth"
 import { auth,provider } from '../../../../../firebase/firebase-config'
-// import AudioLayout from '../../../../components/Audio/AudioLayout/AudioLayout'
-// import SessionMainComponent from '../../../../components/Audio/Studio/Session/SessionMainComponent'
 
-// export default function studioSong() {
-    //   console.log('studioSongPage')
-    //   return (
-        //           <SessionMainComponent />
-        //       // <AudioLayout>
-        //       // </AudioLayout>
-        //     // <AudioLayout>
-        //     //   <SessionMainComponent />
-        //     // </AudioLayout>
-        //   )
-        // }
-        
-        
-        // import React from 'react'
-        
 
 const songSession = () => {
     const router = useRouter()
