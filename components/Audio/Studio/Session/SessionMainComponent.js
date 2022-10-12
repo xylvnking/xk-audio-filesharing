@@ -49,8 +49,8 @@ export default function SessionMainComponent(props) {
         <div className={styles.container}>
             <main>
                 <section className={styles.sessionInfo}>
-                    <h1>A long song name because I need - to see how it works [298389]</h1>
-                    {/* <h1>{realtimeSongData.metadata.songName}</h1> */}
+                    {/* <h1>A long song name because I need - to see how it works [298389]</h1> */}
+                    <h1>{realtimeSongData.metadata.songName}</h1>
                     <h1 className={styles.role}>{userRole}</h1>
                 </section>
                 {
